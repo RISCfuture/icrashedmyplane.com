@@ -1,0 +1,75 @@
+/* The basic responsive size classes. Small is for mobile devices and large is
+   unconstrained. */
+
+@mixin small {
+  @media all and (max-width: 700px) {
+    @content;
+  }
+}
+
+@mixin large {
+  @media all and (min-width: 701px) {
+    @content;
+  }
+}
+
+/* Some pre-fab font sizes, including their reduced mobile sizes. */
+
+@mixin font-size-very-large {
+  font-size: 48px;
+  @include small { font-size: 36px; }
+}
+
+@mixin font-size-large {
+  font-size: 36px;
+  @include small { font-size: 24px; }
+}
+
+@mixin font-size-regular {
+  font-size: 24px;
+  @include small { font-size: 18px; }
+}
+
+@mixin font-size-small {
+  font-size: 18px;
+  @include small { font-size: 14px; }
+}
+
+@mixin font-size-very-small {
+  font-size: 14px;
+  line-height: 16px;
+}
+
+@mixin font-size-tiny {
+  font-size: 12px;
+  line-height: 14px;
+}
+
+/* Some pre-fab margins, including their reduced mobile sizes. */
+
+@mixin top-margin {
+  margin-top: 40px;
+  @include small { margin-top: 25px; }
+}
+
+@mixin top-margin-large {
+  margin-top: 80px;
+  @include small { margin-top: 50px; }
+}
+
+@mixin bottom-margin {
+  margin-bottom: 40px;
+  @include small { margin-bottom: 25px; }
+}
+
+@mixin bottom-margin-large {
+  margin-bottom: 80px;
+  @include small { margin-bottom: 50px; }
+}
+
+/* Make an element fill the vertical height of its container. */
+
+@mixin fill-height {
+  display: flex;
+  > * { flex: 1 1 auto; }
+}

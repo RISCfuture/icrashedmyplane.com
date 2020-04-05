@@ -1,0 +1,11 @@
+{
+  "inputFiles": ["./src"],
+  "mode": "modules",
+  "out": "./docs",
+  "excludeExternals": true,
+  "excludePrivate": true,
+  "readme": "README.md",
+  "exclude": ["./src/assets", "./src/i18n", "./src/data"],
+  "name": "I Just Crashed My Plane",
+  "excludeNotDocumented": true
+}

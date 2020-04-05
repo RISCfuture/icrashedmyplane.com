@@ -1,0 +1,67 @@
+@use './fonts';
+@use './colors';
+@use './controls';
+
+html,
+body {
+  @include colors.theme using ($theme) {
+    background-color: colors.get($theme, 'background');
+  }
+}
+
+* {
+  @include fonts.Quicksand-Regular;
+  font-weight: normal;
+}
+
+p,
+h1,
+h2,
+a {
+  @include colors.theme using ($theme) {
+    color: colors.get($theme, 'text-color');
+  }
+}
+
+a {
+  @media all and (prefers-color-scheme: dark) {
+    @include fonts.Quicksand-Bold;
+  }
+  @include fonts.Quicksand-SemiBold;
+  text-decoration: none;
+
+  @media all and (hover: hover) {
+    &:hover {
+      @include colors.theme using ($theme) {
+        color: colors.get($theme, 'link-hover-color');
+      }
+    }
+  }
+}
+
+strong {
+  @include fonts.Quicksand-Bold;
+}
+
+button {
+  @include controls.button;
+  appearance: none;
+  border-style: none;
+}
+
+.level-action-details {
+  h2,
+  p,
+  a {
+    @include colors.theme using ($theme) {
+      color: colors.get($theme, 'text-color-alternate');
+    }
+  }
+
+  a:hover {
+    @include colors.theme using ($theme) {
+      color: colors.get($theme, 'link-hover-color-alternate');
+    }
+  }
+
+}

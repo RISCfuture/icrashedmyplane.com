@@ -1,0 +1,42 @@
+import {
+  Option, Question, SurveyStep
+} from '@/models/survey'
+
+/**
+ * A Question to ask the user, along with the contextual information about that question needed to
+ * display it and record its answer.
+ */
+
+export default interface Prompt {
+
+  /** The identifier for the {@link Survey} linked to the {@link Response} this is a path for. */
+  surveyID: string;
+
+  /**
+   * The path within the {@link Response} tree to record the answer, once the answer is given.
+   * Answer paths are arrays of numbers, each number representing an index in a {@link QuestionNode}
+   * to follow. Answer paths must be complete; in other words, they must end at a leaf node.
+   */
+  answerPath: number[];
+
+  /** The question to ask the user. */
+  question: Question;
+
+  /** The parent nodes in the survey leading to this Question. */
+  questionPath: SurveyStep[];
+}
+
+export function answerPathFromQuestionPath(questionPath: SurveyStep[]): number[] {
+  const answerPath: number[] = []
+
+  questionPath.forEach((step, index) => {
+    if (step instanceof Option) {
+      const question = <Question>(questionPath[index - 1])
+      const choiceIndex = question.options.findIndex(option =>
+        option.identifier === step.identifier)
+      answerPath.push(choiceIndex)
+    }
+  })
+
+  return answerPath
+}
