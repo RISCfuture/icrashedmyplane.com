@@ -11,7 +11,7 @@
       <i18n tag="p" path="level.immediateNotification.contact">
         <template #URL>
           <a href="https://www.ntsb.gov/about/Pages/OfficeLocation.aspx" target="_blank">
-            https://www.ntsb.gov/about/Pages/OfficeLocation.aspx</a>
+            ntsb.gov</a>
         </template>
       </i18n>
       <p v-html="$t('level.immediateNotification.whatToInclude')" />
