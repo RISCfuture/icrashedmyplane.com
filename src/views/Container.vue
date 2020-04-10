@@ -76,7 +76,6 @@
 
     flex: 0 0 auto;
     max-width: 800px;
-    overflow-y: scroll;
     width: 90vw;
 
     @include responsive.large {
