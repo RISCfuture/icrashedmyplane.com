@@ -29,6 +29,7 @@ module.exports = {
     'implicit-arrow-linebreak': 'off',
     'import/order': ['error', { groups: ['builtin', 'external', 'parent', 'sibling', 'index'] }],
     'import/no-named-default': 'off',
+    'max-classes-per-file': 'off',
     'mocha/no-mocha-arrows': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

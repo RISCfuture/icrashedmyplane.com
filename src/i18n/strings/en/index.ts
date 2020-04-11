@@ -52,7 +52,7 @@ const en: LocaleMessages = {
         + ' the applicable address shown in  the form description.',
       form6120: 'NTSB Form 6120.1'
     },
-	disclaimer: 'Important disclaimer: This website should not be used as a source for legal advice.'
+    disclaimer: 'Important disclaimer: This website should not be used as a source for legal advice.'
 + ' Consult an aviation attorney.'
   }
 }
