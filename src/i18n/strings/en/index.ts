@@ -51,7 +51,9 @@ const en: LocaleMessages = {
       form: 'You must fill out {form6120} or 6120.2 (OMB No. 3147-0001). Send the completed form to'
         + ' the applicable address shown in  the form description.',
       form6120: 'NTSB Form 6120.1'
-    }
+    },
+	disclaimer: 'Important disclaimer: This website should not be used as a source for legal advice.'
++ ' Consult an aviation attorney.'
   }
 }
 export default en

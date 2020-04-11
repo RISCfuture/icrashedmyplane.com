@@ -1,6 +1,7 @@
 @use './fonts';
 @use './colors';
 @use './controls';
+@use 'src/assets/styles/responsive';
 
 html,
 body {
@@ -63,5 +64,15 @@ button {
       color: colors.get($theme, 'link-hover-color-alternate');
     }
   }
+}
 
+footer {
+  @include fonts.Quicksand-Light;
+  @include responsive.font-size-tiny;
+  
+  padding: 10px 0;
+  
+  @include colors.theme using($theme) {
+    color: colors.get($theme, 'footer-color');
+  }
 }

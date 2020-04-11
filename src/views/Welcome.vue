@@ -76,18 +76,11 @@
       color: colors.get($theme, 'button-text-color');
     }
   }
+</style>
 
+<style scoped lang="scss">
   footer {
-    @include fonts.Quicksand-Light;
-    @include responsive.font-size-tiny;
-
     flex: 0 0 auto;
-
-    padding: 10px 0;
-
     text-align: center;
-    @include colors.theme using($theme) {
-      color: colors.get($theme, 'footer-color');
-    }
   }
 </style>

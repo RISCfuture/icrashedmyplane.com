@@ -3,6 +3,7 @@
     <accident v-if="isAccident" />
     <serious-incident v-else-if="isSeriousIncident" />
     <incident v-else />
+    <footer>{{$t('level.disclaimer')}}</footer>
   </div>
 </template>
 
