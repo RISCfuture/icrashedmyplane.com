@@ -3,7 +3,7 @@ module.exports = {
   env: {
     node: true
   },
-  plugins: ['mocha', 'chai-expect', 'cypress', 'chai-friendly'],
+  plugins: ['chai-expect', 'chai-friendly', 'cypress', 'mocha'],
   extends: [
     '@vue/airbnb',
     '@vue/typescript/recommended',
@@ -27,16 +27,15 @@ module.exports = {
     'comma-dangle': ['error', 'never'],
     'dot-location': ['error', 'object'],
     'implicit-arrow-linebreak': 'off',
-    'import/no-named-default': 'off',
     'import/order': ['error', { groups: ['builtin', 'external', 'parent', 'sibling', 'index'] }],
-    'max-classes-per-file': 'off',
+    'import/no-named-default': 'off',
     'mocha/no-mocha-arrows': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-plusplus': 'off',
     'no-useless-constructor': 'off',
-    'vue/script-indent': ['error', 2, { baseIndent: 1 }],
-    semi: ['error', 'never']
+    semi: ['error', 'never'],
+    'vue/script-indent': ['error', 2, { baseIndent: 1 }]
   },
   overrides: [
     {
