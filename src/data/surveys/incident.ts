@@ -202,10 +202,10 @@ const incidentSurvey = new Survey('incident',
         new Question('ifr', [
           yesAskQuestion(new Question('complianceNecessary',
             yesMeansSeriousIncidentNoMeansIncident,
-            { data: { regulation: '830.15' } })),
+            { data: { regulation: '830.5' } })),
           noMeansIncident
         ],
-        { data: { regulation: '830.15' } })
+        { data: { regulation: '830.5' } })
       ),
       { data: { category: 'traffic' } }),
 
