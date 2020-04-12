@@ -3,10 +3,10 @@ import { mergeAnswers } from '../support'
 import {
   accidentAnswer, answerWithNestedQuestion
 } from './fixtures'
-import { endNode, QuestionNode, walkResponseTree } from '@/models/response/answer'
+import { endNode, QuestionResponseNode, walkResponseTree } from '@/models/response/answer'
 
 describe('walkResponseTree', () => {
-  let answer: QuestionNode
+  let answer: QuestionResponseNode
 
   beforeEach(() => {
     answer = mergeAnswers(accidentAnswer, answerWithNestedQuestion)

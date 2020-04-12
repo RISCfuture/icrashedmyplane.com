@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 
-import Survey, { SurveyStep } from '@/models/survey/index'
+import Survey, { SurveyNode } from '@/models/survey/index'
 import SurveyTraverser from '@/models/survey/traverser'
 
 /**
@@ -17,7 +17,7 @@ export interface SurveyStackVisitor {
    * @return `true` to continue traversing, `false` to end all traversing (of the whole tree).
    */
 
-  visitNode: (nodes: SurveyStep[]) => boolean;
+  visitNode: (nodes: SurveyNode[]) => boolean;
 }
 
 /**
@@ -42,7 +42,7 @@ export default class SurveyStackTraverser {
    */
 
   traverse(visitor: SurveyStackVisitor) {
-    const stack: SurveyStep[] = []
+    const stack: SurveyNode[] = []
     new SurveyTraverser(this.survey).traverse({
       aroundVisitQuestion(question, run) {
         stack.push(question)

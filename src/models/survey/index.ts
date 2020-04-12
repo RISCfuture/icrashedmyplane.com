@@ -199,4 +199,4 @@ export default class Survey {
 }
 
 /** A node in a {@link Survey} tree. */
-export type SurveyStep = Question | Option | Action
+export type SurveyNode = Question | Option | Action

@@ -1,15 +1,15 @@
 import { constant, times } from 'lodash-es'
-import { endNode, QuestionNode } from '@/models/response/answer'
+import { endNode, QuestionResponseNode } from '@/models/response/answer'
 
 // injury -> death -> within 30 days
-export const accidentAnswer: Readonly<QuestionNode> = {
+export const accidentAnswer: Readonly<QuestionResponseNode> = {
   nodes: [{
     next: { nodes: [{ next: endNode }] }
   }]
 }
 
 // default -> evacuation -> escape slides used
-export const seriousIncidentAnswer: Readonly<QuestionNode> = {
+export const seriousIncidentAnswer: Readonly<QuestionResponseNode> = {
   nodes: [
     ...times(21, constant(undefined)),
     { next: { nodes: [{ next: endNode }] } }
@@ -17,7 +17,7 @@ export const seriousIncidentAnswer: Readonly<QuestionNode> = {
 }
 
 // default -> evacuation -> escape slides not used
-export const incidentAnswer: Readonly<QuestionNode> = {
+export const incidentAnswer: Readonly<QuestionResponseNode> = {
   nodes: [
     ...times(21, constant(undefined)),
     { next: { nodes: [undefined, { next: endNode }] } }
@@ -25,7 +25,7 @@ export const incidentAnswer: Readonly<QuestionNode> = {
 }
 
 // default -> evacuation -> escape slides used?
-export const unfinishedAnswerEndingInSingleQuestion: Readonly<QuestionNode> = {
+export const unfinishedAnswerEndingInSingleQuestion: Readonly<QuestionResponseNode> = {
   nodes: [
     ...times(21, constant(undefined)),
     { next: endNode }
@@ -33,7 +33,7 @@ export const unfinishedAnswerEndingInSingleQuestion: Readonly<QuestionNode> = {
 }
 
 // aircraft -> major damage
-export const unfinishedAnswerEndingInMultiQuestion: Readonly<QuestionNode> = {
+export const unfinishedAnswerEndingInMultiQuestion: Readonly<QuestionResponseNode> = {
   nodes: [
     ...times(10, constant(undefined)),
     { next: endNode }
@@ -41,7 +41,7 @@ export const unfinishedAnswerEndingInMultiQuestion: Readonly<QuestionNode> = {
 }
 
 // aircraft -> major damage -> skinHoles -> small
-export const answerWithNestedQuestion: Readonly<QuestionNode> = {
+export const answerWithNestedQuestion: Readonly<QuestionResponseNode> = {
   nodes: [
     ...times(10, constant(undefined)),
     {

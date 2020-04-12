@@ -9,7 +9,7 @@ import {
 } from './fixtures'
 import Response from '@/models/response'
 import { Flag, IncidentLevel, Question } from '@/models/survey'
-import { AnswerNode, endNode, QuestionNode } from '@/models/response/answer'
+import { ResponseNode, endNode, QuestionResponseNode } from '@/models/response/answer'
 
 describe('Response', () => {
   describe('isFinished', () => {
@@ -46,8 +46,8 @@ describe('Response', () => {
   })
 
   describe('highestPossibleIncidentLevel', () => {
-    let possibleAccident: QuestionNode
-    let possibleSeriousIncident: QuestionNode
+    let possibleAccident: QuestionResponseNode
+    let possibleSeriousIncident: QuestionResponseNode
 
     beforeEach(() => {
       // injury -> death -> within 30 days?
@@ -96,23 +96,23 @@ describe('Response', () => {
 
     it('returns the next Question for each step in an answer flow', () => {
       const step1NextPath: number[] = []
-      const step2: AnswerNode = { nodes: [{ next: endNode }, { next: endNode }] }
+      const step2: ResponseNode = { nodes: [{ next: endNode }, { next: endNode }] }
       const step2NextPath = [0]
-      const step3: AnswerNode = {
+      const step3: ResponseNode = {
         nodes: [
           { next: { nodes: [undefined, { next: endNode }] } },
           { next: endNode }
         ]
       }
       const step3NextPath = [1]
-      const step4: AnswerNode = {
+      const step4: ResponseNode = {
         nodes: [
           { next: { nodes: [undefined, { next: endNode }] } },
           { next: { nodes: [{ next: endNode }] } }
         ]
       }
       const step4NextPath = [1, 0]
-      const step5: AnswerNode = {
+      const step5: ResponseNode = {
         nodes: [
           { next: { nodes: [undefined, { next: endNode }] } },
           { next: { nodes: [undefined, { next: { nodes: [undefined, { next: endNode }] } }] } }
@@ -141,7 +141,9 @@ describe('Response', () => {
 
   describe('flags', () => {
     it('returns the list of flags that were set', () => {
-      const answer: QuestionNode = { nodes: [{ next: endNode }, undefined, { next: endNode }] }
+      const answer: QuestionResponseNode = {
+        nodes: [{ next: endNode }, undefined, { next: endNode }]
+      }
       expect(makeResponse('profile', answer).flags).to.eql(new Set([Flag.LARGE_MULTI, Flag.HELICOPTER]))
     })
   })

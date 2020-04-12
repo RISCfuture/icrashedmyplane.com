@@ -6,7 +6,7 @@ import {
 } from 'lodash-es'
 import Response from '@/models/response'
 import { Flag, IncidentLevel } from '@/models/survey'
-import { endNode, QuestionNode, walkResponseTree } from '@/models/response/answer'
+import { endNode, QuestionResponseNode, walkResponseTree } from '@/models/response/answer'
 import surveyOrder from '@/data/surveyOrder'
 
 /** The object type of the root Vuex state. */
@@ -69,15 +69,15 @@ export default function createRootModule(initialState: Partial<RootState> = {}) 
       addAnswer(
         state: RootState,
         { surveyID, answerPath, newNode }:
-          {surveyID: string; answerPath: number[]; newNode: QuestionNode}
+          {surveyID: string; answerPath: number[]; newNode: QuestionResponseNode}
       ) {
         const response = cloneDeep(state.responses[surveyID])
 
-        if (response.answerRoot !== endNode) {
-          const node = walkResponseTree(response.answerRoot, answerPath)
+        if (response.rootNode !== endNode) {
+          const node = walkResponseTree(response.rootNode, answerPath)
           node.next = newNode
         } else {
-          response.answerRoot = newNode
+          response.rootNode = newNode
         }
 
         state.responses = assign({}, state.responses, { [surveyID]: response })

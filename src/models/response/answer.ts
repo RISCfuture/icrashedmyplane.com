@@ -4,29 +4,29 @@ import {
 
 /** A node in a response tree representing a {@link Question} that was answered. */
 
-export interface QuestionNode {
+export interface QuestionResponseNode {
 
   /**
    * For each {@link Option} under {@link Question.options}, this array contains either an
    * ActionNode if the user chose that option, or `undefined` if not.
    */
 
-  nodes: (ActionNode | undefined)[];
+  nodes: (ActionResponseNode | undefined)[];
 }
 
 /**
- * A node in a response tree that links {@link QuestionNode}s together. ActionNodes in a response
+ * A node in a response tree that links {@link QuestionResponseNode}s together. ActionNodes in a response
  * tree correspond to {@link Action}s in a {@link Survey}.
  */
 
-export interface ActionNode {
+export interface ActionResponseNode {
 
   /**
    * The next node this node is linking to. If {@link .endNode}, this is the end of a path in the
    * response tree.
    */
 
-  next: QuestionNode | EndNode;
+  next: QuestionResponseNode | EndNode;
 }
 
 export type EndNode = 'end'
@@ -34,33 +34,36 @@ export type EndNode = 'end'
 /** Represents the end of a path in a response tree. */
 export const endNode = 'end'
 
-export type AnswerNode = QuestionNode | ActionNode | EndNode
+export type ResponseNode = QuestionResponseNode | ActionResponseNode | EndNode
 
 /**
- * Determines if a given node is a {@link QuestionNode}.
+ * Determines if a given node is a {@link QuestionResponseNode}.
  *
  * @param node A node to test.
  * @return Whether it is a QuestionNode.
  */
 
-export function isQuestionNode(node: AnswerNode): node is QuestionNode {
+export function isQuestionResponseNode(node: ResponseNode): node is QuestionResponseNode {
   if (!isPlainObject(node)) return false
-  return !isUndefined((<QuestionNode>node).nodes)
+  return !isUndefined((<QuestionResponseNode>node).nodes)
 }
 
 /**
- * Determines if a given node is an {@link ActionNode}.
+ * Determines if a given node is an {@link ActionResponseNode}.
  *
  * @param node A node to test.
  * @return Whether it is a ActionNode.
  */
 
-export function isActionNode(node: AnswerNode): node is ActionNode {
+export function isActionResponseNode(node: ResponseNode): node is ActionResponseNode {
   if (!isPlainObject(node)) return false
-  return !isUndefined((<ActionNode>node).next)
+  return !isUndefined((<ActionResponseNode>node).next)
 }
 
-function walkResponseTreeEatingPath(node: QuestionNode, path: number[]): ActionNode {
+function walkResponseTreeEatingPath(
+  node: QuestionResponseNode,
+  path: number[]
+): ActionResponseNode {
   if (isEmpty(path)) throw new Error('Path ended prematurely')
   // didn't get to the end of the tree at end of path
 
@@ -88,7 +91,7 @@ function walkResponseTreeEatingPath(node: QuestionNode, path: number[]): ActionN
  * @see AnswerPath
  */
 
-export function walkResponseTree(node: QuestionNode, path: number[]): ActionNode {
+export function walkResponseTree(node: QuestionResponseNode, path: number[]): ActionResponseNode {
   if (isEmpty(path)) throw new Error('Path must have at least one element')
   return walkResponseTreeEatingPath(node, cloneDeep(path))
 }

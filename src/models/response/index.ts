@@ -7,13 +7,13 @@ import Survey, {
   Action,
   Flag, FlagAction,
   HIGHEST_INCIDENT_LEVEL,
-  IncidentLevel, LevelAction, Option, Question, SurveyStep
+  IncidentLevel, LevelAction, Option, Question, SurveyNode
 } from '@/models/survey'
 import surveys from '@/data/surveys'
 import {
   EndNode,
   endNode,
-  QuestionNode
+  QuestionResponseNode
 } from '@/models/response/answer'
 import Prompt, { answerPathFromQuestionPath } from '@/models/response/prompt'
 import ResponseTraverser, { beyondEndNode } from '@/models/response/traverser'
@@ -21,7 +21,7 @@ import ResponseStackTraverser from '@/models/response/stackTraverser'
 
 /**
  * A Response contains a tree representing all of the answers the user has given so far to a
- * {@link Survey}. Answers are stored as a tree of {@link QuestionNode}s joined together by
+ * {@link Survey}. Answers are stored as a tree of {@link QuestionResponseNode}s joined together by
  * {@link ActionNode}s. Each time the user answers a {@link Question}, a QuestionNode is added to
  * the tree. The QuestionNode contains an array of ActionNodes, one of each {@link Option} the user
  * chose for that question. The ActionNodes link to QuestionNodes for follow-on questions, or to
@@ -45,7 +45,7 @@ export default class Response {
    * node.
    */
 
-  answerRoot: QuestionNode | EndNode = endNode
+  rootNode: QuestionResponseNode | EndNode = endNode
 
   /**
    * Creates a new Response for a Survey.
@@ -63,7 +63,7 @@ export default class Response {
 
   /** @return Whether the user has answered at least one question in this Response. */
   get isStarted(): boolean {
-    return this.answerRoot !== endNode
+    return this.rootNode !== endNode
   }
 
   /**
@@ -77,10 +77,10 @@ export default class Response {
     let finished = true
 
     new ResponseTraverser(this).traverse({
-      visitAction(action, node) {
+      visitAction(action, responseNode) {
         // if node is beyondEndNode, that means we are beyond the end of a path in the answer tree,
         // which means this is an action that the user still COULD hit
-        if (node === beyondEndNode && action.isTerminating) {
+        if (responseNode === beyondEndNode && action.isTerminating) {
           finished = false
           return false
         }
@@ -102,8 +102,8 @@ export default class Response {
     let currentHighestLevel: IncidentLevel | null = null
 
     new ResponseTraverser(this).traverse({
-      visitAction(action, node) {
-        if (node === endNode && action instanceof LevelAction) {
+      visitAction(action, responseNode) {
+        if (responseNode === endNode && action instanceof LevelAction) {
           // found a level action the user did hit; update current highest level
           if (isNull(currentHighestLevel)) currentHighestLevel = action.level
           if (currentHighestLevel < action.level) currentHighestLevel = action.level
@@ -128,8 +128,8 @@ export default class Response {
     let currentHighestLevel = IncidentLevel.INCIDENT
 
     new ResponseTraverser(this).traverse({
-      visitAction(action, node) {
-        if (node === beyondEndNode) {
+      visitAction(action, responseNode) {
+        if (responseNode === beyondEndNode) {
           // this is a potential path the user could still visit
 
           if (action instanceof LevelAction) {
@@ -167,14 +167,14 @@ export default class Response {
    */
 
   get nextQuestion(): Prompt | null {
-    let questionPath: SurveyStep[] | null = null
+    let questionPath: SurveyNode[] | null = null
 
     new ResponseTraverser(this).traverse({
-      visitQuestion(question, node): boolean {
+      visitQuestion(question, responseNode): boolean {
         // this is a path the user didn't go down, skip it
-        if (isUndefined(node)) return true
+        if (isUndefined(responseNode)) return true
 
-        if (node === beyondEndNode) {
+        if (responseNode === beyondEndNode) {
           // this is a path the user hasn't gone down yet, and the first unanswered Question we've
           // encountered -- start the questionPath and stop traversing
           questionPath = []
@@ -189,19 +189,19 @@ export default class Response {
       been found. As the stack unrolls, these `around...` methods push their objects onto the front
       of the questionPath, thus building backwards the path leading up to the next prompt. */
 
-      aroundVisitOption(option, index, node, run) {
+      aroundVisitOption(option, index, responseNode, run) {
         if (!run()) {
           if (isArray(questionPath)) questionPath.unshift(option)
         }
       },
 
-      aroundVisitQuestion(question, node, run) {
+      aroundVisitQuestion(question, responseNode, run) {
         if (!run()) {
           if (isArray(questionPath)) questionPath.unshift(question)
         }
       },
 
-      aroundVisitAction(action, node, run) {
+      aroundVisitAction(action, responseNode, run) {
         if (!run()) {
           if (isArray(questionPath)) questionPath.unshift(action)
         }
@@ -211,7 +211,7 @@ export default class Response {
     if (!questionPath) return null
 
     return {
-      question: <Question>(<SurveyStep[]>questionPath).pop(),
+      question: <Question>(<SurveyNode[]>questionPath).pop(),
       questionPath,
       surveyID: this.surveyIdentifier,
       answerPath: answerPathFromQuestionPath(questionPath)
@@ -226,10 +226,10 @@ export default class Response {
     const regulations = new Set<string>()
 
     new ResponseStackTraverser(this).traverse({
-      visitNode(stack, node) {
+      visitNode(stack, responseNode) {
         const action = <Action | undefined>last(stack)
         if (!(action instanceof LevelAction)) return true
-        if (node !== endNode) return true // user didn't visit this action
+        if (responseNode !== endNode) return true // user didn't visit this action
 
         const option = <Option | undefined>nth(stack, -2)
         if (isUndefined(option)) return true
@@ -255,9 +255,9 @@ export default class Response {
     const flags = new Set<Flag>()
 
     new ResponseTraverser(this).traverse({
-      visitAction(action, node) {
+      visitAction(action, responseNode) {
         if (!(action instanceof FlagAction)) return true
-        if (node !== endNode) return true // user didn't visit this action
+        if (responseNode !== endNode) return true // user didn't visit this action
         flags.add(action.flag)
         return true
       }

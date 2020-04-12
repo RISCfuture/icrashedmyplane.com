@@ -6,19 +6,19 @@ import {
   Action, Option, Question
 } from '@/models/survey'
 import {
-  AnswerNode, endNode, isActionNode, isQuestionNode
+  ResponseNode, endNode, isActionResponseNode, isQuestionResponseNode
 } from '@/models/response/answer'
 import SurveyTraverser from '@/models/survey/traverser'
 
 export type BeyondEndNode = 'beyondEndNode'
 export const beyondEndNode: BeyondEndNode = 'beyondEndNode'
 
-export type CurrentNode = AnswerNode | BeyondEndNode | undefined
+export type CurrentResponseNode = ResponseNode | BeyondEndNode | undefined
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isAnswerNode(value: any): value is AnswerNode {
+function isAnswerNode(value: any): value is ResponseNode {
   if (!isPlainObject(value)) return false
-  return isActionNode(value) || isQuestionNode(value)
+  return isActionResponseNode(value) || isQuestionResponseNode(value)
 }
 
 /**
@@ -33,7 +33,7 @@ export interface ResponseVisitor {
    * If you do not call `run` within your implementation, no downstream nodes will be traversed.
    *
    * @param question The Question being visited in the {@link Survey} tree.
-   * @param node The corresponding node in the {@link Response} tree.
+   * @param responseNode The corresponding node in the {@link Response} tree.
    * @param run Call this method within your implementation, after your setup code and before your
    * tail recursion code, to continue the traversal. Returns the value returned by the visitor
    * method.
@@ -41,7 +41,7 @@ export interface ResponseVisitor {
 
   aroundVisitQuestion?: (
     question: Question,
-    node: CurrentNode,
+    responseNode: CurrentResponseNode,
     run: () => boolean
   ) => void;
 
@@ -49,18 +49,18 @@ export interface ResponseVisitor {
    * Called when a Question node is visited in the {@link Survey} tree.
    *
    * @param question The Question being visited in the {@link Survey} tree.
-   * @param node The corresponding node in the {@link Response} tree.
+   * @param responseNode The corresponding node in the {@link Response} tree.
    * @return `true` to continue traversing, `false` to end all traversing (of the whole tree).
    */
 
-  visitQuestion?: (question: Question, node: CurrentNode) => boolean;
+  visitQuestion?: (question: Question, responseNode: CurrentResponseNode) => boolean;
 
   /**
    * Wraps a call to {@link .visitOption}, allowing you to perform tail recursion on the call.
    * If you do not call `run` within your implementation, no downstream nodes will be traversed.
    *
    * @param option The Option being visited in the {@link Survey} tree.
-   * @param node The corresponding node in the {@link Response} tree.
+   * @param responseNode The corresponding node in the {@link Response} tree.
    * @param run Call this method within your implementation, after your setup code and before your
    * tail recursion code, to continue the traversal. Returns the value returned by the visitor
    * method.
@@ -69,7 +69,7 @@ export interface ResponseVisitor {
   aroundVisitOption?: (
     option: Option,
     index: number,
-    node: CurrentNode,
+    responseNode: CurrentResponseNode,
     run: () => boolean
   ) => void;
 
@@ -77,18 +77,18 @@ export interface ResponseVisitor {
    * Called when an Option node is visited in the {@link Survey} tree.
    *
    * @param option The Option being visited in the {@link Survey} tree.
-   * @param node The corresponding node in the {@link Response} tree.
+   * @param responseNode The corresponding node in the {@link Response} tree.
    * @return `true` to continue traversing, `false` to end all traversing (of the whole tree).
    */
 
-  visitOption?: (option: Option, index: number, node: CurrentNode) => boolean;
+  visitOption?: (option: Option, index: number, responseNode: CurrentResponseNode) => boolean;
 
   /**
    * Wraps a call to {@link .visitAction}, allowing you to perform tail recursion on the call.
    * If you do not call `run` within your implementation, no downstream nodes will be traversed.
    *
    * @param action The Action being visited in the {@link Survey} tree.
-   * @param node The corresponding node in the {@link Response} tree.
+   * @param responseNode The corresponding node in the {@link Response} tree.
    * @param run Call this method within your implementation, after your setup code and before your
    * tail recursion code, to continue the traversal. Returns the value returned by the visitor
    * method.
@@ -96,7 +96,7 @@ export interface ResponseVisitor {
 
   aroundVisitAction?: (
     action: Action,
-    node: CurrentNode,
+    responseNode: CurrentResponseNode,
     run: () => boolean
   ) => void;
 
@@ -104,11 +104,11 @@ export interface ResponseVisitor {
    * Called when an Action node is visited in the {@link Survey} tree.
    *
    * @param action The Action being visited in the {@link Survey} tree.
-   * @param node The corresponding node in the {@link Response} tree.
+   * @param responseNode The corresponding node in the {@link Response} tree.
    * @return `true` to continue traversing, `false` to end all traversing (of the whole tree).
    */
 
-  visitAction?: (action: Action, node: CurrentNode) => boolean;
+  visitAction?: (action: Action, responseNode: CurrentResponseNode) => boolean;
 }
 
 /**
@@ -135,7 +135,7 @@ export default class ResponseTraverser {
    */
 
   traverse(visitor: ResponseVisitor) {
-    let currentNode: CurrentNode = this.response.answerRoot
+    let currentNode: CurrentResponseNode = this.response.rootNode
     new SurveyTraverser(this.response.survey).traverse({
       aroundVisitQuestion(question, run) {
         if (visitor.aroundVisitQuestion) visitor.aroundVisitQuestion(question, currentNode, run)
@@ -156,10 +156,10 @@ export default class ResponseTraverser {
       aroundVisitOption(option, index, run) {
         const wrappedRun = () => {
           const oldNode = currentNode
-          if (isAnswerNode(currentNode) && isActionNode(currentNode)) {
+          if (isAnswerNode(currentNode) && isActionResponseNode(currentNode)) {
             throw new Error('Expected Question node, got Action node')
           }
-          if (isAnswerNode(currentNode) && isQuestionNode(currentNode)) {
+          if (isAnswerNode(currentNode) && isQuestionResponseNode(currentNode)) {
             currentNode = currentNode.nodes[index]
           }
 
@@ -184,10 +184,10 @@ export default class ResponseTraverser {
       aroundVisitAction(action, run) {
         const wrappedRun = () => {
           const oldNode = currentNode
-          if (isAnswerNode(currentNode) && isQuestionNode(currentNode)) {
+          if (isAnswerNode(currentNode) && isQuestionResponseNode(currentNode)) {
             throw new Error('Expected Action node, got Question node')
           }
-          if (isAnswerNode(currentNode) && isActionNode(currentNode)) {
+          if (isAnswerNode(currentNode) && isActionResponseNode(currentNode)) {
             currentNode = currentNode.next
           }
 

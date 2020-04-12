@@ -1,8 +1,8 @@
 /* eslint-disable import/no-cycle */
 
-import { SurveyStep } from '@/models/survey'
+import { SurveyNode } from '@/models/survey'
 import Response from '@/models/response/index'
-import ResponseTraverser, { CurrentNode } from '@/models/response/traverser'
+import ResponseTraverser, { CurrentResponseNode } from '@/models/response/traverser'
 
 /**
  * Interface for the callback receiver, used when traversing a {@link Response} with a
@@ -12,13 +12,14 @@ import ResponseTraverser, { CurrentNode } from '@/models/response/traverser'
 export interface ResponseStackVisitor {
 
   /**
-   * Called when a node is visited in the {@link Survey} tree.
+   * Called when a responseNode is visited in the {@link Survey} tree.
    *
-   * @param surveyNodes The stack of nodes visited, leading up to and including, the current node.
+   * @param surveyNodes The stack of nodes visited, leading up to and including, the current
+   * responseNode.
    * @return `true` to continue traversing, `false` to end all traversing (of the whole tree).
    */
 
-  visitNode: (surveyNodes: SurveyStep[], responseNode: CurrentNode) => boolean;
+  visitNode: (surveyNodes: SurveyNode[], responseNode: CurrentResponseNode) => boolean;
 }
 
 /**
@@ -43,36 +44,36 @@ export default class ResponseStackTraverser {
    */
 
   traverse(visitor: ResponseStackVisitor) {
-    const stack: SurveyStep[] = []
+    const stack: SurveyNode[] = []
     new ResponseTraverser(this.response).traverse({
-      aroundVisitQuestion(question, node, run) {
+      aroundVisitQuestion(question, responseNode, run) {
         stack.push(question)
         run()
         stack.pop()
       },
 
-      visitQuestion(question, node) {
-        return visitor.visitNode(stack, node)
+      visitQuestion(question, responseNode) {
+        return visitor.visitNode(stack, responseNode)
       },
 
-      aroundVisitOption(option, index, node, run) {
+      aroundVisitOption(option, index, responseNode, run) {
         stack.push(option)
         run()
         stack.pop()
       },
 
-      visitOption(option, index, node) {
-        return visitor.visitNode(stack, node)
+      visitOption(option, index, responseNode) {
+        return visitor.visitNode(stack, responseNode)
       },
 
-      aroundVisitAction(action, node, run) {
+      aroundVisitAction(action, responseNode, run) {
         stack.push(action)
         run()
         stack.pop()
       },
 
-      visitAction(action, node) {
-        return visitor.visitNode(stack, node)
+      visitAction(action, responseNode) {
+        return visitor.visitNode(stack, responseNode)
       }
     })
   }

@@ -1,5 +1,5 @@
 import {
-  Option, Question, SurveyStep
+  Option, Question, SurveyNode
 } from '@/models/survey'
 
 /**
@@ -23,10 +23,10 @@ export default interface Prompt {
   question: Question;
 
   /** The parent nodes in the survey leading to this Question. */
-  questionPath: SurveyStep[];
+  questionPath: SurveyNode[];
 }
 
-export function answerPathFromQuestionPath(questionPath: SurveyStep[]): number[] {
+export function answerPathFromQuestionPath(questionPath: SurveyNode[]): number[] {
   const answerPath: number[] = []
 
   questionPath.forEach((step, index) => {

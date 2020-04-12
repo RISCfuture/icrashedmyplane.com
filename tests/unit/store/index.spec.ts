@@ -56,7 +56,7 @@ describe('Vuex store', () => {
           choices: [false, true, true]
         })
 
-        expect(store.state.responses.incident.answerRoot).to.eql({
+        expect(store.state.responses.incident.rootNode).to.eql({
           nodes: [
             { next: { nodes: [{ next: endNode }] } },
             ...times(9, constant(undefined)),
