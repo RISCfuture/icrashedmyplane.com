@@ -13,7 +13,7 @@ import SurveyTraverser from '@/models/survey/traverser'
 export type BeyondEndNode = 'beyondEndNode'
 export const beyondEndNode: BeyondEndNode = 'beyondEndNode'
 
-type CurrentNode = AnswerNode | BeyondEndNode | undefined
+export type CurrentNode = AnswerNode | BeyondEndNode | undefined
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isAnswerNode(value: any): value is AnswerNode {
@@ -125,7 +125,7 @@ export default class ResponseTraverser {
    * @param response The response tree.
    */
 
-  constructor(private response: Response) {
+  constructor(public response: Response) {
   }
 
   /**

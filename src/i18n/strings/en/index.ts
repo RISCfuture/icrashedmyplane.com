@@ -53,7 +53,8 @@ const en: LocaleMessages = {
       form6120: 'NTSB Form 6120.1'
     },
     disclaimer: 'Important disclaimer: This website should not be used as a source for legal advice.'
-+ ' Consult an aviation attorney.'
+      + ' Consult an aviation attorney.',
+    applicableRegulations: 'The regulations that apply to your incident are 49 CFR § {regulations}.'
   }
 }
 export default en

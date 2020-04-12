@@ -11,6 +11,8 @@
     "docs:generate": "npx typedoc --out docs src"
   },
   "dependencies": {
+    "cldr-data": "^36.0.0",
+    "cldrjs": "^0.5.1",
     "core-js": "^3.6.5",
     "lodash-es": "^4.17.15",
     "normalize.css": "^8.0.1",
@@ -26,6 +28,7 @@
     "@cypress/webpack-preprocessor": "^5.1.1",
     "@types/chai": "^4.2.11",
     "@types/chai-as-promised": "^7.1.2",
+    "@types/cldrjs": "^0.4.22",
     "@types/lodash-es": "^4.17.3",
     "@types/mocha": "^7.0.2",
     "@typescript-eslint/eslint-plugin": "^2.27.0",

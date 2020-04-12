@@ -36,7 +36,7 @@ const incidentSurvey = new Survey('incident',
           noMeansAccident],
         { data: { regulation: '830.2' } })
       ),
-      { data: { category: 'injuries' } }),
+      { data: { category: 'injuries', regulation: '830.2' } }),
     new Option('hemmorhage',
       new QuestionAction(
         new Question('severe',
@@ -44,15 +44,15 @@ const incidentSurvey = new Survey('incident',
           { data: { regulation: '830.2' } })
       ),
       { data: { category: 'injuries' } }),
-    new Option('nerveDamage', classifyAsAccident, { data: { category: 'injuries' } }),
-    new Option('muscleDamage', classifyAsAccident, { data: { category: 'injuries' } }),
-    new Option('tendonDamage', classifyAsAccident, { data: { category: 'injuries' } }),
-    new Option('internalOrganDamage', classifyAsAccident, { data: { category: 'injuries' } }),
+    new Option('nerveDamage', classifyAsAccident, { data: { category: 'injuries', regulation: '830.2' } }),
+    new Option('muscleDamage', classifyAsAccident, { data: { category: 'injuries', regulation: '830.2' } }),
+    new Option('tendonDamage', classifyAsAccident, { data: { category: 'injuries', regulation: '830.2' } }),
+    new Option('internalOrganDamage', classifyAsAccident, { data: { category: 'injuries', regulation: '830.2' } }),
     new Option('burns',
       new QuestionAction(
         new Question('degree', [
-          new Option('burnDegree.thirdDegree', classifyAsAccident),
-          new Option('burnDegree.secondDegree', classifyAsAccident),
+          new Option('burnDegree.thirdDegree', classifyAsAccident, { data: { regulation: '830.2' } }),
+          new Option('burnDegree.secondDegree', classifyAsAccident, { data: { regulation: '830.2' } }),
           new Option('burnDegree.firstDegree',
             new QuestionAction(
               new Question('over5Percent',
@@ -142,7 +142,7 @@ const incidentSurvey = new Survey('incident',
       ),
       { data: { category: 'aircraft' }, only: [Flag.HELICOPTER] }),
 
-    new Option('flightControls', classifyAsSeriousIncident, { data: { category: 'failure' } }),
+    new Option('flightControls', classifyAsSeriousIncident, { data: { category: 'failure', regulation: '830.5' } }),
     new Option('lossOfThrust',
       new QuestionAction(
         new Question('moreThan1EngineThrustLoss',

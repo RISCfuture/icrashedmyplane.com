@@ -126,4 +126,16 @@ describe('Response', () => {
       expect(makeResponse('incident', step5).nextQuestion).to.be.null
     })
   })
+
+  describe('contributingRegulations', () => {
+    it('returns a list of regulations for options the user chose', () => {
+      expect(makeResponse('incident', accidentAnswer).contributingRegulations).to.eql(new Set(['830.2']))
+      expect(makeResponse('incident', seriousIncidentAnswer).contributingRegulations).to.eql(new Set(['830.5']))
+      expect(makeResponse('incident', incidentAnswer).contributingRegulations).to.eql(new Set(['830.5']))
+    })
+
+    it('returns an empty set for an empty response tree', () => {
+      expect(makeResponse('incident').contributingRegulations).to.eql(new Set<string>())
+    })
+  })
 })

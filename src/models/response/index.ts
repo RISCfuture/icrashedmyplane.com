@@ -1,12 +1,13 @@
 /* eslint-disable import/no-cycle */
 
 import {
-  isArray, isNull, isUndefined
+  isArray, isNull, isString, isUndefined, last, nth
 } from 'lodash-es'
 import Survey, {
+  Action,
   Flag, FlagAction,
   HIGHEST_INCIDENT_LEVEL,
-  IncidentLevel, LevelAction, Question, SurveyStep
+  IncidentLevel, LevelAction, Option, Question, SurveyStep
 } from '@/models/survey'
 import surveys from '@/data/surveys'
 import {
@@ -16,6 +17,7 @@ import {
 } from '@/models/response/answer'
 import Prompt, { answerPathFromQuestionPath } from '@/models/response/prompt'
 import ResponseTraverser, { beyondEndNode } from '@/models/response/traverser'
+import ResponseStackTraverser from '@/models/response/stackTraverser'
 
 /**
  * A Response contains a tree representing all of the answers the user has given so far to a
@@ -214,6 +216,34 @@ export default class Response {
       surveyID: this.surveyIdentifier,
       answerPath: answerPathFromQuestionPath(questionPath)
     }
+  }
+
+  /**
+   * @return The list of regulations under 49 CFR that contributed to the incident level.
+   */
+
+  get contributingRegulations(): Set<string> {
+    const regulations = new Set<string>()
+
+    new ResponseStackTraverser(this).traverse({
+      visitNode(stack, node) {
+        const action = <Action | undefined>last(stack)
+        if (!(action instanceof LevelAction)) return true
+        if (node !== endNode) return true // user didn't visit this action
+
+        const option = <Option | undefined>nth(stack, -2)
+        if (isUndefined(option)) return true
+        if (isString(option.data.regulation)) regulations.add(option.data.regulation)
+
+        const question = <Question | undefined>nth(stack, -3)
+        if (isUndefined(question)) return true
+        if (isString(question.data.regulation)) regulations.add(question.data.regulation)
+
+        return true
+      }
+    })
+
+    return regulations
   }
 
   /**

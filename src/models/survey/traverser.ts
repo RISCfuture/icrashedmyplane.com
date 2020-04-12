@@ -93,7 +93,7 @@ export default class SurveyTraverser {
    * @param survey The Survey to traverse.
    */
 
-  constructor(private survey: Survey) {}
+  constructor(public survey: Survey) {}
 
   /**
    * Call this method to begin traversal.

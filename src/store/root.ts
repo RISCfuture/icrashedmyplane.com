@@ -33,7 +33,7 @@ export default function createRootModule(initialState: Partial<RootState> = {}) 
     getters: {
 
       /** Returns a method that retrieves a response by survey identifier. */
-      response(state: RootState): (key: string) => Response {
+      response(state: RootState): (key: string) => Response | undefined {
         return function (key) {
           return state.responses[key]
         }
@@ -53,6 +53,14 @@ export default function createRootModule(initialState: Partial<RootState> = {}) 
         return values(state.responses).reduce(
           (set, response) => new Set<Flag>([...set, ...response.flags]),
           new Set<Flag>()
+        )
+      },
+
+      /** @return Returns all the 49 CFR regulations that contributed to the incident level. */
+      allApplicableRegulations(state: RootState): Set<string> {
+        return values(state.responses).reduce(
+          (set, response) => new Set<string>([...set, ...response.contributingRegulations]),
+          new Set<string>()
         )
       }
     },

@@ -3,7 +3,12 @@
     <accident v-if="isAccident" />
     <serious-incident v-else-if="isSeriousIncident" />
     <incident v-else />
-    <footer>{{$t('level.disclaimer')}}</footer>
+    <footer>
+      <p v-if="regulationList.length">
+        {{$t('level.applicableRegulations', {regulations: regulationList})}}
+      </p>
+      <p>{{$t('level.disclaimer')}}</p>
+    </footer>
   </div>
 </template>
 
@@ -15,6 +20,7 @@
   import Accident from '@/views/Finished/Accident.vue'
   import SeriousIncident from '@/views/Finished/SeriousIncident.vue'
   import Incident from '@/views/Finished/Incident.vue'
+  import { list } from '@/i18n/functions'
 
   /**
    * Displayed when all surveys are complete. Displays the proper instructions for the final
@@ -27,12 +33,21 @@
   export default class Finished extends Vue {
     @Getter incidentLevel!: IncidentLevel
 
+    @Getter allApplicableRegulations!: Set<string>
+
+    /** @return `true` if the incident level is ACCIDENT. */
     get isAccident(): boolean {
       return this.incidentLevel === IncidentLevel.ACCIDENT
     }
 
+    /** @return `true` if the incident level is SERIOUS INCIDENT. */
     get isSeriousIncident(): boolean {
       return this.incidentLevel === IncidentLevel.SERIOUS_INCIDENT
+    }
+
+    /** @return A localized list of the applicable regulations in 49 CFR. */
+    get regulationList(): string {
+      return list(Array.from(this.allApplicableRegulations))
     }
   }
 </script>
