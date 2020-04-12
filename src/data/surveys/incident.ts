@@ -90,7 +90,7 @@ const incidentSurvey = new Survey('incident',
           )),
         new Option('rotorOrPropeller',
           new QuestionAction(
-            new Question('groundContact',
+            new Question('groundContactDamage',
               noMeansAccidentYesMeansIncident,
               { data: { regulation: '830.2' } })
           )),
@@ -129,8 +129,8 @@ const incidentSurvey = new Survey('incident',
       { data: { category: 'aircraft' } }),
     new Option('propeller',
       new QuestionAction(
-        new Question('groundContact',
-          yesMeansSeriousIncidentNoMeansIncident,
+        new Question('groundContactRelease',
+          noMeansSeriousIncidentYesMeansIncident,
           { data: { regulation: '830.5' } })
       ),
       { data: { category: 'aircraft' } }),

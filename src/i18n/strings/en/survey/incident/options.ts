@@ -33,7 +33,7 @@ const options: LocaleMessageObject = {
   muscleDamage: 'Muscle damage',
   nerveDamage: 'Nerve damage',
   other: 'Something not on this list',
-  propeller: 'Propeller blade damage',
+  propeller: 'Release of all or a portion of a propeller blade',
   propertyDamage: 'Property damage',
   rotorBlades: 'Main or tail rotor blades',
   rotorOrPropeller: 'Rotor or propeller blade damage',
