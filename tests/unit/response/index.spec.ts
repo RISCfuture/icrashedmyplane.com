@@ -8,7 +8,7 @@ import {
   unfinishedAnswerEndingInSingleQuestion
 } from './fixtures'
 import Response from '@/models/response'
-import { IncidentLevel, Question } from '@/models/survey'
+import { Flag, IncidentLevel, Question } from '@/models/survey'
 import { AnswerNode, endNode, QuestionNode } from '@/models/response/answer'
 
 describe('Response', () => {
@@ -136,6 +136,13 @@ describe('Response', () => {
 
     it('returns an empty set for an empty response tree', () => {
       expect(makeResponse('incident').contributingRegulations).to.eql(new Set<string>())
+    })
+  })
+
+  describe('flags', () => {
+    it('returns the list of flags that were set', () => {
+      const answer: QuestionNode = { nodes: [{ next: endNode }, undefined, { next: endNode }] }
+      expect(makeResponse('profile', answer).flags).to.eql(new Set([Flag.LARGE_MULTI, Flag.HELICOPTER]))
     })
   })
 })
