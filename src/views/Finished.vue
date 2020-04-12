@@ -4,10 +4,10 @@
     <serious-incident v-else-if="isSeriousIncident" />
     <incident v-else />
     <footer>
-      <p v-if="regulationList.length">
-        {{$t('level.applicableRegulations', {regulations: regulationList})}}
+      <p v-if="regulationList">
+        {{$t('finished.applicableRegulations', {regulations: regulationList})}}
       </p>
-      <p>{{$t('level.disclaimer')}}</p>
+      <p>{{$t('finished.disclaimer')}}</p>
     </footer>
   </div>
 </template>
@@ -45,8 +45,13 @@
       return this.incidentLevel === IncidentLevel.SERIOUS_INCIDENT
     }
 
-    /** @return A localized list of the applicable regulations in 49 CFR. */
-    get regulationList(): string {
+    /**
+     * @return A localized list of the applicable regulations in 49 CFR, or `null` if no regulations
+     * apply.
+     */
+
+    get regulationList(): string | null {
+      if (this.allApplicableRegulations.size === 0) return null
       return list(Array.from(this.allApplicableRegulations))
     }
   }

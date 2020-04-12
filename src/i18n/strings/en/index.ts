@@ -20,7 +20,7 @@ const en: LocaleMessages = {
     startButton: 'Let’s get started',
     footer: 'This website was created by {me} during the COVID-19 shelter-in-place order of April 2020.'
   },
-  level: {
+  finished: {
     incident: {
       title: 'Based on your answers, this qualifies as an {level}.',
       level: 'incident',
