@@ -8,7 +8,11 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "docs:generate": "npx typedoc --out docs src"
+    "docs:generate": "npx typedoc --out docs src",
+    "ci:e2e:start-server": "yarn serve",
+    "ci:e2e:run": "cypress run --record --key 4985f51e-046b-4590-b6e3-f124c50cc39c",
+    "ci:e2e": "npx start-server-and-test ci:e2e:start-server 8080 ci:e2e:run",
+    "ci:unit": "yarn run test:unit"
   },
   "dependencies": {
     "cldr-data": "^36.0.0",
@@ -58,6 +62,7 @@
     "null-loader": "^3.0.0",
     "sass": "^1.26.3",
     "sass-loader": "^8.0.2",
+    "start-server-and-test": "^1.10.11",
     "stylelint": "^13.3.1",
     "stylelint-config-sass-guidelines": "^7.0.0",
     "stylelint-config-standard": "^20.0.0",
