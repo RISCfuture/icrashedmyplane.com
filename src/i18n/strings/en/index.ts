@@ -12,6 +12,7 @@ const en: LocaleMessages = {
     checkAll: 'Check all that apply:',
     breadcrumbs: 'You selected {selection}.',
     nextButton: 'Next',
+    noneApplyButton: 'None of the above',
     regulation: '49 CFR § {part}'
   },
   welcome: {

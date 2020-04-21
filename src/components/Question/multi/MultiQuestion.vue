@@ -22,7 +22,7 @@
         <slot />
       </div>
       <div class="question-actions">
-        <button @click="answerChosen()" data-cy="nextButton">{{$t('question.nextButton')}}</button>
+        <button @click="answerChosen()" data-cy="nextButton">{{nextButtonTitle}}</button>
       </div>
     </div>
   </transition>
@@ -30,13 +30,14 @@
 
 <script lang="ts">
   import Component from 'vue-class-component'
-  import { every, groupBy, isUndefined } from 'lodash-es'
+  import {every, groupBy, isEmpty, isUndefined} from 'lodash-es'
   import { Getter } from 'vuex-class'
   import MultiOption from '@/components/Question/multi/MultiOption.vue'
   import AbstractQuestion from '@/components/Question/AbstractQuestion'
   import ErrorBus from '@/bus/ErrorBus'
   import { Flag, Option } from '@/models/survey'
   import OptionCategory from '@/components/Question/multi/OptionCategory.vue'
+  import {TranslateResult} from "vue-i18n";
 
   /**
    * Displays a {@link Question} as a multiple-choice group of options. Options can be shown grouped
@@ -98,6 +99,15 @@
           (this.choices[index] ? new Set([...set, option.identifier]) : set),
         new Set<string>()
       )
+    }
+
+    /**
+     * @return The title of the "next" button. Says "None of the above" until the user makes a
+     * selection, to help them understand they can continue with nothing selected.
+     */
+
+    get nextButtonTitle(): TranslateResult {
+      return isEmpty(this.selections) ? this.$t('question.noneApplyButton') : this.$t('question.nextButton')
     }
 
     /**
