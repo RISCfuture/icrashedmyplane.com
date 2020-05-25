@@ -15,8 +15,8 @@ export interface QuestionResponseNode {
 }
 
 /**
- * A node in a response tree that links {@link QuestionResponseNode}s together. ActionNodes in a response
- * tree correspond to {@link Action}s in a {@link Survey}.
+ * A node in a response tree that links {@link QuestionResponseNode}s together. ActionNodes in a
+ * response tree correspond to {@link Action}s in a {@link Survey}.
  */
 
 export interface ActionResponseNode {

@@ -1,6 +1,6 @@
 /* eslint-disable func-names */
 
-import { ActionContext } from 'vuex'
+import { ActionContext, Module } from 'vuex'
 import {
   assign, cloneDeep, isNil, max, reduce, values
 } from 'lodash-es'
@@ -14,7 +14,7 @@ import surveyOrder from '@/data/surveyOrder'
 export interface RootState {
 
   /** The Responses the user has started or finished, keyed by the {@link Survey.identifier}. */
-  responses: {[key: string]: Response};
+  responses: { [key: string]: Response };
 
   /** Set to true once the user has clicked the "Let's get started" button. */
   clickedContinue: boolean;
@@ -25,22 +25,28 @@ const defaultState: RootState = {
   clickedContinue: false
 }
 
-export default function createRootModule(initialState: Partial<RootState> = {}) {
+export default function createRootModule(
+  initialState: Partial<RootState> = {}
+): Module<RootState, RootState> {
   const fullInitialState: RootState = assign({}, defaultState, initialState)
   return {
-    state(): RootState { return fullInitialState },
+    state(): RootState {
+      return fullInitialState
+    },
 
     getters: {
 
       /** Returns a method that retrieves a response by survey identifier. */
       response(state: RootState): (key: string) => Response | undefined {
-        return function (key) {
+        return function (key: string): Response {
           return state.responses[key]
         }
       },
 
       /** Returns whether the user has clicked the "Let's get started" button. */
-      clickedContinue(state: RootState): boolean { return state.clickedContinue },
+      clickedContinue(state: RootState): boolean {
+        return state.clickedContinue
+      },
 
       /** Returns the highest incident level based on all responses so far. */
       incidentLevel(state: RootState): IncidentLevel {
@@ -69,8 +75,8 @@ export default function createRootModule(initialState: Partial<RootState> = {}) 
       addAnswer(
         state: RootState,
         { surveyID, answerPath, newNode }:
-          {surveyID: string; answerPath: number[]; newNode: QuestionResponseNode}
-      ) {
+          { surveyID: string; answerPath: number[]; newNode: QuestionResponseNode }
+      ): void {
         const response = cloneDeep(state.responses[surveyID])
 
         if (response.rootNode !== endNode) {
@@ -83,7 +89,7 @@ export default function createRootModule(initialState: Partial<RootState> = {}) 
         state.responses = assign({}, state.responses, { [surveyID]: response })
       },
 
-      clickContinue(state: RootState) {
+      clickContinue(state: RootState): void {
         state.clickedContinue = true
       }
     },
@@ -95,7 +101,7 @@ export default function createRootModule(initialState: Partial<RootState> = {}) 
        * button.
        */
 
-      clickContinue({ commit }: ActionContext<RootState, RootState>) {
+      clickContinue({ commit }: ActionContext<RootState, RootState>): void {
         commit('clickContinue')
       },
 

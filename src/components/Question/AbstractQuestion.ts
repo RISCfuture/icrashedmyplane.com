@@ -51,5 +51,5 @@ export default class AbstractQuestion extends Vue {
 
   @Watch('prompt')
   // eslint-disable-next-line class-methods-use-this,@typescript-eslint/no-empty-function
-  promptChanged() {}
+  protected promptChanged(): void {}
 }

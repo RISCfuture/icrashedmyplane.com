@@ -101,7 +101,7 @@ export default class SurveyTraverser {
    * @param visitor The object to receive callback functions as nodes are visited during traversal.
    */
 
-  traverse(visitor: SurveyVisitor) {
+  traverse(visitor: SurveyVisitor): void {
     this.visitQuestion(this.survey.root, visitor)
   }
 

@@ -6,6 +6,7 @@ import en from './strings/en'
 Vue.use(VueI18n)
 
 export default new VueI18n({
-  locale: 'en',
+  locale: window.navigator.language,
+  fallbackLocale: 'en',
   messages: { en }
 })

@@ -26,7 +26,7 @@ export default class AbstractOption extends Vue {
 
   /** Called when the option is clicked. Emits a `clicked` event. */
 
-  clicked() {
+  clicked(): void {
     this.$emit('clicked')
   }
 }

@@ -3,14 +3,9 @@ module.exports = {
   env: {
     node: true
   },
-  plugins: ['chai-expect', 'chai-friendly', 'cypress', 'mocha'],
   extends: [
     '@vue/airbnb',
     '@vue/typescript/recommended',
-    'plugin:chai-expect/recommended',
-    'plugin:chai-friendly/recommended',
-    'plugin:cypress/recommended',
-    'plugin:mocha/recommended',
     'plugin:vue/essential'
   ],
   parserOptions: {
@@ -30,7 +25,6 @@ module.exports = {
     'import/order': ['error', { groups: ['builtin', 'external', 'parent', 'sibling', 'index'] }],
     'import/no-named-default': 'off',
     'max-classes-per-file': 'off',
-    'mocha/no-mocha-arrows': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-plusplus': 'off',
@@ -39,15 +33,6 @@ module.exports = {
     'vue/script-indent': ['error', 2, { baseIndent: 1 }]
   },
   overrides: [
-    {
-      files: [
-        '**/__tests__/*.{j,t}s?(x)',
-        '**/tests/unit/**/*.spec.{j,t}s?(x)'
-      ],
-      env: {
-        mocha: true
-      }
-    },
     {
       files: ['src/i18n/strings/**/*.ts'],
       rules: {

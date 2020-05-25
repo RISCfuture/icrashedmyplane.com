@@ -15,6 +15,8 @@
     "ci:unit": "yarn run test:unit"
   },
   "dependencies": {
+    "@bugsnag/js": "^7.1.0",
+    "@bugsnag/plugin-vue": "^7.1.0",
     "cldr-data": "^36.0.0",
     "cldrjs": "^0.5.1",
     "core-js": "^3.6.5",

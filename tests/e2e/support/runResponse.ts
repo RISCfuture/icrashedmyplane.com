@@ -3,7 +3,7 @@ import Response from '@/models/response'
 import ResponseTraverser, { beyondEndNode } from '@/models/response/traverser'
 import { endNode, isQuestionResponseNode } from '@/models/response/answer'
 
-export default function runResponse(response: Response) {
+export default function runResponse(response: Response): void {
   console.log(response)
   new ResponseTraverser(response).traverse({
     visitQuestion(question, answerNode) {

@@ -15,10 +15,9 @@ export const beyondEndNode: BeyondEndNode = 'beyondEndNode'
 
 export type CurrentResponseNode = ResponseNode | BeyondEndNode | undefined
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isAnswerNode(value: any): value is ResponseNode {
+function isAnswerNode(value: unknown): value is ResponseNode {
   if (!isPlainObject(value)) return false
-  return isActionResponseNode(value) || isQuestionResponseNode(value)
+  return isActionResponseNode(<ResponseNode>value) || isQuestionResponseNode(<ResponseNode>value)
 }
 
 /**
@@ -134,7 +133,7 @@ export default class ResponseTraverser {
    * @param visitor The object to receive callback functions as nodes are visited during traversal.
    */
 
-  traverse(visitor: ResponseVisitor) {
+  traverse(visitor: ResponseVisitor): void {
     let currentNode: CurrentResponseNode = this.response.rootNode
     new SurveyTraverser(this.response.survey).traverse({
       aroundVisitQuestion(question, run) {

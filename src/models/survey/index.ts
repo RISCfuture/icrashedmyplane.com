@@ -38,8 +38,7 @@ export enum Flag {
   HELICOPTER
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type DataType = {[key: string]: any}
+type DataType = {[key: string]: unknown}
 
 /**
  * A question that is asked of the user. Questions can be single-choice or multiple-choice, and

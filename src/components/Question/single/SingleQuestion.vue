@@ -38,7 +38,7 @@
      * @param identifier The identifier of the {@link Option} that was chosen.
      */
 
-    async answerChosen(identifier: string) {
+    async answerChosen(identifier: string): Promise<void> {
       const index = this.question.options.findIndex(o => o.identifier === identifier)
       console.log(this.prompt, index)
 

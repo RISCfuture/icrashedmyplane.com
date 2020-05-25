@@ -41,7 +41,7 @@ export default class SurveyStackTraverser {
    * @param visitor The object to receive callback functions as nodes are visited during traversal.
    */
 
-  traverse(visitor: SurveyStackVisitor) {
+  traverse(visitor: SurveyStackVisitor): void {
     const stack: SurveyNode[] = []
     new SurveyTraverser(this.survey).traverse({
       aroundVisitQuestion(question, run) {

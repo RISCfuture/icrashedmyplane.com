@@ -74,7 +74,7 @@
      * @param option The option that was selected
      */
 
-    toggle(option: Option) {
+    toggle(option: Option): void {
       this.$emit('toggle', option.identifier)
     }
   }

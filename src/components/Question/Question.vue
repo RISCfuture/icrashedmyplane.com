@@ -62,7 +62,7 @@
     /** Set to true if an error is thrown; displays the {@link Error} view. */
     error = false
 
-    mounted() {
+    mounted(): void {
       ErrorBus.$on('error', () => {
         this.error = true
       })
@@ -85,7 +85,9 @@
 
     /** @return The regulation under 49 CFR to display alongside the question. */
     get regulation(): string | undefined {
-      return this.prompt.question.data.regulation
+      return isUndefined(this.prompt.question.data.regulation)
+        ? undefined
+        : <string> this.prompt.question.data.regulation
     }
 
     /**

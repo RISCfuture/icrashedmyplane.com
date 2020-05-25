@@ -30,14 +30,16 @@
 
 <script lang="ts">
   import Component from 'vue-class-component'
-  import {every, groupBy, isEmpty, isUndefined} from 'lodash-es'
+  import {
+    every, groupBy, isEmpty, isUndefined
+  } from 'lodash-es'
   import { Getter } from 'vuex-class'
+  import { TranslateResult } from 'vue-i18n'
   import MultiOption from '@/components/Question/multi/MultiOption.vue'
   import AbstractQuestion from '@/components/Question/AbstractQuestion'
   import ErrorBus from '@/bus/ErrorBus'
   import { Flag, Option } from '@/models/survey'
   import OptionCategory from '@/components/Question/multi/OptionCategory.vue'
-  import {TranslateResult} from "vue-i18n";
 
   /**
    * Displays a {@link Question} as a multiple-choice group of options. Options can be shown grouped
@@ -61,7 +63,7 @@
      * Resets the {@link .choices} array when a new question is shown.
      */
 
-    promptChanged() {
+    protected promptChanged(): void {
       this.choices = []
     }
 
@@ -116,7 +118,7 @@
      * @param identifier The identifier of the {@link Option}.
      */
 
-    toggle(identifier: string) {
+    toggle(identifier: string): void {
       const index = this.question.options.findIndex(o => o.identifier === identifier)
       this.$set(this.choices, index, !this.choices[index])
     }
@@ -126,7 +128,7 @@
      * the {@link ErrorBus} if that fails.
      */
 
-    async answerChosen() {
+    async answerChosen(): Promise<void> {
       console.log(this.prompt, this.choices)
       try {
         await this.recordAnswer({
