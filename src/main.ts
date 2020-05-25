@@ -3,6 +3,8 @@ import App from './App.vue'
 import store from './store'
 import i18n from './i18n'
 
+import './config/bugsnag'
+
 import 'normalize.css/normalize.css'
 import '@/assets/styles/font-faces.scss'
 import '@/assets/styles/global.scss'
