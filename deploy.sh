@@ -1,2 +1,13 @@
+pushd deploy || exit
+git fetch
+git reset --hard origin/gh-pages
+popd || exit
+
 yarn build
-rsync -rvz --delete --force dist/ deploy@www.timothymorgan.info:/var/www/www.icrashedmyplane.com/
+rsync -rv --delete --exclude=".git" --force dist/ deploy/
+
+pushd deploy || exit
+git add -A
+git commit -m "Deploy by $USER"
+git push
+popd || exit
