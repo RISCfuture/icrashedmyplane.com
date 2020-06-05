@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "setup": "lerna bootstrap",
+    "build": "lerna run build",
     "serve": "lerna run serve --parallel"
   },
   "devDependencies": {
