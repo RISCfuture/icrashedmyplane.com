@@ -16,8 +16,10 @@ cache:
     # we also need to cache folder with Cypress binary
     - ~/.cache
 install:
-  - yarn install
+  - npm install -g lerna
+  - yarn run setup
 script:
+  - yarn run build
   - yarn run ci:unit
   - yarn run ci:e2e
 
