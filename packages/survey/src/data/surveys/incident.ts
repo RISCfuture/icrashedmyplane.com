@@ -3,10 +3,10 @@ import {
   noMeansAccidentYesMeansIncident, noMeansSeriousIncidentYesMeansIncident, yesAskQuestion,
   yesMeansIncident, yesMeansAccidentNoMeansIncident, yesMeansSeriousIncidentNoMeansIncident,
   classifyAsIncident
-} from '@/data/surveys/incidentSurveyShorthand'
+} from './incidentSurveyShorthand'
 import Survey, {
   Flag, Option, Question, QuestionAction
-} from '@/models/survey'
+} from '../../models/survey'
 
 const incidentSurvey = new Survey('incident',
   new Question('root', [

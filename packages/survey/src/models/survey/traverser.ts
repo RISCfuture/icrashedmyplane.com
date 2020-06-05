@@ -6,7 +6,7 @@ import Survey, {
   Option,
   Question,
   QuestionAction
-} from '@/models/survey/index'
+} from './index'
 
 /**
  * Interface for the callback receiver, used when traversing a {@link Survey} with a

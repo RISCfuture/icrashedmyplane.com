@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
 
-import Survey, { SurveyNode } from '@/models/survey/index'
-import SurveyTraverser from '@/models/survey/traverser'
+import Survey, { SurveyNode } from './index'
+import SurveyTraverser from './traverser'
 
 /**
  * Interface for the callback receiver, used when traversing a {@link Survey} with a

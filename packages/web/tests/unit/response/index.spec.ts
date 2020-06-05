@@ -8,7 +8,7 @@ import {
   unfinishedAnswerEndingInSingleQuestion
 } from './fixtures'
 import Response from '@/models/response'
-import { Flag, IncidentLevel, Question } from '@/models/survey'
+import { Flag, IncidentLevel, Question } from 'i-just-crashed-my-plane-survey'
 import { ResponseNode, endNode, QuestionResponseNode } from '@/models/response/answer'
 
 describe('Response', () => {

@@ -13,17 +13,13 @@
     "sourceMap":                    true,
     "baseUrl":                      ".",
     "outDir":                       "dist/",
-    "paths":                        {
-      "@/*": [
-        "src/*"
-      ]
-    },
     "lib":                          [
       "esnext",
       "dom",
       "dom.iterable",
       "scripthost"
-    ]
+    ],
+    "declaration": true,
   },
   "include":         [
     "src/**/*.ts",

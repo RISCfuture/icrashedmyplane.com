@@ -1,6 +1,6 @@
 import Survey, {
   Flag, FlagAction, Option, Question
-} from '@/models/survey'
+} from '../../models/survey'
 
 const profileSurvey = new Survey('profile',
   new Question('root', [

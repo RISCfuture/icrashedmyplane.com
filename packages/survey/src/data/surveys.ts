@@ -1,6 +1,6 @@
-import Survey from '@/models/survey'
-import profileSurvey from '@/data/surveys/profile'
-import incidentSurvey from '@/data/surveys/incident'
+import Survey from '../models/survey'
+import profileSurvey from './surveys/profile'
+import incidentSurvey from './surveys/incident'
 
 /** A dictionary of all {@link Survey}s, keyed by their identifier. */
 
