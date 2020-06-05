@@ -1,0 +1,10 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "serve": "lerna run serve --parallel"
+  },
+  "devDependencies": {
+    "lerna": "^3.22.0"
+  }
+}

@@ -5,11 +5,11 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "lodash-es": "^4.17.15",
+    "lodash-es": "^4.17.15"
   },
   "devDependencies": {
     "typedoc": "^0.17.7",
-    "typescript": "~3.9.3",
+    "typescript": "~3.9.3"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
