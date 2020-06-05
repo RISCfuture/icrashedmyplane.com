@@ -1,8 +1,13 @@
 export * from "./models/survey";
 export * from "./models/survey/stackTraverser";
 export * from "./models/survey/traverser";
-export * from "./data/surveys";
-export * from "./data/surveyOrder";
-export * from "./data/surveys/incident";
 export * from "./data/surveys/incidentSurveyShorthand";
-export * from "./data/surveys/profile";
+
+export { default as Survey } from "./models/survey";
+export { default as SurveyStackTraverser } from "./models/survey/stackTraverser";
+export { default as SurveyTraverser } from "./models/survey/traverser";
+export { default as surveys } from "./data/surveys";
+export { default as surveyOrder } from "./data/surveyOrder";
+export { default as incidentSurvey } from "./data/surveys/incident";
+export { default as profileSurvey } from "./data/surveys/profile";
+
