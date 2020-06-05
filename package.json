@@ -1,92 +1,12 @@
 {
-  "name": "i-just-crashed-my-plane",
-  "version": "0.1.0",
+  "name": "root",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint",
-    "docs:generate": "npx typedoc --out docs src",
-    "ci:e2e:start-server": "yarn serve",
-    "ci:e2e:run": "cypress run --record --key 4985f51e-046b-4590-b6e3-f124c50cc39c",
-    "ci:e2e": "npx start-server-and-test ci:e2e:start-server 8080 ci:e2e:run",
-    "ci:unit": "yarn run test:unit"
-  },
-  "dependencies": {
-    "@bugsnag/js": "^7.1.0",
-    "@bugsnag/plugin-vue": "^7.1.0",
-    "cldr-data": "^36.0.0",
-    "cldrjs": "^0.5.1",
-    "core-js": "^3.6.5",
-    "lodash-es": "^4.17.15",
-    "normalize.css": "^8.0.1",
-    "vue": "^2.6.11",
-    "vue-class-component": "^7.2.3",
-    "vue-i18n": "^8.17.7",
-    "vue-property-decorator": "^8.4.2",
-    "vuex": "^3.4.0",
-    "vuex-class": "^0.3.2"
+    "setup": "lerna bootstrap",
+    "build": "lerna run build",
+    "serve": "lerna run serve --parallel"
   },
   "devDependencies": {
-    "@cypress/webpack-preprocessor": "^5.4.1",
-    "@types/chai": "^4.2.11",
-    "@types/chai-as-promised": "^7.1.2",
-    "@types/cldrjs": "^0.4.22",
-    "@types/lodash-es": "^4.17.3",
-    "@types/mocha": "^7.0.2",
-    "@typescript-eslint/eslint-plugin": "^3.0.1",
-    "@typescript-eslint/parser": "^3.0.1",
-    "@vue/cli-plugin-babel": "~4.3.1",
-    "@vue/cli-plugin-e2e-cypress": "~4.3.1",
-    "@vue/cli-plugin-eslint": "~4.3.1",
-    "@vue/cli-plugin-router": "~4.3.1",
-    "@vue/cli-plugin-typescript": "^4.3.1",
-    "@vue/cli-plugin-unit-mocha": "~4.3.1",
-    "@vue/cli-plugin-vuex": "~4.3.1",
-    "@vue/cli-service": "~4.3.1",
-    "@vue/eslint-config-airbnb": "^5.0.2",
-    "@vue/eslint-config-typescript": "^5.0.2",
-    "@vue/test-utils": "1.0.3",
-    "chai": "^4.1.2",
-    "chai-as-promised": "^7.1.1",
-    "chai-each": "^0.0.1",
-    "eslint": "^7.1.0",
-    "eslint-plugin-chai-expect": "^2.1.0",
-    "eslint-plugin-chai-friendly": "^0.6.0",
-    "eslint-plugin-cypress": "^2.10.3",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-mocha": "^7.0.0",
-    "eslint-plugin-vue": "^6.2.2",
-    "lint-staged": "^10.2.6",
-    "null-loader": "^4.0.0",
-    "sass": "^1.26.5",
-    "sass-loader": "^8.0.2",
-    "start-server-and-test": "^1.11.0",
-    "stylelint": "^13.5.0",
-    "stylelint-config-sass-guidelines": "^7.0.0",
-    "stylelint-config-standard": "^20.0.0",
-    "stylelint-processor-html": "^1.0.0",
-    "typedoc": "^0.17.7",
-    "typescript": "~3.9.3",
-    "vue-template-compiler": "^2.6.11"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,jsx,vue,ts,tsx}": [
-      "vue-cli-service lint --fix"
-    ],
-    "*.{css,vue}": [
-      "npx stylelint --fix"
-    ],
-    "*.scss": [
-      "npx stylelint --fix --syntax scss"
-    ],
-    "*.sass": [
-      "npx stylelint --fix --syntax sass"
-    ]
+    "lerna": "^3.22.0"
   }
 }
