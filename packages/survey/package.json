@@ -1,0 +1,31 @@
+{
+  "name": "i-just-crashed-my-plane-survey",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "lodash-es": "^4.17.15",
+  },
+  "devDependencies": {
+    "typedoc": "^0.17.7",
+    "typescript": "~3.9.3",
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,vue,ts,tsx}": [
+      "vue-cli-service lint --fix"
+    ],
+    "*.{css,vue}": [
+      "npx stylelint --fix"
+    ],
+    "*.scss": [
+      "npx stylelint --fix --syntax scss"
+    ],
+    "*.sass": [
+      "npx stylelint --fix --syntax sass"
+    ]
+  }
+}
