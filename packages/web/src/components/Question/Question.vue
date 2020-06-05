@@ -45,7 +45,7 @@
   import MultiQuestion from './multi/MultiQuestion.vue'
   import Error from '@/views/Error.vue'
   import ErrorBus from '@/bus/ErrorBus'
-  import * as Survey from '@/models/survey'
+  import * as Survey from 'i-just-crashed-my-plane-survey'
 
   /**
    * Container view that displays either a {@link SingleQuestion} or a {@link MultiQuestion}

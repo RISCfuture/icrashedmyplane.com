@@ -3,13 +3,12 @@
 import {
   isArray, isNull, isString, isUndefined, last, nth
 } from 'lodash-es'
-import Survey, {
+import {
   Action,
   Flag, FlagAction,
   HIGHEST_INCIDENT_LEVEL,
-  IncidentLevel, LevelAction, Option, Question, SurveyNode
-} from '@/models/survey'
-import surveys from '@/data/surveys'
+  IncidentLevel, LevelAction, Option, Question, Survey, surveys, SurveyNode
+} from 'i-just-crashed-my-plane-survey'
 import {
   EndNode,
   endNode,

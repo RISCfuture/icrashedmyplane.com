@@ -21,7 +21,7 @@
   import { TranslateResult } from 'vue-i18n'
   import { isNil } from 'lodash-es'
   import MultiOption from './MultiOption.vue'
-  import { Option } from '@/models/survey'
+  import { Option } from 'i-just-crashed-my-plane-survey'
 
   /**
    * A category of {@link Option}s to display as part of a {@link MultiQuestion}. Categories can

@@ -38,7 +38,7 @@
   import MultiOption from '@/components/Question/multi/MultiOption.vue'
   import AbstractQuestion from '@/components/Question/AbstractQuestion'
   import ErrorBus from '@/bus/ErrorBus'
-  import { Flag, Option } from '@/models/survey'
+  import { Flag, Option } from 'i-just-crashed-my-plane-survey'
   import OptionCategory from '@/components/Question/multi/OptionCategory.vue'
 
   /**

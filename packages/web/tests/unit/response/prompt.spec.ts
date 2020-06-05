@@ -1,6 +1,6 @@
 import { expect } from 'chai'
+import { QuestionAction } from 'i-just-crashed-my-plane-survey'
 import incidentSurvey from '@/data/surveys/incident'
-import { QuestionAction } from '@/models/survey'
 import { answerPathFromQuestionPath } from '@/models/response/prompt'
 
 describe('answerPathFromQuestionPath', () => {

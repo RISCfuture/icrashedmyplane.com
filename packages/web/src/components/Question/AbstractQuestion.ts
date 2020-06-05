@@ -4,7 +4,7 @@ import { Prop, Watch } from 'vue-property-decorator'
 import { Action } from 'vuex-class'
 import { TranslateResult } from 'vue-i18n'
 import Prompt from '@/models/response/prompt'
-import { Question } from '@/models/survey'
+import { Question } from 'i-just-crashed-my-plane-survey'
 
 /**
  * @abstract

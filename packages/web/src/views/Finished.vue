@@ -16,7 +16,7 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
   import { Getter } from 'vuex-class'
-  import { IncidentLevel } from '@/models/survey'
+  import { IncidentLevel } from 'i-just-crashed-my-plane-survey'
   import Accident from '@/views/Finished/Accident.vue'
   import SeriousIncident from '@/views/Finished/SeriousIncident.vue'
   import Incident from '@/views/Finished/Incident.vue'

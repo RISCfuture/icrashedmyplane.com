@@ -3,12 +3,11 @@
 import { isPlainObject } from 'lodash-es'
 import Response from '@/models/response/index'
 import {
-  Action, Option, Question
-} from '@/models/survey'
+  Action, Option, Question, SurveyTraverser
+} from 'i-just-crashed-my-plane-survey'
 import {
   ResponseNode, endNode, isActionResponseNode, isQuestionResponseNode
 } from '@/models/response/answer'
-import SurveyTraverser from '@/models/survey/traverser'
 
 export type BeyondEndNode = 'beyondEndNode'
 export const beyondEndNode: BeyondEndNode = 'beyondEndNode'

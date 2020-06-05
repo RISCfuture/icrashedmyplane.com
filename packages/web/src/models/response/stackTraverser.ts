@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 
-import { SurveyNode } from '@/models/survey'
+import { SurveyNode } from 'i-just-crashed-my-plane-survey'
 import Response from '@/models/response/index'
 import ResponseTraverser, { CurrentResponseNode } from '@/models/response/traverser'
 
