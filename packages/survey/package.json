@@ -4,10 +4,15 @@
   "main": "dist/index.js",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "build": "tsc",
+    "serve": "tsc -w"
+  },
   "dependencies": {
     "lodash-es": "^4.17.15"
   },
   "devDependencies": {
+    "@types/lodash-es": "^4.17.3",
     "typedoc": "^0.17.7",
     "typescript": "~3.9.3"
   },

@@ -12,11 +12,7 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap":                    true,
     "baseUrl":                      ".",
-    "types":                        [
-      "webpack-env",
-      "mocha",
-      "chai"
-    ],
+    "outDir":                       "dist/",
     "paths":                        {
       "@/*": [
         "src/*"
