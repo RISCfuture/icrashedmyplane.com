@@ -14,7 +14,7 @@
 
     <i18n tag="footer" path="welcome.footer">
       <template #me>
-        <a href="https://tim.codes" target="_blank">Tim Morgan</a>
+        <a href="https://tim.codes" target="_blank" rel="noreferrer">Tim Morgan</a>
       </template>
     </i18n>
   </div>

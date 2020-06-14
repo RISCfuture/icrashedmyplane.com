@@ -60,7 +60,6 @@ describe('Answer flows', () => {
     })
   })
 
-
   it('ends the questioning early once the ACCIDENT level is reached', () => {
     cy.visit('/')
     cy.dataCy('startButton').click()
