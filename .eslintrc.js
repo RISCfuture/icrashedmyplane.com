@@ -34,15 +34,10 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['src/i18n/strings/**/*.ts'],
-      rules: {
-        '@typescript-eslint/camelcase': 'off'
-      }
-    },
-    {
       files: ['*.vue'],
       rules: {
-        indent: 'off'
+        indent: 'off',
+        'class-methods-use-this': 'off'
       }
     }
   ]
