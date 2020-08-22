@@ -38,7 +38,7 @@ export default function createRootModule(
 
       /** Returns a method that retrieves a response by survey identifier. */
       response(state: RootState): (key: string) => Response | undefined {
-        return function (key: string): Response {
+        return function (key: string): Response | undefined {
           return state.responses[key]
         }
       },

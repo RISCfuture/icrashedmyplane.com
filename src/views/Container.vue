@@ -42,7 +42,7 @@
     get nextPrompt(): Prompt | undefined {
       if (!this.clickedContinue) return undefined
       if (isNil(this.currentSurveyID)) return undefined
-      const prompt = this.response(this.currentSurveyID).nextQuestion
+      const prompt = this.response(this.currentSurveyID)?.nextQuestion
       if (isNil(prompt)) return undefined
       return prompt
     }
@@ -63,7 +63,7 @@
     }
 
     private get currentSurveyID(): string | undefined {
-      return find(surveyOrder, ID => !this.response(ID).isEffectivelyFinished)
+      return find(surveyOrder, ID => !this.response(ID)?.isEffectivelyFinished)
     }
   }
 </script>
