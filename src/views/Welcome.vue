@@ -43,9 +43,9 @@
 </style>
 
 <style scoped lang="scss">
-  @use 'src/assets/styles/colors';
-  @use 'src/assets/styles/fonts';
-  @use 'src/assets/styles/responsive';
+  @use "src/assets/styles/colors";
+  @use "src/assets/styles/fonts";
+  @use "src/assets/styles/responsive";
 
   article {
     flex: 1 1 auto;
@@ -61,19 +61,18 @@
 
   p {
     @include fonts.Quicksand-Medium;
-
     @include responsive.bottom-margin-large;
+
     margin-left: auto;
     margin-right: auto;
     max-width: 500px;
     text-align: center;
-
   }
 
   button {
     @include colors.theme using($theme) {
       background-color: colors.$color-1;
-      color: colors.get($theme, 'button-text-color');
+      color: colors.get($theme, "button-text-color");
     }
   }
 </style>

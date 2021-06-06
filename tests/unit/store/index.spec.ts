@@ -95,8 +95,8 @@ describe('Vuex store', () => {
             choices: [false, true, true]
           })
           expect.fail() // should have thrown an error by now
-        } catch (e) {
-          expect(e.message).to.eql('Path ended prematurely')
+        } catch (e: unknown) {
+          expect((<Error>e).message).to.eql('Path ended prematurely')
         }
       })
     })

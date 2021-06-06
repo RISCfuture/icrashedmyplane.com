@@ -58,9 +58,9 @@
 </script>
 
 <style lang="scss">
-  @use 'src/assets/styles/colors';
-  @use 'src/assets/styles/fonts';
-  @use 'src/assets/styles/responsive';
+  @use "src/assets/styles/colors";
+  @use "src/assets/styles/fonts";
+  @use "src/assets/styles/responsive";
 
   .level-description {
     margin-left: auto;
@@ -69,6 +69,7 @@
 
     h2 {
       @include responsive.top-margin;
+
       text-align: center;
     }
 
@@ -78,7 +79,7 @@
 
       strong {
         @include colors.theme using($theme) {
-          color: colors.get($theme, 'header-alternate-color');
+          color: colors.get($theme, "header-alternate-color");
         }
       }
     }

@@ -1,8 +1,11 @@
 {
-  "extends": "stylelint-config-sass-guidelines",
-  "rules": {
+  "extends": [
+    "stylelint-config-standard-scss",
+    "stylelint-config-recommended-vue/scss"
+  ],
+  "rules":   {
     "function-parentheses-space-inside": "never-single-line",
-    "max-nesting-depth": null,
-    "selector-max-id": null
+    "max-nesting-depth":                 null,
+    "selector-max-id":                   null
   }
 }

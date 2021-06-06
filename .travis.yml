@@ -2,7 +2,7 @@ language: node_js
 git:
   submodules: false
 node_js:
-  - 15
+  - 16
 addons:
   apt:
     packages:

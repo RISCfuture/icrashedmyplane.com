@@ -32,27 +32,29 @@
 </script>
 
 <style lang="scss">
-  @use 'sass:list';
-  @use 'src/assets/styles/colors';
-  @use 'src/assets/styles/controls';
-  @use 'src/assets/styles/responsive';
+  @use "sass:list";
+  @use "sass:math";
+  @use "src/assets/styles/colors";
+  @use "src/assets/styles/controls";
+  @use "src/assets/styles/responsive";
 
   .option-single {
     @include controls.button;
     @include responsive.font-size-regular;
-    break-inside: avoid;
-
-    display: block;
-    text-align: center;
 
     @include responsive.large {
       margin: 0 0.5em 0.5em;
       padding-left: 1.5em;
       padding-right: 1.5em;
     }
+
     @include responsive.small {
       margin: 10px 0;
     }
+
+    break-inside: avoid;
+    display: block;
+    text-align: center;
   }
 
   .option-1 { background-color: colors.$color-1; }
@@ -62,6 +64,6 @@
   .option-5 { background-color: colors.$color-5; }
 
   .option-more {
-    background-color: list.nth(colors.$button-colors, random(5));
+    background-color: list.nth(colors.$button-colors, math.random(5));
   }
 </style>

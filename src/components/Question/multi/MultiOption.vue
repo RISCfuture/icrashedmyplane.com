@@ -41,58 +41,44 @@
       if (isUndefined(this.option.data.subtitle)) {
         return null
       }
-        return this.$t(`survey.${this.surveyId}.subtitles.${this.option.data.subtitle}`)
+      return this.$t(`survey.${this.surveyId}.subtitles.${this.option.data.subtitle}`)
     }
   }
 </script>
 
 <style lang="scss">
-  @use 'src/assets/styles/colors';
-  @use 'src/assets/styles/fonts';
-  @use 'src/assets/styles/responsive';
+  @use "src/assets/styles/colors";
+  @use "src/assets/styles/fonts";
+  @use "src/assets/styles/responsive";
 
   .option-multi {
+    @include colors.theme using ($theme) {
+      border: 1px solid colors.get($theme, "multi-option-bg-color");
+    }
+
     align-items: center;
     border-radius: 2em;
     cursor: pointer;
-
     display: flex;
     flex-flow: row nowrap;
     margin: 1em 0;
     padding: 1em;
-
     transition: background 0.25s;
     user-select: none;
-    @include colors.theme using ($theme) {
-      border: 1px solid colors.get($theme, 'multi-option-bg-color');
-    }
 
     @include colors.theme using ($theme) {
-      background: linear-gradient(
-        90deg,
-        colors.get($theme, 'background') 0%,
-        colors.get($theme, 'background') 100%
-      );
+      background:
+        linear-gradient(
+          90deg,
+          colors.get($theme, "background") 0%,
+          colors.get($theme, "background") 100%
+        );
     }
 
     @include colors.theme using($theme) {
       a,
       a:hover {
-        color: colors.get($theme, 'multi-option-text-color');
-      }
-    }
-
-    &.selected {
-      @include colors.theme using ($theme) {
-        background: linear-gradient(
-          90deg,
-          colors.get($theme, 'multi-option-bg-color') 0%,
-          colors.get($theme, 'multi-option-bg-color') 100%
-        );
-      }
-
-      svg {
-        opacity: 1;
+        color: colors.get($theme, "multi-option-text-color");
       }
     }
 
@@ -101,8 +87,22 @@
       height: 20px;
       margin: 0 0.75em 0 0.5em;
       opacity: 0;
-
       width: 20px;
+    }
+
+    &.selected {
+      @include colors.theme using ($theme) {
+        background:
+          linear-gradient(
+            90deg,
+            colors.get($theme, "multi-option-bg-color") 0%,
+            colors.get($theme, "multi-option-bg-color") 100%
+          );
+      }
+
+      svg {
+        opacity: 1;
+      }
     }
 
     .option-link {
@@ -111,21 +111,24 @@
 
     .option-subtitle {
       @include responsive.font-size-tiny;
-      margin: 10px 0 0;
+
       @include colors.theme using ($theme) {
-        color: colors.get($theme, 'multi-option-text-color');
+        color: colors.get($theme, "multi-option-text-color");
       }
+
+      margin: 10px 0 0;
     }
 
     @media all and (hover: hover) {
       &:not(.selected):hover {
         @include colors.theme using ($theme) {
-          background: linear-gradient(
-            90deg,
-            colors.get($theme, 'background') 0%,
-            colors.get($theme, 'background') 25%,
-            colors.get($theme, 'multi-option-bg-color') 100%
-          );
+          background:
+            linear-gradient(
+              90deg,
+              colors.get($theme, "background") 0%,
+              colors.get($theme, "background") 25%,
+              colors.get($theme, "multi-option-bg-color") 100%
+            );
         }
       }
     }

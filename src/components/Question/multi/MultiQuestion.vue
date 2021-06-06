@@ -22,7 +22,9 @@
         <slot />
       </div>
       <div class="question-actions">
-        <button @click="answerChosen()" data-cy="nextButton">{{nextButtonTitle}}</button>
+        <button @click="answerChosen()" data-cy="nextButton">
+          {{ nextButtonTitle }}
+        </button>
       </div>
     </div>
   </transition>
@@ -160,9 +162,9 @@
 </style>
 
 <style scoped lang="scss">
-  @use 'src/assets/styles/colors';
-  @use 'src/assets/styles/fonts';
-  @use 'src/assets/styles/responsive';
+  @use "src/assets/styles/colors";
+  @use "src/assets/styles/fonts";
+  @use "src/assets/styles/responsive";
 
   .question-options {
     display: flex;
@@ -171,23 +173,24 @@
 
   .check-all {
     @include responsive.font-size-very-small;
+
     @include colors.theme using($theme) {
-      color: colors.get($theme, 'muted-color');
+      color: colors.get($theme, "muted-color");
     }
   }
 
   button {
     @include fonts.Quicksand-Bold;
     @include responsive.font-size-regular;
-
     @include responsive.top-margin-large;
     @include responsive.bottom-margin-large;
-    padding-left: 3em;
-    padding-right: 3em;
 
     @include colors.theme using($theme) {
-      background-color: colors.get($theme, 'button-background-color');
-      color: colors.get($theme, 'button-text-color');
+      background-color: colors.get($theme, "button-background-color");
+      color: colors.get($theme, "button-text-color");
     }
+
+    padding-left: 3em;
+    padding-right: 3em;
   }
 </style>

@@ -107,15 +107,16 @@
 </script>
 
 <style lang="scss">
-  @use 'src/assets/styles/colors';
-  @use 'src/assets/styles/fonts';
-  @use 'src/assets/styles/responsive';
+  @use "src/assets/styles/colors";
+  @use "src/assets/styles/fonts";
+  @use "src/assets/styles/responsive";
 
   .question {
     .question-breadcrumbs {
       @include responsive.font-size-small;
+
       @include colors.theme using ($theme) {
-        color: colors.get($theme, 'breadcrumbs-color');
+        color: colors.get($theme, "breadcrumbs-color");
       }
 
       strong {
@@ -135,8 +136,9 @@
     .regulation {
       @include fonts.Quicksand-Light;
       @include responsive.font-size-very-small;
+
       @include colors.theme using ($theme) {
-        color: colors.get($theme, 'muted-color');
+        color: colors.get($theme, "muted-color");
       }
     }
   }

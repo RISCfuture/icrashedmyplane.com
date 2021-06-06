@@ -58,18 +58,20 @@
 </script>
 
 <style lang="scss">
-  @use 'src/assets/styles/responsive';
+  @use "src/assets/styles/responsive";
 
   .question-options {
     @include responsive.top-margin-large;
 
-    display: flex;
     @include responsive.large {
       flex-flow: row wrap;
       justify-content: center;
     }
+
     @include responsive.small {
       flex-flow: column nowrap;
     }
+
+    display: flex;
   }
 </style>

@@ -2,6 +2,11 @@ import {
   cloneDeep, isEmpty, isPlainObject, isUndefined
 } from 'lodash-es'
 
+export type EndNode = 'end'
+
+/** Represents the end of a path in a response tree. */
+export const endNode = 'end'
+
 /** A node in a response tree representing a {@link Question} that was answered. */
 
 export interface QuestionResponseNode {
@@ -11,6 +16,7 @@ export interface QuestionResponseNode {
    * ActionNode if the user chose that option, or `undefined` if not.
    */
 
+  // eslint-disable-next-line no-use-before-define
   nodes: (ActionResponseNode | undefined)[];
 }
 
@@ -28,11 +34,6 @@ export interface ActionResponseNode {
 
   next: QuestionResponseNode | EndNode;
 }
-
-export type EndNode = 'end'
-
-/** Represents the end of a path in a response tree. */
-export const endNode = 'end'
 
 export type ResponseNode = QuestionResponseNode | ActionResponseNode | EndNode
 

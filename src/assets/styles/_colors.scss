@@ -1,4 +1,4 @@
-@use 'sass:map';
+@use "sass:map";
 
 // the basics
 
@@ -20,7 +20,6 @@ $color-2: #0e6ba8;
 $color-3: #ec9a29;
 $color-4: #3e5641;
 $color-5: #a24936;
-
 $button-colors: $color-1 $color-2 $color-3 $color-4 $color-5;
 
 /* Defines color themes for light and dark schemes. Use this mixin to get the
@@ -30,36 +29,36 @@ $button-colors: $color-1 $color-2 $color-3 $color-4 $color-5;
 @mixin theme {
   @media all and (prefers-color-scheme: dark) {
     @content((
-      'background': $blue-1,
-      'breadcrumbs-color': lighten($blue-3, 10%),
-      'button-background-color': $blue-4,
-      'button-text-color': $background,
-      'footer-color': $blue-4,
-      'header-alternate-color': $blue-5,
-      'link-hover-color': $blue-5,
-      'link-hover-color-alternate': $blue-4,
-      'multi-option-bg-color': $blue-3,
-      'multi-option-text-color': $blue-4,
-      'muted-color': darken($muted-color, 20%),
-      'text-color': $blue-4,
-      'text-color-alternate': darken($blue-4, 10%),
+      "background": $blue-1,
+      "breadcrumbs-color": lighten($blue-3, 10%),
+      "button-background-color": $blue-4,
+      "button-text-color": $background,
+      "footer-color": $blue-4,
+      "header-alternate-color": $blue-5,
+      "link-hover-color": $blue-5,
+      "link-hover-color-alternate": $blue-4,
+      "multi-option-bg-color": $blue-3,
+      "multi-option-text-color": $blue-4,
+      "muted-color": darken($muted-color, 20%),
+      "text-color": $blue-4,
+      "text-color-alternate": darken($blue-4, 10%),
     ));
   }
 
   @content((
-    'background': $background,
-    'breadcrumbs-color': $blue-4,
-    'button-background-color': $blue-3,
-    'button-text-color': $background,
-    'footer-color': $blue-4,
-    'header-alternate-color': $blue-4,
-    'link-hover-color': $blue-4,
-    'link-hover-color-alternate': $blue-3,
-    'multi-option-bg-color': $blue-5,
-    'multi-option-text-color': $blue-4,
-    'muted-color': $muted-color,
-    'text-color': $blue-2,
-    'text-color-alternate': $blue-4,
+    "background": $background,
+    "breadcrumbs-color": $blue-4,
+    "button-background-color": $blue-3,
+    "button-text-color": $background,
+    "footer-color": $blue-4,
+    "header-alternate-color": $blue-4,
+    "link-hover-color": $blue-4,
+    "link-hover-color-alternate": $blue-3,
+    "multi-option-bg-color": $blue-5,
+    "multi-option-text-color": $blue-4,
+    "muted-color": $muted-color,
+    "text-color": $blue-2,
+    "text-color-alternate": $blue-4,
   ));
 }
 
@@ -68,4 +67,5 @@ $button-colors: $color-1 $color-2 $color-3 $color-4 $color-5;
    CSS files. */
 
 @function get($theme, $name) {
-  @return map.get($theme, $name); }
+  @return map.get($theme, $name);
+}

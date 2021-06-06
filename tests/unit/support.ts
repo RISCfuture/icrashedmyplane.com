@@ -4,7 +4,7 @@ import {
 import { ResponseNode, endNode, QuestionResponseNode } from '@/models/response/answer'
 import Response from '@/models/response'
 
-export function makeResponse(survey = 'incident', answer?: QuestionResponseNode): Response {
+export function makeResponse(survey: string, answer?: QuestionResponseNode): Response {
   const response = new Response(survey)
   response.rootNode = answer ?? endNode
   return response

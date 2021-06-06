@@ -1,17 +1,18 @@
-@use './fonts';
-@use './colors';
-@use './controls';
-@use 'src/assets/styles/responsive';
+@use "./fonts";
+@use "./colors";
+@use "./controls";
+@use "src/assets/styles/responsive";
 
 html,
 body {
   @include colors.theme using ($theme) {
-    background-color: colors.get($theme, 'background');
+    background-color: colors.get($theme, "background");
   }
 }
 
 * {
   @include fonts.Quicksand-Regular;
+
   font-weight: normal;
 }
 
@@ -20,21 +21,22 @@ h1,
 h2,
 a {
   @include colors.theme using ($theme) {
-    color: colors.get($theme, 'text-color');
+    color: colors.get($theme, "text-color");
   }
 }
 
 a {
   @media all and (prefers-color-scheme: dark) {
+    @include fonts.Quicksand-SemiBold;
     @include fonts.Quicksand-Bold;
   }
-  @include fonts.Quicksand-SemiBold;
+
   text-decoration: none;
 
   @media all and (hover: hover) {
     &:hover {
       @include colors.theme using ($theme) {
-        color: colors.get($theme, 'link-hover-color');
+        color: colors.get($theme, "link-hover-color");
       }
     }
   }
@@ -46,6 +48,7 @@ strong {
 
 button {
   @include controls.button;
+
   appearance: none;
   border-style: none;
 }
@@ -55,13 +58,13 @@ button {
   p,
   a {
     @include colors.theme using ($theme) {
-      color: colors.get($theme, 'text-color-alternate');
+      color: colors.get($theme, "text-color-alternate");
     }
   }
 
   a:hover {
     @include colors.theme using ($theme) {
-      color: colors.get($theme, 'link-hover-color-alternate');
+      color: colors.get($theme, "link-hover-color-alternate");
     }
   }
 }
@@ -69,10 +72,10 @@ button {
 footer {
   @include fonts.Quicksand-Light;
   @include responsive.font-size-tiny;
-  
-  padding: 10px 0;
-  
+
   @include colors.theme using($theme) {
-    color: colors.get($theme, 'footer-color');
+    color: colors.get($theme, "footer-color");
   }
+
+  padding: 10px 0;
 }

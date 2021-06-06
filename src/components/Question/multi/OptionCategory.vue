@@ -81,13 +81,14 @@
 </script>
 
 <style lang="scss">
-  @use 'src/assets/styles/fonts';
-  @use 'src/assets/styles/responsive';
+  @use "src/assets/styles/fonts";
+  @use "src/assets/styles/responsive";
 
   .option-category {
     h1 {
       @include responsive.font-size-small;
       @include fonts.Quicksand-Thin;
+
       text-align: center;
     }
   }
@@ -102,13 +103,12 @@
     .option-category:not(.option-category-uncategorized) {
       .option-category-options {
         @include responsive.bottom-margin;
+
         column-count: 2;
       }
 
       .multi-option-container {
         break-inside: avoid-column;
-        /*&:first-child{ margin-top: 0;}*/
-        /*&:last-child{margin-bottom: 0;}*/
         padding: 0.5em 0;
       }
 

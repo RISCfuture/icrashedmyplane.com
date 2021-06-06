@@ -69,7 +69,7 @@
 </script>
 
 <style lang="scss">
-  @use 'src/assets/styles/responsive';
+  @use "src/assets/styles/responsive";
 
   #container {
     @include responsive.fill-height;
