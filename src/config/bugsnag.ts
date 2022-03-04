@@ -1,10 +1,10 @@
 import Vue from 'vue'
-import Bugsnag from '@bugsnag/js'
+import Bugsnag, { Plugin } from '@bugsnag/js'
 import BugsnagPluginVue from '@bugsnag/plugin-vue'
 
 Bugsnag.start({
   apiKey: '0c0bde4b2aaa0022601634717c4148d5',
-  plugins: [new BugsnagPluginVue()],
+  plugins: [<Plugin> new BugsnagPluginVue()],
   enabledReleaseStages: ['production']
 })
 
