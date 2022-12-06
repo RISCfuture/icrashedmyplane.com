@@ -1,5 +1,0 @@
-[submodule "deploy"]
-	path = deploy
-	url = git@github.com:RISCfuture/I-Crashed-My-Plane.git
-	branch = gh-pages
-        ignore = all
