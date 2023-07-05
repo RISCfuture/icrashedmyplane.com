@@ -1,11 +1,9 @@
-/* eslint-disable no-param-reassign,@typescript-eslint/no-var-requires */
-
 const StyleLintPlugin = require('stylelint-webpack-plugin')
 
 module.exports = {
   lintOnSave: false,
 
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     if (process.env.NODE_ENV === 'development') {
       // safari dev fix: https://github.com/vuejs/vue-cli/issues/1132
       config.output.filename('[name].[hash].js').end()
@@ -18,10 +16,11 @@ module.exports = {
   },
 
   configureWebpack: {
+    devtool: 'source-map',
     plugins: [
       new StyleLintPlugin({
-        files: ['src/**/*.{vue,scss}']
-      })
-    ]
-  }
+        files: ['src/**/*.{vue,scss}'],
+      }),
+    ],
+  },
 }

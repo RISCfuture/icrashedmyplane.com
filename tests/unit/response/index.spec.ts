@@ -86,8 +86,8 @@ describe('Response', () => {
     it('returns the next Question', () => {
       const prompt = makeResponse('incident', unfinishedAnswerEndingInSingleQuestion).nextQuestion
       expect(prompt).not.to.be.null
-      expect(prompt!.question).to.be.instanceOf(Question)
-      expect(prompt!.answerPath).to.eql([21])
+      expect(prompt.question).to.be.instanceOf(Question)
+      expect(prompt.answerPath).to.eql([21])
     })
 
     it('returns null if the response is finished', () => {

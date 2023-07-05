@@ -1,5 +1,5 @@
 import {
-  IncidentLevel, LevelAction, Option, Question, QuestionAction
+  IncidentLevel, LevelAction, Option, Question, QuestionAction,
 } from '@/models/survey'
 
 export const classifyAsAccident = new LevelAction(IncidentLevel.ACCIDENT)
@@ -23,20 +23,20 @@ export const noMeansSeriousIncident = new Option('no', classifyAsSeriousIncident
 
 export const yesMeansAccidentNoMeansIncident: Option[] = [
   yesMeansAccident,
-  noMeansIncident
+  noMeansIncident,
 ]
 
 export const yesMeansSeriousIncidentNoMeansIncident: Option[] = [
   yesMeansSeriousIncident,
-  noMeansIncident
+  noMeansIncident,
 ]
 
 export const noMeansAccidentYesMeansIncident: Option[] = [
   yesMeansIncident,
-  noMeansAccident
+  noMeansAccident,
 ]
 
 export const noMeansSeriousIncidentYesMeansIncident: Option[] = [
   yesMeansIncident,
-  noMeansSeriousIncident
+  noMeansSeriousIncident,
 ]

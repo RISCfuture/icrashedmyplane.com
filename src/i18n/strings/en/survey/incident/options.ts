@@ -8,7 +8,7 @@ const options: LocaleMessageObject = {
   burnDegree: {
     firstDegree: 'First-degree',
     secondDegree: 'Second-degree',
-    thirdDegree: 'Third-degree'
+    thirdDegree: 'Third-degree',
   },
   burns: 'Burns',
   collision: 'Collision with another aircraft',
@@ -43,6 +43,6 @@ const options: LocaleMessageObject = {
   TCASRA: 'TCAS or ACAS resolution advisory',
   tendonDamage: 'Tendon damage',
   wingtips: 'Wingtips',
-  wrongRunway: 'Takeoff or landing from an incorrect runway'
+  wrongRunway: 'Takeoff or landing from an incorrect runway',
 }
 export default options

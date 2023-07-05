@@ -10,34 +10,55 @@ on:
     branches: [master]
 
 jobs:
-  test:
-    name: Tests
+  unit:
+    name: Unit Tests
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         submodules: true
+    - name: Enable Corepack
+      run: corepack enable
     - name: Set up Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
         cache: yarn
+        node-version: 20.x
     - name: Install dependencies
       run: yarn install
     - name: Run unit tests
-      run: yarn ci:unit
-    - name: Run e2e tests
-      run: yarn ci:e2e
+      run: yarn test:unit
+  e2e:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: true
+    - name: Enable Corepack
+      run: corepack enable
+    - uses: cypress-io/github-action@v6
+      with:
+        build: yarn build
+        start: yarn serve
+        record: true
+        wait-on: http://localhost:8080
+      env:
+        CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
   lint:
     name: Linters
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         submodules: true
+    - name: Enable Corepack
+      run: corepack enable
     - name: Set up Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
         cache: yarn
+        node-version: 20.x
     - name: Install dependencies
       run: yarn install
     - name: Run ESLint

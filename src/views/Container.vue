@@ -1,8 +1,15 @@
 <template>
   <div id="container">
-    <transition appear name="in-move-left-out-move-left" mode="out-in">
+    <transition
+      appear
+      name="in-move-left-out-move-left"
+      mode="out-in"
+    >
       <welcome v-if="showWelcome" />
-      <question v-if="showQuestion" :prompt="nextPrompt" />
+      <question
+        v-if="showQuestion"
+        :prompt="nextPrompt"
+      />
       <finished v-if="showFinished" />
     </transition>
   </div>
@@ -27,7 +34,7 @@
    */
 
   @Component({
-    components: { Question, Finished, Welcome }
+    components: { Question, Finished, Welcome },
   })
   export default class Container extends Vue {
     @Getter clickedContinue!: boolean
@@ -63,7 +70,7 @@
     }
 
     private get currentSurveyID(): string | undefined {
-      return find(surveyOrder, ID => !this.response(ID)?.isEffectivelyFinished)
+      return find(surveyOrder, (ID) => !this.response(ID)?.isEffectivelyFinished)
     }
   }
 </script>

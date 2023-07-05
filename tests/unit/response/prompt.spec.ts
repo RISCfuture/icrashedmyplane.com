@@ -9,8 +9,8 @@ describe('answerPathFromQuestionPath', () => {
       incidentSurvey.root,
       incidentSurvey.root.options[2],
       incidentSurvey.root.options[2].action,
-      (<QuestionAction>incidentSurvey.root.options[2].action).question,
-      (<QuestionAction>incidentSurvey.root.options[2].action).question.options[0]
+      (incidentSurvey.root.options[2].action as QuestionAction).question,
+      (incidentSurvey.root.options[2].action as QuestionAction).question.options[0]
     ]
     expect(answerPathFromQuestionPath(questionPath)).to.eql([2, 0])
   })

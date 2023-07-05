@@ -1,12 +1,10 @@
-/* eslint-disable import/no-cycle */
-
 import { isPlainObject } from 'lodash-es'
 import Response from '@/models/response/index'
 import {
-  Action, Option, Question
+  Action, Option, Question,
 } from '@/models/survey'
 import {
-  ResponseNode, endNode, isActionResponseNode, isQuestionResponseNode
+  ResponseNode, endNode, isActionResponseNode, isQuestionResponseNode,
 } from '@/models/response/answer'
 import SurveyTraverser from '@/models/survey/traverser'
 
@@ -17,7 +15,7 @@ export type CurrentResponseNode = ResponseNode | BeyondEndNode | undefined
 
 function isAnswerNode(value: unknown): value is ResponseNode {
   if (!isPlainObject(value)) return false
-  return isActionResponseNode(<ResponseNode>value) || isQuestionResponseNode(<ResponseNode>value)
+  return isActionResponseNode((value as ResponseNode)) || isQuestionResponseNode((value as ResponseNode))
 }
 
 /**
@@ -204,7 +202,7 @@ export default class ResponseTraverser {
       visitAction(action) {
         if (visitor.visitAction) return visitor.visitAction(action, currentNode)
         return true
-      }
+      },
     })
   }
 }

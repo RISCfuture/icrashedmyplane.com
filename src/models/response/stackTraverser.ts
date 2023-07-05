@@ -1,5 +1,3 @@
-/* eslint-disable import/no-cycle */
-
 import { SurveyNode } from '@/models/survey'
 import Response from '@/models/response/index'
 import ResponseTraverser, { CurrentResponseNode } from '@/models/response/traverser'
@@ -74,7 +72,7 @@ export default class ResponseStackTraverser {
 
       visitAction(action, responseNode) {
         return visitor.visitNode(stack, responseNode)
-      }
+      },
     })
   }
 }

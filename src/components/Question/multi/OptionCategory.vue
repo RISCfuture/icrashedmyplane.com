@@ -1,14 +1,22 @@
 <template>
-  <div class="option-category"
-       :class="{'option-category-uncategorized': !category, 'even-option-count': isEven}">
-    <h1>{{title || 'uncategorized'}}</h1>
+  <div
+    class="option-category"
+    :class="{ 'option-category-uncategorized': !category, 'even-option-count': isEven }"
+  >
+    <h1>{{ title || 'uncategorized' }}</h1>
 
     <div class="option-category-options">
-      <div class="multi-option-container" v-for="option in options" :key="option.identifier">
-        <multi-option :option="option"
-                      :selected="isSelected(option)"
-                      :survey-id="surveyId"
-                      @clicked="toggle(option)" />
+      <div
+        v-for="option in options"
+        :key="option.identifier"
+        class="multi-option-container"
+      >
+        <multi-option
+          :option="option"
+          :selected="isSelected(option)"
+          :survey-id="surveyId"
+          @clicked="toggle(option)"
+        />
       </div>
     </div>
   </div>
@@ -32,7 +40,7 @@
    */
 
   @Component({
-    components: { MultiOption }
+    components: { MultiOption },
   })
   export default class OptionCategory extends Vue {
     /** The identifier of the {@link Survey} the question belongs to. */

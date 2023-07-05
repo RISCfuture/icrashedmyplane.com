@@ -5,9 +5,9 @@
     <incident v-else />
     <footer>
       <p v-if="regulationList">
-        {{$t('finished.applicableRegulations', {regulations: regulationList})}}
+        {{ $t('finished.applicableRegulations', { regulations: regulationList }) }}
       </p>
-      <p>{{$t('finished.disclaimer')}}</p>
+      <p>{{ $t('finished.disclaimer') }}</p>
     </footer>
   </div>
 </template>
@@ -28,7 +28,7 @@
    */
 
   @Component({
-    components: { Incident, SeriousIncident, Accident }
+    components: { Incident, SeriousIncident, Accident },
   })
   export default class Finished extends Vue {
     @Getter incidentLevel!: IncidentLevel

@@ -3,3 +3,12 @@
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/
+
+# Yarn
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

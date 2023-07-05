@@ -1,5 +1,7 @@
 <template>
-  <div id="app"><container /></div>
+  <div id="app">
+    <container />
+  </div>
 </template>
 
 <script lang="ts">
@@ -12,7 +14,7 @@
    */
 
   @Component({
-    components: { Container }
+    components: { Container },
   })
   export default class App extends Vue {
   }

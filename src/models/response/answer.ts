@@ -1,5 +1,5 @@
 import {
-  cloneDeep, isEmpty, isPlainObject, isUndefined
+  cloneDeep, isEmpty, isPlainObject, isUndefined,
 } from 'lodash-es'
 
 export type EndNode = 'end'
@@ -46,7 +46,7 @@ export type ResponseNode = QuestionResponseNode | ActionResponseNode | EndNode
 
 export function isQuestionResponseNode(node: ResponseNode): node is QuestionResponseNode {
   if (!isPlainObject(node)) return false
-  return !isUndefined((<QuestionResponseNode>node).nodes)
+  return !isUndefined((node as QuestionResponseNode).nodes)
 }
 
 /**
@@ -58,17 +58,17 @@ export function isQuestionResponseNode(node: ResponseNode): node is QuestionResp
 
 export function isActionResponseNode(node: ResponseNode): node is ActionResponseNode {
   if (!isPlainObject(node)) return false
-  return !isUndefined((<ActionResponseNode>node).next)
+  return !isUndefined((node as ActionResponseNode).next)
 }
 
 function walkResponseTreeEatingPath(
   node: QuestionResponseNode,
-  path: number[]
+  path: number[],
 ): ActionResponseNode {
   if (isEmpty(path)) throw new Error('Path ended prematurely')
   // didn't get to the end of the tree at end of path
 
-  const next = node.nodes[<number>path.shift()]
+  const next = node.nodes[(path.shift()!)]
   if (!next) throw new Error('Invalid index for Question node')
 
   if (next.next === endNode) { // we've reached the end of the tree

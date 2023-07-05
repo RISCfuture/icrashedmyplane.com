@@ -1,5 +1,3 @@
-/* eslint-disable no-use-before-define */
-
 import { isUndefined } from 'lodash-es'
 
 /**
@@ -40,7 +38,7 @@ export enum Flag {
   HELICOPTER
 }
 
-type DataType = {[key: string]: unknown}
+type DataType = Record<string, unknown>;
 
 /**
  * A question that is asked of the user. Questions can be single-choice or multiple-choice, and
@@ -63,7 +61,7 @@ export class Question {
   constructor(
     identifier: string,
     options: Option[],
-    { data, multi }: {data?: DataType; multi?: boolean} = {}
+    { data, multi }: {data?: DataType; multi?: boolean} = {},
   ) {
     this.identifier = identifier
     this.options = options
@@ -99,7 +97,7 @@ export class Option {
   constructor(
     identifier: string,
     action: Action,
-    { only, data }: { only?: Flag[]; data?: DataType } = {}
+    { only, data }: { only?: Flag[]; data?: DataType } = {},
   ) {
     this.identifier = identifier
     this.action = action
