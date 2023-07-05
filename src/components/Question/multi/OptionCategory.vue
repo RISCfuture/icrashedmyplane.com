@@ -1,14 +1,16 @@
 <template>
-  <div class="option-category"
-       :class="{'option-category-uncategorized': !category, 'even-option-count': isEven}">
+  <div
+    class="option-category"
+    :class="{ 'option-category-uncategorized': !category, 'even-option-count': isEven }">
     <h1>{{title || 'uncategorized'}}</h1>
 
     <div class="option-category-options">
       <div class="multi-option-container" v-for="option in options" :key="option.identifier">
-        <multi-option :option="option"
-                      :selected="isSelected(option)"
-                      :survey-id="surveyId"
-                      @clicked="toggle(option)" />
+        <multi-option
+          :option="option"
+          :selected="isSelected(option)"
+          :survey-id="surveyId"
+          @clicked="toggle(option)" />
       </div>
     </div>
   </div>

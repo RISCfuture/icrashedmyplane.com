@@ -11,15 +11,17 @@
 
     <div class="level-action-details">
       <h2>{{$t('finished.immediateNotification.title')}}</h2>
-      <p v-html="$t('finished.immediateNotification.description')"/>
+      <p v-html="$t('finished.immediateNotification.description')" />
       <i18n path="finished.immediateNotification.contact" tag="p">
         <template #URL>
-          <a href="https://www.ntsb.gov/about/Pages/OfficeLocation.aspx" rel="noreferrer"
-             target="_blank">
+          <a
+            href="https://www.ntsb.gov/about/Pages/OfficeLocation.aspx"
+            rel="noopener noreferrer"
+            target="_blank">
             ntsb.gov</a>
         </template>
       </i18n>
-      <p v-html="$t('finished.immediateNotification.whatToInclude')"/>
+      <p v-html="$t('finished.immediateNotification.whatToInclude')" />
     </div>
   </div>
 </template>

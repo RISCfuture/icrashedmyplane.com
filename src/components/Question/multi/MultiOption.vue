@@ -1,10 +1,11 @@
 <template>
-  <div class="option option-multi" :class="{selected: selected}" @click.prevent.stop="clicked()">
+  <div class="option option-multi" :class="{ selected: selected }" @click.prevent.stop="clicked()">
     <checkmark />
     <div class="option-link">
-      <a href="#"
-         @click.prevent.stop="clicked()"
-         :data-cy="option.identifier">
+      <a
+        href="#"
+        @click.prevent.stop="clicked()"
+        :data-cy="option.identifier">
         {{title}}
       </a>
       <p v-if="subtitle" class="option-subtitle">{{subtitle}}</p>

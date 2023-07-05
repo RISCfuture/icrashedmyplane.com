@@ -4,7 +4,6 @@
     "stylelint-config-recommended-vue/scss"
   ],
   "rules":   {
-    "function-parentheses-space-inside": "never-single-line",
     "max-nesting-depth":                 null,
     "selector-max-id":                   null
   }

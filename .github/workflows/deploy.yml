@@ -33,9 +33,10 @@ jobs:
     - name: Setup pages
       uses: actions/configure-pages@v2
     - name: Set up Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         cache: yarn
+        node-version: 20.x
     - name: Install dependencies
       run: yarn install
     - name: Build
