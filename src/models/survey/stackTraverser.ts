@@ -1,5 +1,3 @@
-/* eslint-disable import/no-cycle */
-
 import Survey, { SurveyNode } from '@/models/survey/index'
 import SurveyTraverser from '@/models/survey/traverser'
 
@@ -72,7 +70,7 @@ export default class SurveyStackTraverser {
 
       visitAction() {
         return visitor.visitNode(stack)
-      }
+      },
     })
   }
 }

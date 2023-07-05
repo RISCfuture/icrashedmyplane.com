@@ -17,6 +17,7 @@ export default function runResponse(response: Response): void {
         )
 
         if (question.multi) {
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
           chosenOptions.forEach(option => cy.dataCy(option.identifier).click())
           cy.dataCy('nextButton').click()
         } else {

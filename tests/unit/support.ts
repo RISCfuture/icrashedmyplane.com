@@ -21,5 +21,5 @@ const answerMergeFunctor = (
 }
 
 export function mergeAnswers(...answers: QuestionResponseNode[]): QuestionResponseNode {
-  return mergeWith({}, ...answers, answerMergeFunctor)
+  return mergeWith({}, ...answers, answerMergeFunctor) as QuestionResponseNode
 }

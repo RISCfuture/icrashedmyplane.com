@@ -1,13 +1,24 @@
 <template>
-  <div class="option option-multi" :class="{selected: selected}" @click.prevent.stop="clicked()">
+  <div
+    class="option option-multi"
+    :class="{ selected: selected }"
+    @click.prevent.stop="clicked()"
+  >
     <checkmark />
     <div class="option-link">
-      <a href="#"
-         @click.prevent.stop="clicked()"
-         :data-cy="option.identifier">
-        {{title}}
+      <a
+        href="#"
+        :data-cy="option.identifier"
+        @click.prevent.stop="clicked()"
+      >
+        {{ title }}
       </a>
-      <p v-if="subtitle" class="option-subtitle">{{subtitle}}</p>
+      <p
+        v-if="subtitle"
+        class="option-subtitle"
+      >
+        {{ subtitle }}
+      </p>
     </div>
   </div>
 </template>
@@ -26,7 +37,7 @@
    */
 
   @Component({
-    components: { Checkmark }
+    components: { Checkmark },
   })
   export default class MultiOption extends AbstractOption {
     /** If `true`, the option should be displayed as selected. */

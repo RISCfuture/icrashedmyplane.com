@@ -1,5 +1,5 @@
 import {
-  Option, Question, SurveyNode
+  Option, Question, SurveyNode,
 } from '@/models/survey'
 
 /**
@@ -31,9 +31,10 @@ export function answerPathFromQuestionPath(questionPath: SurveyNode[]): number[]
 
   questionPath.forEach((step, index) => {
     if (step instanceof Option) {
-      const question = <Question>(questionPath[index - 1])
-      const choiceIndex = question.options.findIndex(option =>
-        option.identifier === step.identifier)
+      const question = questionPath[index - 1] as Question
+      const choiceIndex = question.options.findIndex(
+        (option) => option.identifier === step.identifier,
+      )
       answerPath.push(choiceIndex)
     }
   })

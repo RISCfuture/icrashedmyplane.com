@@ -1,25 +1,42 @@
 <template>
-  <div class="level-serious-incident" data-cy="levelDescription">
-    <i18n path="finished.seriousIncident.title" tag="h1">
-      <template #level><strong>{{$t('finished.seriousIncident.level')}}</strong></template>
+  <div
+    class="level-serious-incident"
+    data-cy="levelDescription"
+  >
+    <i18n
+      path="finished.seriousIncident.title"
+      tag="h1"
+    >
+      <template #level>
+        <strong>{{ $t('finished.seriousIncident.level') }}</strong>
+      </template>
     </i18n>
-    <i18n path="finished.seriousIncident.actions" tag="p">
+    <i18n
+      path="finished.seriousIncident.actions"
+      tag="p"
+    >
       <template #notifyImmediately>
-        <strong>{{$t('finished.seriousIncident.notifyImmediately')}}</strong>
+        <strong>{{ $t('finished.seriousIncident.notifyImmediately') }}</strong>
       </template>
     </i18n>
 
     <div class="level-action-details">
-      <h2>{{$t('finished.immediateNotification.title')}}</h2>
-      <p v-html="$t('finished.immediateNotification.description')"/>
-      <i18n path="finished.immediateNotification.contact" tag="p">
+      <h2>{{ $t('finished.immediateNotification.title') }}</h2>
+      <p v-html="$t('finished.immediateNotification.description')" />
+      <i18n
+        path="finished.immediateNotification.contact"
+        tag="p"
+      >
         <template #URL>
-          <a href="https://www.ntsb.gov/about/Pages/OfficeLocation.aspx" rel="noreferrer"
-             target="_blank">
+          <a
+            href="https://www.ntsb.gov/about/Pages/OfficeLocation.aspx"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
             ntsb.gov</a>
         </template>
       </i18n>
-      <p v-html="$t('finished.immediateNotification.whatToInclude')"/>
+      <p v-html="$t('finished.immediateNotification.whatToInclude')" />
     </div>
   </div>
 </template>

@@ -1,57 +1,96 @@
 module.exports = {
   root: true,
   env: {
-    node: true
+    node: true,
   },
-  plugins: ['vuejs-accessibility'],
   extends: [
-    '@vue/airbnb',
     '@vue/typescript/recommended',
-    'plugin:vue/essential',
-    'plugin:vuejs-accessibility/recommended'
+    'plugin:vue/vue3-recommended',
+    'plugin:vuejs-accessibility/recommended',
   ],
   parserOptions: {
-    parser: '@typescript-eslint/parser', // the typescript-parser for eslint, instead of tslint
-    ecmaVersion: 2020,
+    ecmaVersion: 2021,
     ecmaFeatures: {
-      jsx: false
-    }
+      jsx: false,
+    },
   },
   rules: {
-    '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'angle-bracket' }],
     '@typescript-eslint/no-non-null-assertion': 'off',
-    'arrow-parens': ['error', 'as-needed'],
-    'comma-dangle': ['error', 'never'],
-    'dot-location': ['error', 'object'],
-    'implicit-arrow-linebreak': 'off',
-    'import/no-named-default': 'off',
-    'import/order': ['error', { groups: ['builtin', 'external', 'parent', 'sibling', 'index'] }],
+    'import/extensions': 'off',
     'max-classes-per-file': 'off',
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-plusplus': 'off',
-    'no-shadow': 'off',
-    'no-useless-constructor': 'off',
+    'vue/no-multiple-template-root': 'off',
+    'vue/no-v-html': 'off',
     'vue/script-indent': ['error', 2, { baseIndent: 1 }],
     'vuejs-accessibility/click-events-have-key-events': 'off',
-    semi: ['error', 'never']
+    'vuejs-accessibility/no-static-element-interactions': 'off',
+    semi: ['error', 'never'],
   },
   overrides: [
     {
       files: ['*.vue'],
       rules: {
         indent: 'off',
-        'class-methods-use-this': 'off'
+      },
+    },
+    {
+      files: ['src/**/*.ts'],
+      extends: [
+        'plugin:@typescript-eslint/strict-type-checked',
+        'plugin:@typescript-eslint/stylistic-type-checked',
+      ],
+      parserOptions: {
+        project: true,
+      },
+      rules: {
+        '@typescript-eslint/no-non-null-assertion': 'off',
       }
     },
     {
-      files: [
-        '**/__tests__/*.{j,t}s?(x)',
-        '**/tests/unit/**/*.spec.{j,t}s?(x)'
-      ],
+      files: ['tests/unit/**/*.ts'],
+      plugins: ['chai-expect', 'chai-friendly', 'mocha'],
       env: {
-        mocha: true
+        mocha: true,
+      },
+      extends: [
+        'plugin:@typescript-eslint/strict-type-checked',
+        'plugin:@typescript-eslint/stylistic-type-checked',
+      ],
+      parserOptions: {
+        project: true,
+      },
+      rules: {
+        '@typescript-eslint/no-non-null-assertion': 'off',
       }
-    }
-  ]
+    },
+    {
+      files: ['tests/unit/**/*.spec.ts'],
+      rules: {
+        'no-unused-expressions': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
+      },
+    },
+    {
+      files: ['tests/e2e/**/*.ts'],
+      plugins: ['cypress'],
+      env: {
+        'cypress/globals': true,
+      },
+      extends: [
+        'plugin:cypress/recommended',
+        'plugin:@typescript-eslint/strict-type-checked',
+        'plugin:@typescript-eslint/stylistic-type-checked',
+      ],
+      rules: {
+        '@typescript-eslint/no-non-null-assertion': 'off',
+      },
+      parserOptions: {
+        project: true,
+      },
+    },
+  ],
+  settings: {
+    'import/resolver': {
+      typescript: {},
+    },
+  },
 }

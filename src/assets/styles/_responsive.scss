@@ -2,13 +2,13 @@
    unconstrained. */
 
 @mixin small {
-  @media all and (max-width: 700px) {
+  @media (width <= 700px) {
     @content;
   }
 }
 
 @mixin large {
-  @media all and (min-width: 701px) {
+  @media (width > 700px) {
     @content;
   }
 }

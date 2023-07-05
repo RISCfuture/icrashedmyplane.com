@@ -1,20 +1,34 @@
 <template>
   <div id="welcome">
     <article>
-      <h1>{{$t('welcome.title')}}</h1>
-      <p>{{$t('welcome.description')}}</p>
-      <transition appear name="in-fade-2">
+      <h1>{{ $t('welcome.title') }}</h1>
+      <p>{{ $t('welcome.description') }}</p>
+      <transition
+        appear
+        name="in-fade-2"
+      >
         <p>
-          <button @click="clickContinue()" data-cy="startButton">
-            {{$t('welcome.startButton')}}
+          <button
+            type="button"
+            data-cy="startButton"
+            @click="clickContinue()"
+          >
+            {{ $t('welcome.startButton') }}
           </button>
         </p>
       </transition>
     </article>
 
-    <i18n tag="footer" path="welcome.footer">
+    <i18n
+      tag="footer"
+      path="welcome.footer"
+    >
       <template #me>
-        <a href="https://tim.codes" target="_blank" rel="noreferrer">Tim Morgan</a>
+        <a
+          href="https://tim.codes"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Tim Morgan</a>
       </template>
     </i18n>
   </div>

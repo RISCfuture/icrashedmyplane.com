@@ -1,24 +1,29 @@
 {
   "compilerOptions": {
-    "baseUrl": "../..",
-    "lib": [
-      "es6",
-      "dom"
-    ],
-    "module": "es6",
-    "strict": true,
-    "target": "es6",
-    "typeRoots": [
-      "./support"
-    ],
-    "types": [
+    "target":                           "esnext",
+    "module":                           "esnext",
+    "strict":                           true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution":                 "node",
+    "resolveJsonModule":                true,
+    "experimentalDecorators":           true,
+    "skipLibCheck":                     true,
+    "allowSyntheticDefaultImports":     true,
+    "useDefineForClassFields":          true,
+    "types":                            [
+      "node",
       "cypress"
     ],
-    "paths": {
+    "paths":                            {
       "@/*": [
-        "src/*"
+        "../../src/*"
       ]
-    }
+    },
+    "lib":                              [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ]
   },
   "include":         [
     "**/*.ts"

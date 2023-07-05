@@ -1,28 +1,44 @@
 <template>
-  <transition name="in-move-left-out-move-left" mode="out-in">
-    <div class="question-multi" :key="transitionKey">
+  <transition
+    name="in-move-left-out-move-left"
+    mode="out-in"
+  >
+    <div
+      :key="transitionKey"
+      class="question-multi"
+    >
       <div class="question-content">
-        <p>{{title}}</p>
-        <p class="check-all">{{$t('question.checkAll')}}</p>
+        <p>{{ title }}</p>
+        <p class="check-all">
+          {{ $t('question.checkAll') }}
+        </p>
 
         <div class="question-options">
-          <option-category v-for="(options, category) in optionsByCategory"
-                           :category="category"
-                           :options="options"
-                           :selections="selections"
-                           :surveyId="surveyID"
-                           :key="category"
-                           @toggle="toggle" />
-          <option-category :options="uncategorizedOptions"
-                           :selections="selections"
-                           :surveyId="surveyID"
-                           @toggle="toggle" />
+          <option-category
+            v-for="(options, category) in optionsByCategory"
+            :key="category"
+            :category="category"
+            :options="options"
+            :selections="selections"
+            :survey-id="surveyID"
+            @toggle="toggle"
+          />
+          <option-category
+            :options="uncategorizedOptions"
+            :selections="selections"
+            :survey-id="surveyID"
+            @toggle="toggle"
+          />
         </div>
 
         <slot />
       </div>
       <div class="question-actions">
-        <button @click="answerChosen()" data-cy="nextButton">
+        <button
+          type="button"
+          data-cy="nextButton"
+          @click="answerChosen()"
+        >
           {{ nextButtonTitle }}
         </button>
       </div>
@@ -33,7 +49,7 @@
 <script lang="ts">
   import Component from 'vue-class-component'
   import {
-    every, groupBy, isEmpty, isUndefined
+    every, groupBy, isEmpty, isUndefined,
   } from 'lodash-es'
   import { Getter } from 'vuex-class'
   import { TranslateResult } from 'vue-i18n'
@@ -49,7 +65,7 @@
    */
 
   @Component({
-    components: { OptionCategory, MultiOption }
+    components: { OptionCategory, MultiOption },
   })
   export default class MultiQuestion extends AbstractQuestion {
     @Getter userFlags!: Set<Flag>
@@ -74,7 +90,7 @@
      */
 
     get uncategorizedOptions(): Option[] {
-      return this.filteredOptions.filter(option => isUndefined(option.data.category))
+      return this.filteredOptions.filter((option) => isUndefined(option.data.category))
     }
 
     /**
@@ -83,14 +99,15 @@
 
     get optionsByCategory(): { [key: string]: Option[] } {
       return groupBy(
-        this.filteredOptions.filter(option => !isUndefined(option.data.category)),
-        option => option.data.category
+        this.filteredOptions.filter((option) => !isUndefined(option.data.category)),
+        (option) => option.data.category,
       )
     }
 
     private get filteredOptions(): Option[] {
-      return this.question.options.filter(option =>
-        every(option.only, flag => this.userFlags.has(flag)))
+      return this.question.options.filter(
+        (option) => every(option.only, (flag) => this.userFlags.has(flag)),
+      )
     }
 
     /**
@@ -99,9 +116,8 @@
 
     get selections(): Set<string> {
       return this.question.options.reduce(
-        (set, option, index) =>
-          (this.choices[index] ? new Set([...set, option.identifier]) : set),
-        new Set<string>()
+        (set, option, index) => (this.choices[index] ? new Set([...set, option.identifier]) : set),
+        new Set<string>(),
       )
     }
 
@@ -121,7 +137,7 @@
      */
 
     toggle(identifier: string): void {
-      const index = this.question.options.findIndex(o => o.identifier === identifier)
+      const index = this.question.options.findIndex((o) => o.identifier === identifier)
       this.$set(this.choices, index, !this.choices[index])
     }
 
@@ -131,12 +147,11 @@
      */
 
     async answerChosen(): Promise<void> {
-      console.log(this.prompt, this.choices)
       try {
         await this.recordAnswer({
           surveyID: this.surveyID,
           answerPath: this.prompt.answerPath,
-          choices: this.choices
+          choices: this.choices,
         })
       } catch (e) {
         ErrorBus.$emit('error', e)

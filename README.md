@@ -179,7 +179,7 @@ Unit tests are powered by Mocha using Chai's `expect` syntax. A `fixtures.ts`
 file contains example survey responses that can be used for testing.
 
 Cypress tests are written in TypeScript. To prevent Mocha/Chai's globals from
-interfering with Cypress's globals, a custom `tsconfig.json` and `index.d.ts`
+interfering with Cypress's globals, a custom `tsconfig.json` and `cypress.d.ts`
 have been placed in the `test/e2e` directory to isolate the Cypress namespace.
 
 `test/e2e/plugins/index.js` has been modified to add a Webpack preprocessor that

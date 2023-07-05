@@ -1,5 +1,3 @@
-/* eslint-disable spaced-comment */
-
 // load type definitions that come with Cypress module
 /// <reference types="cypress" />
 

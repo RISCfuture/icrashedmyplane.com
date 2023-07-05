@@ -31,11 +31,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - name: Setup pages
-      uses: actions/configure-pages@v2
+      uses: actions/configure-pages@v3
     - name: Set up Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         cache: yarn
+        node-version: 20.x
     - name: Install dependencies
       run: yarn install
     - name: Build
@@ -55,4 +56,4 @@ jobs:
     steps:
     - name: Deploy to GitHub Pages
       id: deployment
-      uses: actions/deploy-pages@v1
+      uses: actions/deploy-pages@v2

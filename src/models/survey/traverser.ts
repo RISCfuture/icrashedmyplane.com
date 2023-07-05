@@ -1,11 +1,9 @@
-/* eslint-disable import/no-cycle */
-
 import { each } from 'lodash-es'
 import Survey, {
   Action,
   Option,
   Question,
-  QuestionAction
+  QuestionAction,
 } from '@/models/survey/index'
 
 /**

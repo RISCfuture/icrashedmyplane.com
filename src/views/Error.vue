@@ -1,7 +1,7 @@
 <template>
   <div id="error">
-    <h1>{{$t('error.title')}}</h1>
-    <p>{{$t('error.description')}}</p>
+    <h1>{{ $t('error.title') }}</h1>
+    <p>{{ $t('error.description') }}</p>
   </div>
 </template>
 

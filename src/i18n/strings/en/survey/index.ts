@@ -4,6 +4,6 @@ import profile from '@/i18n/strings/en/survey/profile'
 
 const survey: LocaleMessageObject = {
   incident,
-  profile
+  profile,
 }
 export default survey

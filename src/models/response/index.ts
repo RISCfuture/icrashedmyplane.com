@@ -1,19 +1,17 @@
-/* eslint-disable import/no-cycle */
-
 import {
-  isArray, isNull, isString, isUndefined, last, nth
+  isArray, isNull, isString, isUndefined, last, nth,
 } from 'lodash-es'
 import Survey, {
   Action,
   Flag, FlagAction,
   HIGHEST_INCIDENT_LEVEL,
-  IncidentLevel, LevelAction, Option, Question, SurveyNode
+  IncidentLevel, LevelAction, Option, Question, SurveyNode,
 } from '@/models/survey'
 import surveys from '@/data/surveys'
 import {
   EndNode,
   endNode,
-  QuestionResponseNode
+  QuestionResponseNode,
 } from '@/models/response/answer'
 import Prompt, { answerPathFromQuestionPath } from '@/models/response/prompt'
 import ResponseTraverser, { beyondEndNode } from '@/models/response/traverser'
@@ -86,7 +84,7 @@ export default class Response {
         }
 
         return true
-      }
+      },
     })
 
     return finished
@@ -112,7 +110,7 @@ export default class Response {
         }
 
         return true
-      }
+      },
     })
 
     return currentHighestLevel
@@ -144,7 +142,7 @@ export default class Response {
         }
 
         return true
-      }
+      },
     })
 
     return currentHighestLevel
@@ -205,16 +203,17 @@ export default class Response {
         if (!run()) {
           if (isArray(questionPath)) questionPath.unshift(action)
         }
-      }
+      },
     })
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!questionPath) return null
 
     return {
-      question: <Question>(<SurveyNode[]>questionPath).pop(),
+      question: (questionPath as SurveyNode[]).pop() as Question,
       questionPath,
       surveyID: this.surveyIdentifier,
-      answerPath: answerPathFromQuestionPath(questionPath)
+      answerPath: answerPathFromQuestionPath(questionPath),
     }
   }
 
@@ -227,20 +226,20 @@ export default class Response {
 
     new ResponseStackTraverser(this).traverse({
       visitNode(stack, responseNode) {
-        const action = <Action | undefined>last(stack)
+        const action = last(stack) as Action | undefined
         if (!(action instanceof LevelAction)) return true
         if (responseNode !== endNode) return true // user didn't visit this action
 
-        const option = <Option | undefined>nth(stack, -2)
+        const option = nth(stack, -2) as Option | undefined
         if (isUndefined(option)) return true
         if (isString(option.data.regulation)) regulations.add(option.data.regulation)
 
-        const question = <Question | undefined>nth(stack, -3)
+        const question = nth(stack, -3) as Question | undefined
         if (isUndefined(question)) return true
         if (isString(question.data.regulation)) regulations.add(question.data.regulation)
 
         return true
-      }
+      },
     })
 
     return regulations
@@ -260,7 +259,7 @@ export default class Response {
         if (responseNode !== endNode) return true // user didn't visit this action
         flags.add(action.flag)
         return true
-      }
+      },
     })
 
     return flags

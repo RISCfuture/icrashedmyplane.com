@@ -33,6 +33,6 @@ const questions: LocaleMessageObject = {
   turbine: 'Is it a turbine engine?',
   twoDaysOrLonger: 'Did anyone stay in the hospital longer than 48 hours?',
   within7Days: 'Was anyone hospitalized within 7 days of the incident?',
-  within30Days: 'Did death occur within 30 days of the incident?'
+  within30Days: 'Did death occur within 30 days of the incident?',
 }
 export default questions

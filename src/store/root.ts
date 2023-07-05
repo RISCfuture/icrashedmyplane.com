@@ -1,8 +1,6 @@
-/* eslint-disable func-names */
-
 import { ActionContext, Module } from 'vuex'
 import {
-  assign, cloneDeep, isNil, max, reduce, values
+  assign, cloneDeep, isNil, max, reduce, values,
 } from 'lodash-es'
 import Response from '@/models/response'
 import { Flag, IncidentLevel } from '@/models/survey'
@@ -14,7 +12,7 @@ import surveyOrder from '@/data/surveyOrder'
 export interface RootState {
 
   /** The Responses the user has started or finished, keyed by the {@link Survey.identifier}. */
-  responses: { [key: string]: Response };
+  responses: Record<string, Response>;
 
   /** Set to true once the user has clicked the "Let's get started" button. */
   clickedContinue: boolean;
@@ -22,11 +20,11 @@ export interface RootState {
 
 const defaultState: RootState = {
   responses: reduce(surveyOrder, (acc, key) => ({ ...acc, [key]: new Response(key) }), {}),
-  clickedContinue: false
+  clickedContinue: false,
 }
 
 export default function createRootModule(
-  initialState: Partial<RootState> = {}
+  initialState: Partial<RootState> = {},
 ): Module<RootState, RootState> {
   const fullInitialState: RootState = assign({}, defaultState, initialState)
   return {
@@ -50,7 +48,7 @@ export default function createRootModule(
 
       /** Returns the highest incident level based on all responses so far. */
       incidentLevel(state: RootState): IncidentLevel {
-        const level = max(values(state.responses).map(response => response.highestIncidentLevel))
+        const level = max(values(state.responses).map((response) => response.highestIncidentLevel))
         return isNil(level) ? IncidentLevel.INCIDENT : level
       },
 
@@ -58,7 +56,7 @@ export default function createRootModule(
       userFlags(state: RootState): Set<Flag> {
         return values(state.responses).reduce(
           (set, response) => new Set<Flag>([...set, ...response.flags]),
-          new Set<Flag>()
+          new Set<Flag>(),
         )
       },
 
@@ -66,16 +64,16 @@ export default function createRootModule(
       allApplicableRegulations(state: RootState): Set<string> {
         return values(state.responses).reduce(
           (set, response) => new Set<string>([...set, ...response.contributingRegulations]),
-          new Set<string>()
+          new Set<string>(),
         )
-      }
+      },
     },
 
     mutations: {
       addAnswer(
         state: RootState,
         { surveyID, answerPath, newNode }:
-          { surveyID: string; answerPath: number[]; newNode: QuestionResponseNode }
+          { surveyID: string; answerPath: number[]; newNode: QuestionResponseNode },
       ): void {
         const response = cloneDeep(state.responses[surveyID])
 
@@ -91,7 +89,7 @@ export default function createRootModule(
 
       clickContinue(state: RootState): void {
         state.clickedContinue = true
-      }
+      },
     },
 
     actions: {
@@ -121,16 +119,16 @@ export default function createRootModule(
           surveyID: string;
           answerPath: number[];
           choices: boolean[];
-        }
+        },
       ): Promise<void> {
         try {
-          const nodes = choices.map(chosen => (chosen ? { next: endNode } : undefined))
+          const nodes = choices.map((chosen) => (chosen ? { next: endNode } : undefined))
           commit('addAnswer', { surveyID, answerPath, newNode: { nodes } })
         } catch (error) {
           return Promise.reject(error)
         }
         return Promise.resolve()
-      }
-    }
+      },
+    },
   }
 }

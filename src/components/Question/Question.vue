@@ -1,30 +1,67 @@
 <template>
-  <error v-class="error" v-if="error" />
+  <error
+    v-if="error"
+    v-class="error"
+  />
 
-  <div v-else class="question">
-    <i18n tag="p"
-          v-if="selectedOptionTitle"
-          path="question.breadcrumbs"
-          class="question-breadcrumbs">
+  <div
+    v-else
+    class="question"
+  >
+    <i18n
+      v-if="selectedOptionTitle"
+      tag="p"
+      path="question.breadcrumbs"
+      class="question-breadcrumbs"
+    >
       <template #selection>
-        <strong>{{selectedOptionTitle}}</strong>
+        <strong>{{ selectedOptionTitle }}</strong>
       </template>
     </i18n>
 
-    <transition name="in-fade-out-fade" mode="out-in">
-      <div v-if="prompt.question.multi" class="question-type-transition" key="multi">
+    <transition
+      name="in-fade-out-fade"
+      mode="out-in"
+    >
+      <div
+        v-if="prompt.question.multi"
+        key="multi"
+        class="question-type-transition"
+      >
         <multi-question :prompt="prompt">
-          <p class="notes" v-for="(body, ID) in notes" :key="ID">{{body}}</p>
-          <p class="regulation" v-if="regulation">
-            {{$t('question.regulation', {part: regulation})}}
+          <p
+            v-for="(body, ID) in notes"
+            :key="ID"
+            class="notes"
+          >
+            {{ body }}
+          </p>
+          <p
+            v-if="regulation"
+            class="regulation"
+          >
+            {{ $t('question.regulation', { part: regulation }) }}
           </p>
         </multi-question>
       </div>
-      <div v-if="!prompt.question.multi" class="question-type-transition" key="single">
+      <div
+        v-if="!prompt.question.multi"
+        key="single"
+        class="question-type-transition"
+      >
         <single-question :prompt="prompt">
-          <p class="notes" v-for="(body, ID) in notes" :key="ID">{{body}}</p>
-          <p class="regulation" v-if="regulation">
-            {{$t('question.regulation', {part: regulation})}}
+          <p
+            v-for="(body, ID) in notes"
+            :key="ID"
+            class="notes"
+          >
+            {{ body }}
+          </p>
+          <p
+            v-if="regulation"
+            class="regulation"
+          >
+            {{ $t('question.regulation', { part: regulation }) }}
           </p>
         </single-question>
       </div>
@@ -38,7 +75,7 @@
   import { Prop } from 'vue-property-decorator'
   import { TranslateResult } from 'vue-i18n'
   import {
-    assign, findLast, isArray, isUndefined
+    assign, findLast, isArray, isUndefined,
   } from 'lodash-es'
   import Prompt from '../../models/response/prompt'
   import SingleQuestion from './single/SingleQuestion.vue'
@@ -53,7 +90,7 @@
    */
 
   @Component({
-    components: { Error, MultiQuestion, SingleQuestion }
+    components: { Error, MultiQuestion, SingleQuestion },
   })
   export default class Question extends Vue {
     /** The Prompt object containing data about the {@link Survey.Question} and its answer. */
@@ -77,8 +114,7 @@
     get notes(): TranslateResult[] {
       const { notes } = this.prompt.question.data
       if (isArray(notes)) {
-        return notes.reduce((obj, note) =>
-          assign(obj, { note: this.$t(`survey.${this.surveyID}.notes.${note}`) }), {})
+        return notes.reduce((obj, note) => assign(obj, { note: this.$t(`survey.${this.surveyID}.notes.${note}`) }), {})
       }
       return []
     }
@@ -96,9 +132,11 @@
      */
 
     get selectedOptionTitle(): TranslateResult | null {
-      const option = <Survey.Option | undefined>findLast(this.prompt.questionPath, (node, index) =>
-        (node instanceof Survey.Option)
-        && (<Survey.Question> this.prompt.questionPath[index - 1]).multi)
+      const option = <Survey.Option | undefined>findLast(
+        this.prompt.questionPath,
+        (node, index) => (node instanceof Survey.Option)
+          && (<Survey.Question> this.prompt.questionPath[index - 1]).multi,
+      )
       if (isUndefined(option)) return null
 
       return this.$t(`survey.${this.prompt.surveyID}.options.${option.identifier}`)

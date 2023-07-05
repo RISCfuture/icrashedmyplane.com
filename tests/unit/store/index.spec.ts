@@ -16,24 +16,28 @@ describe('Vuex store', () => {
         let store = new Store(createRootModule({
           responses: { incident: makeResponse('incident', accidentAnswer) }
         }))
-        expect(store.getters.allApplicableRegulations).to.eql(new Set(['830.2']))
+        let getters = store.getters as { allApplicableRegulations: Set<string> }
+        expect(getters.allApplicableRegulations).to.eql(new Set(['830.2']))
 
         store = new Store(createRootModule({
           responses: {
             incident: makeResponse('incident', mergeAnswers(accidentAnswer, seriousIncidentAnswer))
           }
         }))
-        expect(store.getters.allApplicableRegulations).to.eql(new Set(['830.2', '830.5']))
+        getters = store.getters as { allApplicableRegulations: Set<string> }
+        expect(getters.allApplicableRegulations).to.eql(new Set(['830.2', '830.5']))
 
         store = new Store(createRootModule({
           responses: { incident: makeResponse('incident', seriousIncidentAnswer) }
         }))
-        expect(store.getters.allApplicableRegulations).to.eql(new Set(['830.5']))
+        getters = store.getters as { allApplicableRegulations: Set<string> }
+        expect(getters.allApplicableRegulations).to.eql(new Set(['830.5']))
       })
 
       it('returns an empty set for an empty store', () => {
         const store = new Store(createRootModule())
-        expect(store.getters.allApplicableRegulations).to.eql(new Set([]))
+        const getters = store.getters as { allApplicableRegulations: Set<string> }
+        expect(getters.allApplicableRegulations).to.eql(new Set([]))
       })
     })
   })
@@ -96,7 +100,7 @@ describe('Vuex store', () => {
           })
           expect.fail() // should have thrown an error by now
         } catch (e: unknown) {
-          expect((<Error>e).message).to.eql('Path ended prematurely')
+          expect((e as Error).message).to.eql('Path ended prematurely')
         }
       })
     })

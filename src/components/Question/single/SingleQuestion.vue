@@ -1,16 +1,24 @@
 <template>
-  <transition name="in-move-left-out-move-left" mode="out-in">
-    <div class="question-single" :key="transitionKey">
-      <p>{{title}}</p>
+  <transition
+    name="in-move-left-out-move-left"
+    mode="out-in"
+  >
+    <div
+      :key="transitionKey"
+      class="question-single"
+    >
+      <p>{{ title }}</p>
       <slot />
 
       <div class="question-options">
-        <single-option v-for="(option, index) in question.options"
-                       :option="option"
-                       :survey-id="surveyID"
-                       :key="option.identifier"
-                       :index="index"
-                       @clicked="answerChosen(option.identifier)" />
+        <single-option
+          v-for="(option, index) in question.options"
+          :key="option.identifier"
+          :option="option"
+          :survey-id="surveyID"
+          :index="index"
+          @clicked="answerChosen(option.identifier)"
+        />
       </div>
     </div>
   </transition>
@@ -28,7 +36,7 @@
    */
 
   @Component({
-    components: { SingleOption }
+    components: { SingleOption },
   })
   export default class SingleQuestion extends AbstractQuestion {
     /**
@@ -39,8 +47,7 @@
      */
 
     async answerChosen(identifier: string): Promise<void> {
-      const index = this.question.options.findIndex(o => o.identifier === identifier)
-      console.log(this.prompt, index)
+      const index = this.question.options.findIndex((o) => o.identifier === identifier)
 
       const choices: boolean[] = []
       choices[index] = true
@@ -48,7 +55,7 @@
         await this.recordAnswer({
           surveyID: this.surveyID,
           answerPath: this.prompt.answerPath,
-          choices
+          choices,
         })
       } catch (e) {
         ErrorBus.$emit('error', e)
