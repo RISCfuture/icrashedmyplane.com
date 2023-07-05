@@ -5,7 +5,7 @@
       <p>{{$t('welcome.description')}}</p>
       <transition appear name="in-fade-2">
         <p>
-          <button @click="clickContinue()" data-cy="startButton">
+          <button type="button" @click="clickContinue()" data-cy="startButton">
             {{$t('welcome.startButton')}}
           </button>
         </p>
@@ -14,7 +14,7 @@
 
     <i18n tag="footer" path="welcome.footer">
       <template #me>
-        <a href="https://tim.codes" target="_blank" rel="noreferrer">Tim Morgan</a>
+        <a href="https://tim.codes" target="_blank" rel="noopener noreferrer">Tim Morgan</a>
       </template>
     </i18n>
   </div>

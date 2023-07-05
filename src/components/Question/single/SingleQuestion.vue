@@ -5,12 +5,13 @@
       <slot />
 
       <div class="question-options">
-        <single-option v-for="(option, index) in question.options"
-                       :option="option"
-                       :survey-id="surveyID"
-                       :key="option.identifier"
-                       :index="index"
-                       @clicked="answerChosen(option.identifier)" />
+        <single-option
+          v-for="(option, index) in question.options"
+          :option="option"
+          :survey-id="surveyID"
+          :key="option.identifier"
+          :index="index"
+          @clicked="answerChosen(option.identifier)" />
       </div>
     </div>
   </transition>

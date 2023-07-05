@@ -6,23 +6,25 @@
         <p class="check-all">{{$t('question.checkAll')}}</p>
 
         <div class="question-options">
-          <option-category v-for="(options, category) in optionsByCategory"
-                           :category="category"
-                           :options="options"
-                           :selections="selections"
-                           :surveyId="surveyID"
-                           :key="category"
-                           @toggle="toggle" />
-          <option-category :options="uncategorizedOptions"
-                           :selections="selections"
-                           :surveyId="surveyID"
-                           @toggle="toggle" />
+          <option-category
+            v-for="(options, category) in optionsByCategory"
+            :category="category"
+            :options="options"
+            :selections="selections"
+            :surveyId="surveyID"
+            :key="category"
+            @toggle="toggle" />
+          <option-category
+            :options="uncategorizedOptions"
+            :selections="selections"
+            :surveyId="surveyID"
+            @toggle="toggle" />
         </div>
 
         <slot />
       </div>
       <div class="question-actions">
-        <button @click="answerChosen()" data-cy="nextButton">
+        <button type="button" @click="answerChosen()" data-cy="nextButton">
           {{ nextButtonTitle }}
         </button>
       </div>

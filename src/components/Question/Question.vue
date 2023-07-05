@@ -2,10 +2,11 @@
   <error v-class="error" v-if="error" />
 
   <div v-else class="question">
-    <i18n tag="p"
-          v-if="selectedOptionTitle"
-          path="question.breadcrumbs"
-          class="question-breadcrumbs">
+    <i18n
+      tag="p"
+      v-if="selectedOptionTitle"
+      path="question.breadcrumbs"
+      class="question-breadcrumbs">
       <template #selection>
         <strong>{{selectedOptionTitle}}</strong>
       </template>
@@ -16,7 +17,7 @@
         <multi-question :prompt="prompt">
           <p class="notes" v-for="(body, ID) in notes" :key="ID">{{body}}</p>
           <p class="regulation" v-if="regulation">
-            {{$t('question.regulation', {part: regulation})}}
+            {{$t('question.regulation', { part: regulation })}}
           </p>
         </multi-question>
       </div>
@@ -24,7 +25,7 @@
         <single-question :prompt="prompt">
           <p class="notes" v-for="(body, ID) in notes" :key="ID">{{body}}</p>
           <p class="regulation" v-if="regulation">
-            {{$t('question.regulation', {part: regulation})}}
+            {{$t('question.regulation', { part: regulation })}}
           </p>
         </single-question>
       </div>

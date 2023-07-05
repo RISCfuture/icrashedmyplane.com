@@ -1,9 +1,10 @@
 <template>
-  <a href="#"
-     @click.prevent="clicked()"
-     class="option option-single"
-     :class="className"
-     :data-cy="option.identifier">
+  <a
+    href="#"
+    @click.prevent="clicked()"
+    class="option option-single"
+    :class="className"
+    :data-cy="option.identifier">
     {{title}}
   </a>
 </template>

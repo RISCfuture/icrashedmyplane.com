@@ -5,7 +5,7 @@
     <incident v-else />
     <footer>
       <p v-if="regulationList">
-        {{$t('finished.applicableRegulations', {regulations: regulationList})}}
+        {{$t('finished.applicableRegulations', { regulations: regulationList })}}
       </p>
       <p>{{$t('finished.disclaimer')}}</p>
     </footer>
