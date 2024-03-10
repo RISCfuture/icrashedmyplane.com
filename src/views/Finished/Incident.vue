@@ -1,32 +1,23 @@
 <template>
-  <div
-    class="level-incident"
-    data-cy="levelDescription"
-  >
-    <i18n
-      tag="h1"
-      path="finished.incident.title"
-    >
+  <div class="level-incident">
+    <i18n-t tag="h1" keypath="finished.incident.title">
       <template #level>
-        <strong>{{ $t('finished.incident.level') }}</strong>
+        <strong>{{ t('finished.incident.level') }}</strong>
       </template>
-    </i18n>
+    </i18n-t>
     <p class="level-actions">
-      {{ $t('finished.incident.actions') }}
+      {{ t('finished.incident.actions') }}
     </p>
   </div>
 </template>
 
-<script lang="ts">
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 
-  /**
-   * Displayed when the user completes the survey and their answers do not qualify the incident as
-   * serious or as an accident.
-   */
+/**
+ * Displayed when the user completes the survey and their answers do not qualify the incident as
+ * serious or as an accident.
+ */
 
-  @Component
-  export default class Incident extends Vue {
-  }
+const { t } = useI18n()
 </script>

@@ -1,12 +1,6 @@
 <template>
-  <transition
-    name="in-move-left-out-move-left"
-    mode="out-in"
-  >
-    <div
-      :key="transitionKey"
-      class="question-single"
-    >
+  <transition name="in-move-left-out-move-left" mode="out-in">
+    <div :key="transitionKey" class="question-single">
       <p>{{ title }}</p>
       <slot />
 
@@ -24,61 +18,42 @@
   </transition>
 </template>
 
-<script lang="ts">
-  import Component from 'vue-class-component'
-  import AbstractQuestion from '@/components/Question/AbstractQuestion'
-  import ErrorBus from '@/bus/ErrorBus'
-  import SingleOption from '@/components/Question/single/SingleOption.vue'
+<script setup lang="ts">
+import useQuestion from '@/components/Question/hooks/question'
+import type Prompt from '@/models/response/prompt'
+import SingleOption from '@/components/Question/single/SingleOption.vue'
 
-  /**
-   * Displays a {@link Question} for which the user can only choose one {@link Option}. Clicking on
-   * an option immediately advances the survey.
-   */
+const props = defineProps<{
+  /** The Prompt object containing data about the {@link Question} and its answer. */
+  prompt: Prompt
+}>()
 
-  @Component({
-    components: { SingleOption },
-  })
-  export default class SingleQuestion extends AbstractQuestion {
-    /**
-     * Called when an option is clicked. Records the answer to the store. Emits an error to
-     * the {@link ErrorBus} if that fails.
-     *
-     * @param identifier The identifier of the {@link Option} that was chosen.
-     */
+const { title, transitionKey, surveyID, question, recordAnswer } = useQuestion(props)
 
-    async answerChosen(identifier: string): Promise<void> {
-      const index = this.question.options.findIndex((o) => o.identifier === identifier)
+function answerChosen(identifier: string) {
+  const index = question.value.options.findIndex((o) => o.identifier === identifier)
 
-      const choices: boolean[] = []
-      choices[index] = true
-      try {
-        await this.recordAnswer({
-          surveyID: this.surveyID,
-          answerPath: this.prompt.answerPath,
-          choices,
-        })
-      } catch (e) {
-        ErrorBus.$emit('error', e)
-      }
-    }
-  }
+  const choices: boolean[] = []
+  choices[index] = true
+  recordAnswer(surveyID.value, props.prompt.answerPath, choices)
+}
 </script>
 
 <style lang="scss">
-  @use "src/assets/styles/responsive";
+@use '@/assets/styles/responsive';
 
-  .question-options {
-    @include responsive.top-margin-large;
+.question-options {
+  @include responsive.top-margin-large;
 
-    @include responsive.large {
-      flex-flow: row wrap;
-      justify-content: center;
-    }
-
-    @include responsive.small {
-      flex-flow: column nowrap;
-    }
-
-    display: flex;
+  @include responsive.large {
+    flex-flow: row wrap;
+    justify-content: center;
   }
+
+  @include responsive.small {
+    flex-flow: column nowrap;
+  }
+
+  display: flex;
+}
 </style>

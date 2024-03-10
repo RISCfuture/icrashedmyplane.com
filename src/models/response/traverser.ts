@@ -1,21 +1,22 @@
-import { isPlainObject } from 'lodash-es'
-import Response from '@/models/response/index'
+import { isString, isUndefined } from 'lodash-es'
+import { Response } from '@/models/response/index'
 import {
-  Action, Option, Question,
-} from '@/models/survey'
-import {
-  ResponseNode, endNode, isActionResponseNode, isQuestionResponseNode,
+  type ResponseNode,
+  endNode,
+  isActionResponseNode,
+  isQuestionResponseNode
 } from '@/models/response/answer'
 import SurveyTraverser from '@/models/survey/traverser'
+import type { Action, Option, Question } from '@/models/survey'
 
 export type BeyondEndNode = 'beyondEndNode'
 export const beyondEndNode: BeyondEndNode = 'beyondEndNode'
 
 export type CurrentResponseNode = ResponseNode | BeyondEndNode | undefined
 
-function isAnswerNode(value: unknown): value is ResponseNode {
-  if (!isPlainObject(value)) return false
-  return isActionResponseNode((value as ResponseNode)) || isQuestionResponseNode((value as ResponseNode))
+function isAnswerNode(value: CurrentResponseNode): value is ResponseNode {
+  if (isUndefined(value) || isString(value)) return false
+  return isActionResponseNode(value) || isQuestionResponseNode(value)
 }
 
 /**
@@ -24,7 +25,6 @@ function isAnswerNode(value: unknown): value is ResponseNode {
  */
 
 export interface ResponseVisitor {
-
   /**
    * Wraps a call to {@link .visitQuestion}, allowing you to perform tail recursion on the call.
    * If you do not call `run` within your implementation, no downstream nodes will be traversed.
@@ -40,7 +40,7 @@ export interface ResponseVisitor {
     question: Question,
     responseNode: CurrentResponseNode,
     run: () => boolean
-  ) => void;
+  ) => void
 
   /**
    * Called when a Question node is visited in the {@link Survey} tree.
@@ -50,7 +50,7 @@ export interface ResponseVisitor {
    * @return `true` to continue traversing, `false` to end all traversing (of the whole tree).
    */
 
-  visitQuestion?: (question: Question, responseNode: CurrentResponseNode) => boolean;
+  visitQuestion?: (question: Question, responseNode: CurrentResponseNode) => boolean
 
   /**
    * Wraps a call to {@link .visitOption}, allowing you to perform tail recursion on the call.
@@ -68,7 +68,7 @@ export interface ResponseVisitor {
     index: number,
     responseNode: CurrentResponseNode,
     run: () => boolean
-  ) => void;
+  ) => void
 
   /**
    * Called when an Option node is visited in the {@link Survey} tree.
@@ -78,7 +78,7 @@ export interface ResponseVisitor {
    * @return `true` to continue traversing, `false` to end all traversing (of the whole tree).
    */
 
-  visitOption?: (option: Option, index: number, responseNode: CurrentResponseNode) => boolean;
+  visitOption?: (option: Option, index: number, responseNode: CurrentResponseNode) => boolean
 
   /**
    * Wraps a call to {@link .visitAction}, allowing you to perform tail recursion on the call.
@@ -95,7 +95,7 @@ export interface ResponseVisitor {
     action: Action,
     responseNode: CurrentResponseNode,
     run: () => boolean
-  ) => void;
+  ) => void
 
   /**
    * Called when an Action node is visited in the {@link Survey} tree.
@@ -105,7 +105,7 @@ export interface ResponseVisitor {
    * @return `true` to continue traversing, `false` to end all traversing (of the whole tree).
    */
 
-  visitAction?: (action: Action, responseNode: CurrentResponseNode) => boolean;
+  visitAction?: (action: Action, responseNode: CurrentResponseNode) => boolean
 }
 
 /**
@@ -122,8 +122,7 @@ export default class ResponseTraverser {
    * @param response The response tree.
    */
 
-  constructor(public response: Response) {
-  }
+  constructor(public response: Response) {}
 
   /**
    * Call this method to begin traversal.
@@ -202,7 +201,7 @@ export default class ResponseTraverser {
       visitAction(action) {
         if (visitor.visitAction) return visitor.visitAction(action, currentNode)
         return true
-      },
+      }
     })
   }
 }

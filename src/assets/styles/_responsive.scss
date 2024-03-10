@@ -16,25 +16,33 @@
 /* Some pre-fab font sizes, including their reduced mobile sizes. */
 
 @mixin font-size-very-large {
-  @include small { font-size: 36px; }
+  @include small {
+    font-size: 36px;
+  }
 
   font-size: 48px;
 }
 
 @mixin font-size-large {
-  @include small { font-size: 24px; }
+  @include small {
+    font-size: 24px;
+  }
 
   font-size: 36px;
 }
 
 @mixin font-size-regular {
-  @include small { font-size: 18px; }
+  @include small {
+    font-size: 18px;
+  }
 
   font-size: 24px;
 }
 
 @mixin font-size-small {
-  @include small { font-size: 14px; }
+  @include small {
+    font-size: 14px;
+  }
 
   font-size: 18px;
 }
@@ -52,25 +60,33 @@
 /* Some pre-fab margins, including their reduced mobile sizes. */
 
 @mixin top-margin {
-  @include small { margin-top: 25px; }
+  @include small {
+    margin-top: 25px;
+  }
 
   margin-top: 40px;
 }
 
 @mixin top-margin-large {
-  @include small { margin-top: 50px; }
+  @include small {
+    margin-top: 50px;
+  }
 
   margin-top: 80px;
 }
 
 @mixin bottom-margin {
-  @include small { margin-bottom: 25px; }
+  @include small {
+    margin-bottom: 25px;
+  }
 
   margin-bottom: 40px;
 }
 
 @mixin bottom-margin-large {
-  @include small { margin-bottom: 50px; }
+  @include small {
+    margin-bottom: 50px;
+  }
 
   margin-bottom: 80px;
 }
@@ -79,5 +95,8 @@
 
 @mixin fill-height {
   display: flex;
-  > * { flex: 1 1 auto; }
+
+  > * {
+    flex: 1 1 auto;
+  }
 }
