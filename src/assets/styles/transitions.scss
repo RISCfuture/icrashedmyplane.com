@@ -16,36 +16,36 @@
 
 @mixin transition-in {
   &-enter-active {
-    @content(1);
+    @content (1);
   }
 
-  &-enter {
-    @content(2);
+  &-enter-from {
+    @content (2);
   }
 
   &-enter-to {
-    @content(3);
+    @content (3);
   }
 }
 
 @mixin transition-out {
   &-leave-active {
-    @content(1);
+    @content (1);
   }
 
-  &-leave {
-    @content(2);
+  &-leave-from {
+    @content (2);
   }
 
   &-leave-to {
-    @content(3);
+    @content (3);
   }
 }
 
 @mixin fade-in($block) {
   @if $block == 1 {
-    transition-property: opacity;
     transition-duration: 0.25s;
+    transition-property: opacity;
   } @else if $block == 2 {
     opacity: 0;
   } @else {
@@ -55,8 +55,8 @@
 
 @mixin fade-out($block) {
   @if $block == 1 {
-    transition-property: opacity;
     transition-duration: 0.25s;
+    transition-property: opacity;
   } @else if $block == 2 {
     opacity: 1;
   } @else {
@@ -66,27 +66,27 @@
 
 @mixin in-left($block) {
   @if $block == 1 {
-    transition-property: transform, opacity;
     transition-duration: 0.25s;
+    transition-property: transform, opacity;
   } @else if $block == 2 {
-    transform: translateX(25%);
     opacity: 0;
+    transform: translateX(25%);
   } @else {
-    transform: translateX(0);
     opacity: 1;
+    transform: translateX(0);
   }
 }
 
 @mixin out-left($block) {
   @if $block == 1 {
-    transition-property: transform, opacity;
     transition-duration: 0.25s;
+    transition-property: transform, opacity;
   } @else if $block == 2 {
-    transform: translateX(0);
     opacity: 1;
+    transform: translateX(0);
   } @else {
-    transform: translateX(-25%);
     opacity: 0;
+    transform: translateX(-25%);
   }
 }
 

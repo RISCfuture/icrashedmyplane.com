@@ -5,7 +5,6 @@ import { isUndefined } from 'lodash-es'
  */
 
 export enum IncidentLevel {
-
   /** An incident that qualifies as an accident under NTSB 830.2. */
   ACCIDENT = 2,
 
@@ -24,7 +23,6 @@ export const HIGHEST_INCIDENT_LEVEL = IncidentLevel.ACCIDENT
  */
 
 export enum Flag {
-
   /**
    * User was flying a multi-engine aircraft with a maximum certified takeoff weight greater than
    * 12,500 lbs.
@@ -38,14 +36,14 @@ export enum Flag {
   HELICOPTER
 }
 
-type DataType = Record<string, unknown>;
+type DataType = Record<string, unknown>
 
 /**
  * A question that is asked of the user. Questions can be single-choice or multiple-choice, and
  * consist of two or more {@link Option}s that the user can choose among.
  */
 
-export class Question {
+export interface Question {
   /** The identifier for this question. Must be unique to within the scope of the {@link Survey}. */
   identifier: string
 
@@ -53,20 +51,22 @@ export class Question {
   options: Option[]
 
   /** Whether the user can choose multiple options. */
-  multi = false
+  multi: boolean
 
   /** Additional data used when displaying the question. */
-  data: DataType = {}
+  data: DataType
+}
 
-  constructor(
-    identifier: string,
-    options: Option[],
-    { data, multi }: {data?: DataType; multi?: boolean} = {},
-  ) {
-    this.identifier = identifier
-    this.options = options
-    if (!isUndefined(data)) this.data = data
-    if (!isUndefined(multi)) this.multi = multi
+export function makeQuestion(
+  identifier: string,
+  options: Option[],
+  { data, multi }: { data?: DataType; multi?: boolean } = {}
+): Question {
+  return {
+    identifier,
+    options,
+    data: isUndefined(data) ? {} : data,
+    multi: isUndefined(multi) ? false : multi
   }
 }
 
@@ -78,7 +78,7 @@ export class Question {
  * selects an option.
  */
 
-export class Option {
+export interface Option {
   /** The identifier for the option. Must be unique to within the scope of the {@link Question}. */
   identifier: string
 
@@ -89,20 +89,22 @@ export class Option {
    * The flag(s) that must be set to display this option. Otherwise this option is not displayed to
    * the user.
    */
-  only?: Flag[] = []
+  only: Flag[]
 
   /** Additional data used when displaying the option. */
-  data: DataType = {}
+  data: DataType
+}
 
-  constructor(
-    identifier: string,
-    action: Action,
-    { only, data }: { only?: Flag[]; data?: DataType } = {},
-  ) {
-    this.identifier = identifier
-    this.action = action
-    if (!isUndefined(only)) this.only = only
-    if (!isUndefined(data)) this.data = data
+export function makeOption(
+  identifier: string,
+  action: Action,
+  { only, data }: { only?: Flag[]; data?: DataType } = {}
+): Option {
+  return {
+    identifier,
+    action,
+    only: isUndefined(only) ? [] : only,
+    data: isUndefined(data) ? {} : data
   }
 }
 
@@ -113,12 +115,12 @@ export class Option {
  * can lead to follow-up questions, or can result in leveling or flagging.
  */
 
-export class Action {
+export interface Action {
   /**
    * If `true`, this action does not result in any further user interaction for this path in the
    * survey tree.
    */
-  isTerminating = false
+  isTerminating: boolean
 }
 
 /**
@@ -126,14 +128,13 @@ export class Action {
  * upon choosing that option.
  */
 
-export class QuestionAction extends Action {
+export type QuestionAction = Action & {
   /** The next question to ask. */
   question: Question
+}
 
-  constructor(question: Question) {
-    super()
-    this.question = question
-  }
+export function makeQuestionAction(question: Question): QuestionAction {
+  return { question, isTerminating: false }
 }
 
 /**
@@ -141,16 +142,13 @@ export class QuestionAction extends Action {
  * qualifying for a given {@link IncidentLevel} (at least).
  */
 
-export class LevelAction extends Action {
+export type LevelAction = Action & {
   /** The level the incident now qualifies for upon choosing the {@link Option}. */
   level: IncidentLevel
+}
 
-  isTerminating = true
-
-  constructor(level: IncidentLevel) {
-    super()
-    this.level = level
-  }
+export function makeLevelAction(level: IncidentLevel): LevelAction {
+  return { level, isTerminating: true }
 }
 
 /**
@@ -158,16 +156,13 @@ export class LevelAction extends Action {
  * the user.
  */
 
-export class FlagAction extends Action {
+export type FlagAction = Action & {
   /** The flag to apply to the user. */
   flag: Flag
+}
 
-  isTerminating = true
-
-  constructor(flag: Flag) {
-    super()
-    this.flag = flag
-  }
+export function makeFlagAction(flag: Flag): FlagAction {
+  return { flag, isTerminating: true }
 }
 
 /**
@@ -184,18 +179,37 @@ export class FlagAction extends Action {
  * `surveyOrder` object stores the order that the surveys should be presented to the user.
  */
 
-export default class Survey {
+export interface Survey {
   /** Unique identifier for the survey. */
   identifier: string
 
   /** The root of the survey tree; the first question asked of the user. */
   root: Question
-
-  constructor(identifier: string, root: Question) {
-    this.identifier = identifier
-    this.root = root
-  }
 }
 
 /** A node in a {@link Survey} tree. */
 export type SurveyNode = Question | Option | Action
+
+export function isQuestion(node: SurveyNode): node is Question {
+  return 'options' in node
+}
+
+export function isOption(node: SurveyNode): node is Option {
+  return 'action' in node
+}
+
+export function isAction(node: SurveyNode): node is Action {
+  return 'isTerminating' in node
+}
+
+export function isQuestionAction(action: Action): action is QuestionAction {
+  return 'question' in action
+}
+
+export function isLevelAction(action: Action): action is LevelAction {
+  return 'level' in action
+}
+
+export function isFlagAction(action: Action): action is FlagAction {
+  return 'flag' in action
+}

@@ -1,18 +1,16 @@
-import Survey, {
-  Flag, FlagAction, Option, Question,
-} from '@/models/survey'
+import { Flag, makeFlagAction, makeOption, makeQuestion, type Survey } from '@/models/survey'
 
-const profileSurvey = new Survey(
-  'profile',
-  new Question(
+const profileSurvey: Survey = {
+  identifier: 'profile',
+  root: makeQuestion(
     'root',
     [
-      new Option('largeMulti', new FlagAction(Flag.LARGE_MULTI)),
-      new Option('airCarrier', new FlagAction(Flag.AIR_CARRIER)),
-      new Option('helicopter', new FlagAction(Flag.HELICOPTER)),
+      makeOption('largeMulti', makeFlagAction(Flag.LARGE_MULTI)),
+      makeOption('airCarrier', makeFlagAction(Flag.AIR_CARRIER)),
+      makeOption('helicopter', makeFlagAction(Flag.HELICOPTER))
     ],
-    { multi: true },
-  ),
-)
+    { multi: true }
+  )
+}
 
 export default profileSurvey

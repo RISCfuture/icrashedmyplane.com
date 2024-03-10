@@ -1,5 +1,5 @@
-import Survey, { SurveyNode } from '@/models/survey/index'
 import SurveyTraverser from '@/models/survey/traverser'
+import type { Survey, SurveyNode } from '@/models/survey/index'
 
 /**
  * Interface for the callback receiver, used when traversing a {@link Survey} with a
@@ -7,7 +7,6 @@ import SurveyTraverser from '@/models/survey/traverser'
  */
 
 export interface SurveyStackVisitor {
-
   /**
    * Called when a node is visited in the {@link Survey} tree.
    *
@@ -15,7 +14,7 @@ export interface SurveyStackVisitor {
    * @return `true` to continue traversing, `false` to end all traversing (of the whole tree).
    */
 
-  visitNode: (nodes: SurveyNode[]) => boolean;
+  visitNode: (nodes: SurveyNode[]) => boolean
 }
 
 /**
@@ -30,8 +29,7 @@ export default class SurveyStackTraverser {
    * @param survey The Survey to traverse.
    */
 
-  constructor(public survey: Survey) {
-  }
+  constructor(public survey: Survey) {}
 
   /**
    * Call this method to begin traversal.
@@ -70,7 +68,7 @@ export default class SurveyStackTraverser {
 
       visitAction() {
         return visitor.visitNode(stack)
-      },
+      }
     })
   }
 }

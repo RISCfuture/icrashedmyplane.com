@@ -5,89 +5,80 @@
     <incident v-else />
     <footer>
       <p v-if="regulationList">
-        {{ $t('finished.applicableRegulations', { regulations: regulationList }) }}
+        {{ t('finished.applicableRegulations', { regulations: regulationList }) }}
       </p>
-      <p>{{ $t('finished.disclaimer') }}</p>
+      <p>{{ t('finished.disclaimer') }}</p>
     </footer>
   </div>
 </template>
 
-<script lang="ts">
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
-  import { Getter } from 'vuex-class'
-  import { IncidentLevel } from '@/models/survey'
-  import Accident from '@/views/Finished/Accident.vue'
-  import SeriousIncident from '@/views/Finished/SeriousIncident.vue'
-  import Incident from '@/views/Finished/Incident.vue'
-  import { list } from '@/i18n/functions'
+<script setup lang="ts">
+import Accident from '@/views/Finished/Accident.vue'
+import Incident from '@/views/Finished/Incident.vue'
+import SeriousIncident from '@/views/Finished/SeriousIncident.vue'
+import { useI18n } from 'vue-i18n'
+import useQuestionnaireStore from '@/stores/questionnaire'
+import { storeToRefs } from 'pinia'
+import { computed } from 'vue'
+import { IncidentLevel } from '@/models/survey'
+import useCLDR from '@/i18n/cldr'
 
-  /**
-   * Displayed when all surveys are complete. Displays the proper instructions for the final
-   * incident level.
-   */
+/**
+ * Displayed when all surveys are complete. Displays the proper instructions for the final
+ * incident level.
+ */
 
-  @Component({
-    components: { Incident, SeriousIncident, Accident },
-  })
-  export default class Finished extends Vue {
-    @Getter incidentLevel!: IncidentLevel
+const { t } = useI18n()
 
-    @Getter allApplicableRegulations!: Set<string>
+const store = useQuestionnaireStore()
+const { incidentLevel, allApplicableRegulations } = storeToRefs(store)
 
-    /** @return `true` if the incident level is ACCIDENT. */
-    get isAccident(): boolean {
-      return this.incidentLevel === IncidentLevel.ACCIDENT
-    }
+const { list } = useCLDR()
 
-    /** @return `true` if the incident level is SERIOUS INCIDENT. */
-    get isSeriousIncident(): boolean {
-      return this.incidentLevel === IncidentLevel.SERIOUS_INCIDENT
-    }
+const isAccident = computed(() => incidentLevel.value === IncidentLevel.ACCIDENT)
+const isSeriousIncident = computed(() => incidentLevel.value === IncidentLevel.SERIOUS_INCIDENT)
 
-    /**
-     * @return A localized list of the applicable regulations in 49 CFR, or `null` if no regulations
-     * apply.
-     */
-
-    get regulationList(): string | null {
-      if (this.allApplicableRegulations.size === 0) return null
-      return list(Array.from(this.allApplicableRegulations))
-    }
-  }
+/**
+ * A localized list of the applicable regulations in 49 CFR, or `null` if no regulations
+ * apply.
+ */
+const regulationList = computed(() => {
+  if (allApplicableRegulations.value.size === 0) return null
+  return list(Array.from(allApplicableRegulations.value))
+})
 </script>
 
 <style lang="scss">
-  @use "src/assets/styles/colors";
-  @use "src/assets/styles/fonts";
-  @use "src/assets/styles/responsive";
+@use '@/assets/styles/colors';
+@use '@/assets/styles/fonts';
+@use '@/assets/styles/responsive';
 
-  .level-description {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 500px;
+.level-description {
+  max-width: 500px;
+  margin-right: auto;
+  margin-left: auto;
 
-    h2 {
-      @include responsive.top-margin;
+  h2 {
+    @include responsive.top-margin;
 
-      text-align: center;
-    }
+    text-align: center;
+  }
 
-    h1 {
-      @include responsive.bottom-margin;
-      @include fonts.Quicksand-Regular;
+  h1 {
+    @include responsive.bottom-margin;
+    @include fonts.Quicksand-Regular;
 
-      strong {
-        @include colors.theme using($theme) {
-          color: colors.get($theme, "header-alternate-color");
-        }
+    strong {
+      @include colors.theme using($theme) {
+        color: colors.get($theme, 'header-alternate-color');
       }
     }
-
-    .level-actions {
-      @include fonts.Quicksand-Thin;
-      @include responsive.font-size-small;
-      @include responsive.bottom-margin-large;
-    }
   }
+
+  .level-actions {
+    @include fonts.Quicksand-Thin;
+    @include responsive.font-size-small;
+    @include responsive.bottom-margin-large;
+  }
+}
 </style>

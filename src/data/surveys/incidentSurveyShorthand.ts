@@ -1,42 +1,41 @@
 import {
-  IncidentLevel, LevelAction, Option, Question, QuestionAction,
+  IncidentLevel,
+  makeLevelAction,
+  makeOption,
+  makeQuestionAction,
+  type Option,
+  type Question
 } from '@/models/survey'
 
-export const classifyAsAccident = new LevelAction(IncidentLevel.ACCIDENT)
-export const classifyAsSeriousIncident = new LevelAction(IncidentLevel.SERIOUS_INCIDENT)
-export const classifyAsIncident = new LevelAction(IncidentLevel.INCIDENT)
+export const classifyAsAccident = makeLevelAction(IncidentLevel.ACCIDENT)
+export const classifyAsSeriousIncident = makeLevelAction(IncidentLevel.SERIOUS_INCIDENT)
+export const classifyAsIncident = makeLevelAction(IncidentLevel.INCIDENT)
 
 export function yesAskQuestion(question: Question): Option {
-  return new Option('yes', new QuestionAction(question))
+  return makeOption('yes', makeQuestionAction(question))
 }
 
 export function noAskQuestion(question: Question): Option {
-  return new Option('no', new QuestionAction(question))
+  return makeOption('no', makeQuestionAction(question))
 }
 
-export const yesMeansIncident = new Option('yes', classifyAsIncident)
-export const noMeansIncident = new Option('no', classifyAsIncident)
-export const yesMeansAccident = new Option('yes', classifyAsAccident)
-export const yesMeansSeriousIncident = new Option('yes', classifyAsSeriousIncident)
-export const noMeansAccident = new Option('no', classifyAsAccident)
-export const noMeansSeriousIncident = new Option('no', classifyAsSeriousIncident)
+export const yesMeansIncident = makeOption('yes', classifyAsIncident)
+export const noMeansIncident = makeOption('no', classifyAsIncident)
+export const yesMeansAccident = makeOption('yes', classifyAsAccident)
+export const yesMeansSeriousIncident = makeOption('yes', classifyAsSeriousIncident)
+export const noMeansAccident = makeOption('no', classifyAsAccident)
+export const noMeansSeriousIncident = makeOption('no', classifyAsSeriousIncident)
 
-export const yesMeansAccidentNoMeansIncident: Option[] = [
-  yesMeansAccident,
-  noMeansIncident,
-]
+export const yesMeansAccidentNoMeansIncident: Option[] = [yesMeansAccident, noMeansIncident]
 
 export const yesMeansSeriousIncidentNoMeansIncident: Option[] = [
   yesMeansSeriousIncident,
-  noMeansIncident,
+  noMeansIncident
 ]
 
-export const noMeansAccidentYesMeansIncident: Option[] = [
-  yesMeansIncident,
-  noMeansAccident,
-]
+export const noMeansAccidentYesMeansIncident: Option[] = [yesMeansIncident, noMeansAccident]
 
 export const noMeansSeriousIncidentYesMeansIncident: Option[] = [
   yesMeansIncident,
-  noMeansSeriousIncident,
+  noMeansSeriousIncident
 ]

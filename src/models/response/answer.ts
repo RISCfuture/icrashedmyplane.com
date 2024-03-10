@@ -1,6 +1,4 @@
-import {
-  cloneDeep, isEmpty, isPlainObject, isUndefined,
-} from 'lodash-es'
+import { cloneDeep, isEmpty, isString } from 'lodash-es'
 
 export type EndNode = 'end'
 
@@ -10,14 +8,12 @@ export const endNode = 'end'
 /** A node in a response tree representing a {@link Question} that was answered. */
 
 export interface QuestionResponseNode {
-
   /**
    * For each {@link Option} under {@link Question.options}, this array contains either an
    * ActionNode if the user chose that option, or `undefined` if not.
    */
 
-  // eslint-disable-next-line no-use-before-define
-  nodes: (ActionResponseNode | undefined)[];
+  nodes: (ActionResponseNode | undefined)[]
 }
 
 /**
@@ -26,13 +22,12 @@ export interface QuestionResponseNode {
  */
 
 export interface ActionResponseNode {
-
   /**
    * The next node this node is linking to. If {@link .endNode}, this is the end of a path in the
    * response tree.
    */
 
-  next: QuestionResponseNode | EndNode;
+  next: QuestionResponseNode | EndNode
 }
 
 export type ResponseNode = QuestionResponseNode | ActionResponseNode | EndNode
@@ -45,8 +40,8 @@ export type ResponseNode = QuestionResponseNode | ActionResponseNode | EndNode
  */
 
 export function isQuestionResponseNode(node: ResponseNode): node is QuestionResponseNode {
-  if (!isPlainObject(node)) return false
-  return !isUndefined((node as QuestionResponseNode).nodes)
+  if (isString(node)) return false
+  return 'nodes' in node
 }
 
 /**
@@ -57,21 +52,22 @@ export function isQuestionResponseNode(node: ResponseNode): node is QuestionResp
  */
 
 export function isActionResponseNode(node: ResponseNode): node is ActionResponseNode {
-  if (!isPlainObject(node)) return false
-  return !isUndefined((node as ActionResponseNode).next)
+  if (isString(node)) return false
+  return 'next' in node
 }
 
 function walkResponseTreeEatingPath(
   node: QuestionResponseNode,
-  path: number[],
+  path: number[]
 ): ActionResponseNode {
   if (isEmpty(path)) throw new Error('Path ended prematurely')
   // didn't get to the end of the tree at end of path
 
-  const next = node.nodes[(path.shift()!)]
+  const next = node.nodes[path.shift()!]
   if (!next) throw new Error('Invalid index for Question node')
 
-  if (next.next === endNode) { // we've reached the end of the tree
+  if (next.next === endNode) {
+    // we've reached the end of the tree
     if (isEmpty(path)) return next // hopefully that also corresponds with the end of the path!
     throw new Error('Walked past the end of the tree')
   }

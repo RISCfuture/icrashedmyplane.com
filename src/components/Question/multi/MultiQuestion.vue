@@ -1,16 +1,10 @@
 <template>
-  <transition
-    name="in-move-left-out-move-left"
-    mode="out-in"
-  >
-    <div
-      :key="transitionKey"
-      class="question-multi"
-    >
+  <transition name="in-move-left-out-move-left" mode="out-in">
+    <div :key="transitionKey" class="question-multi">
       <div class="question-content">
         <p>{{ title }}</p>
         <p class="check-all">
-          {{ $t('question.checkAll') }}
+          {{ t('question.checkAll') }}
         </p>
 
         <div class="question-options">
@@ -27,6 +21,7 @@
             :options="uncategorizedOptions"
             :selections="selections"
             :survey-id="surveyID"
+            :category="null"
             @toggle="toggle"
           />
         </div>
@@ -34,11 +29,7 @@
         <slot />
       </div>
       <div class="question-actions">
-        <button
-          type="button"
-          data-cy="nextButton"
-          @click="answerChosen()"
-        >
+        <button type="button" @click="answerChosen()">
           {{ nextButtonTitle }}
         </button>
       </div>
@@ -46,166 +37,151 @@
   </transition>
 </template>
 
-<script lang="ts">
-  import Component from 'vue-class-component'
-  import {
-    every, groupBy, isEmpty, isUndefined,
-  } from 'lodash-es'
-  import { Getter } from 'vuex-class'
-  import { TranslateResult } from 'vue-i18n'
-  import MultiOption from '@/components/Question/multi/MultiOption.vue'
-  import AbstractQuestion from '@/components/Question/AbstractQuestion'
-  import ErrorBus from '@/bus/ErrorBus'
-  import { Flag, Option } from '@/models/survey'
-  import OptionCategory from '@/components/Question/multi/OptionCategory.vue'
+<script setup lang="ts">
+import OptionCategory from '@/components/Question/multi/OptionCategory.vue'
+import useQuestionnaireStore from '@/stores/questionnaire'
+import { storeToRefs } from 'pinia'
+import { computed, ref, watch } from 'vue'
+import useQuestion from '@/components/Question/hooks/question'
+import { every, groupBy, isEmpty, isNil, isUndefined } from 'lodash-es'
+import { useI18n } from 'vue-i18n'
+import type { Option } from '@/models/survey'
+import type Prompt from '@/models/response/prompt'
 
-  /**
-   * Displays a {@link Question} as a multiple-choice group of options. Options can be shown grouped
-   * into categories, or shown as uncategorized.
-   */
+/**
+ * Displays a {@link Question} as a multiple-choice group of options. Options can be shown grouped
+ * into categories, or shown as uncategorized.
+ */
 
-  @Component({
-    components: { OptionCategory, MultiOption },
-  })
-  export default class MultiQuestion extends AbstractQuestion {
-    @Getter userFlags!: Set<Flag>
+const props = defineProps<{
+  /** The Prompt object containing data about the {@link Question} and its answer. */
+  prompt: Prompt
+}>()
 
-    /**
-     * Stores the choices the user has made as an array of booleans, indexed by the {@link Option}'s
-     * position in the {@link Question.options} array.
-     */
+const { t } = useI18n()
 
-    choices: boolean[] = []
+const store = useQuestionnaireStore()
+const { userFlags } = storeToRefs(store)
 
-    /**
-     * Resets the {@link .choices} array when a new question is shown.
-     */
+const { question, recordAnswer, surveyID, title, transitionKey } = useQuestion(props)
 
-    protected promptChanged(): void {
-      this.choices = []
-    }
+/**
+ * Stores the choices the user has made as an array of booleans, indexed by the {@link Option}'s
+ * position in the {@link Question.options} array.
+ */
+const choices = ref<boolean[]>([])
 
-    /**
-     * @return A list of options that do not belong to a category.
-     */
+const filteredOptions = computed(() =>
+  question.value.options.filter((option) => every(option.only, (flag) => userFlags.value.has(flag)))
+)
 
-    get uncategorizedOptions(): Option[] {
-      return this.filteredOptions.filter((option) => isUndefined(option.data.category))
-    }
+/**
+ * @return A list of options that do not belong to a category.
+ */
+const uncategorizedOptions = computed(() =>
+  filteredOptions.value.filter((option) => isUndefined(option.data.category))
+)
 
-    /**
-     * @return A dictionary mapping category identifiers to an array of options for that category.
-     */
+/**
+ * A dictionary mapping category identifiers to an array of options for that category.
+ */
+const optionsByCategory = computed<Record<string, Option[]>>(() =>
+  groupBy(
+    filteredOptions.value.filter((option) => !isNil(option.data.category)),
+    (option) => option.data.category!
+  )
+)
 
-    get optionsByCategory(): { [key: string]: Option[] } {
-      return groupBy(
-        this.filteredOptions.filter((option) => !isUndefined(option.data.category)),
-        (option) => option.data.category,
-      )
-    }
+/**
+ * @return A set of option identifiers representing the selected options.
+ */
+const selections = computed(() =>
+  question.value.options.reduce(
+    (set, option, index) => (choices.value[index] ? new Set([...set, option.identifier]) : set),
+    new Set<string>()
+  )
+)
 
-    private get filteredOptions(): Option[] {
-      return this.question.options.filter(
-        (option) => every(option.only, (flag) => this.userFlags.has(flag)),
-      )
-    }
+/**
+ * @return The title of the "next" button. Says "None of the above" until the user makes a
+ * selection, to help them understand they can continue with nothing selected.
+ */
+const nextButtonTitle = computed(() =>
+  isEmpty(selections.value) ? t('question.noneApplyButton') : t('question.nextButton')
+)
 
-    /**
-     * @return A set of option identifiers representing the selected options.
-     */
+/**
+ * Called when the user selects an option. Adds to the {@link .choices} array.
+ *
+ * @param identifier The identifier of the {@link Option}.
+ */
+function toggle(identifier: string) {
+  const index = question.value.options.findIndex((option) => option.identifier === identifier)
+  choices.value[index] = !choices.value[index]
+}
 
-    get selections(): Set<string> {
-      return this.question.options.reduce(
-        (set, option, index) => (this.choices[index] ? new Set([...set, option.identifier]) : set),
-        new Set<string>(),
-      )
-    }
+/**
+ * Called when the "Next" button is clicked. Records the answer to the store.
+ */
+function answerChosen() {
+  recordAnswer(surveyID.value, props.prompt.answerPath, choices.value)
+}
 
-    /**
-     * @return The title of the "next" button. Says "None of the above" until the user makes a
-     * selection, to help them understand they can continue with nothing selected.
-     */
-
-    get nextButtonTitle(): TranslateResult {
-      return isEmpty(this.selections) ? this.$t('question.noneApplyButton') : this.$t('question.nextButton')
-    }
-
-    /**
-     * Called when the user selects an option. Adds to the {@link .choices} array.
-     *
-     * @param identifier The identifier of the {@link Option}.
-     */
-
-    toggle(identifier: string): void {
-      const index = this.question.options.findIndex((o) => o.identifier === identifier)
-      this.$set(this.choices, index, !this.choices[index])
-    }
-
-    /**
-     * Called when the "Next" button is clicked. Records the answer to the store. Emits an error to
-     * the {@link ErrorBus} if that fails.
-     */
-
-    async answerChosen(): Promise<void> {
-      try {
-        await this.recordAnswer({
-          surveyID: this.surveyID,
-          answerPath: this.prompt.answerPath,
-          choices: this.choices,
-        })
-      } catch (e) {
-        ErrorBus.$emit('error', e)
-      }
-    }
-  }
+/**
+ * Resets the {@link .choices} array when a new question is shown.
+ */
+watch(
+  () => props.prompt,
+  () => (choices.value = [])
+)
 </script>
 
 <style lang="scss">
-  .question-multi {
-    display: flex;
-    flex-flow: column nowrap;
-  }
+.question-multi {
+  display: flex;
+  flex-flow: column nowrap;
+}
 
-  .question-content {
-    flex: 1 1 auto;
-  }
+.question-content {
+  flex: 1 1 auto;
+}
 
-  .question-actions {
-    flex: 0 0 auto;
-    text-align: center;
-  }
+.question-actions {
+  flex: 0 0 auto;
+  text-align: center;
+}
 </style>
 
 <style scoped lang="scss">
-  @use "src/assets/styles/colors";
-  @use "src/assets/styles/fonts";
-  @use "src/assets/styles/responsive";
+@use '@/assets/styles/colors';
+@use '@/assets/styles/fonts';
+@use '@/assets/styles/responsive';
 
-  .question-options {
-    display: flex;
-    flex-flow: column;
+.question-options {
+  display: flex;
+  flex-flow: column;
+}
+
+.check-all {
+  @include responsive.font-size-very-small;
+
+  @include colors.theme using($theme) {
+    color: colors.get($theme, 'muted-color');
+  }
+}
+
+button {
+  @include fonts.Quicksand-Bold;
+  @include responsive.font-size-regular;
+  @include responsive.top-margin-large;
+  @include responsive.bottom-margin-large;
+
+  @include colors.theme using($theme) {
+    color: colors.get($theme, 'button-text-color');
+    background-color: colors.get($theme, 'button-background-color');
   }
 
-  .check-all {
-    @include responsive.font-size-very-small;
-
-    @include colors.theme using($theme) {
-      color: colors.get($theme, "muted-color");
-    }
-  }
-
-  button {
-    @include fonts.Quicksand-Bold;
-    @include responsive.font-size-regular;
-    @include responsive.top-margin-large;
-    @include responsive.bottom-margin-large;
-
-    @include colors.theme using($theme) {
-      background-color: colors.get($theme, "button-background-color");
-      color: colors.get($theme, "button-text-color");
-    }
-
-    padding-left: 3em;
-    padding-right: 3em;
-  }
+  padding-right: 3em;
+  padding-left: 3em;
+}
 </style>

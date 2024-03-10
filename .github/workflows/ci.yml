@@ -23,7 +23,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         cache: yarn
-        node-version: 20.x
+        node-version-file: .nvmrc
     - name: Install dependencies
       run: yarn install
     - name: Run unit tests
@@ -37,12 +37,17 @@ jobs:
         submodules: true
     - name: Enable Corepack
       run: corepack enable
-    - uses: cypress-io/github-action@v6
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
       with:
-        build: yarn build
-        start: yarn serve
-        record: true
-        wait-on: http://localhost:8080
+        cache: yarn
+        node-version-file: .nvmrc
+    - name: Install dependencies
+      run: yarn install
+    - name: Build project
+      run: yarn build
+    - name: Run E2E tests
+      run: yarn test:e2e
       env:
         CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
   lint:
@@ -58,10 +63,12 @@ jobs:
       uses: actions/setup-node@v4
       with:
         cache: yarn
-        node-version: 20.x
+        node-version-file: .nvmrc
     - name: Install dependencies
       run: yarn install
     - name: Run ESLint
-      run: npx vue-cli-service lint
+      run: yarn lint
     - name: Run Stylelint
-      run: npx stylelint src/**/*.css src/**/*.vue src/**/*.scss
+      run: yarn stylelint
+    - name: Type check
+      run: yarn type-check
