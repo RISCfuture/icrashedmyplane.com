@@ -1,0 +1,27 @@
+{
+  "extends":         "./tsconfig.app.json",
+  "include":         [
+    "./cypress/support/**/*.ts",
+    "./cypress/fixtures/**/*.ts",
+    "./src/**/*",
+    "env.d.ts"
+  ],
+  "exclude":         [],
+  "compilerOptions": {
+    "composite":       true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.vitest.tsbuildinfo",
+    "lib":             [],
+    "types":           [
+      "node",
+      "jsdom"
+    ],
+    "paths":           {
+      "@cypress/*": [
+        "./cypress/*"
+      ],
+      "@/*":        [
+        "./src/*"
+      ]
+    }
+  }
+}

@@ -40,9 +40,8 @@ jobs:
     - uses: cypress-io/github-action@v6
       with:
         build: yarn build
-        start: yarn serve
+        start: npx vite preview --port 4173
         record: true
-        wait-on: http://localhost:8080
       env:
         CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
   lint:
@@ -62,6 +61,8 @@ jobs:
     - name: Install dependencies
       run: yarn install
     - name: Run ESLint
-      run: npx vue-cli-service lint
+      run: yarn lint
     - name: Run Stylelint
       run: npx stylelint src/**/*.css src/**/*.vue src/**/*.scss
+    - name: Type check
+      run: yarn type-check
