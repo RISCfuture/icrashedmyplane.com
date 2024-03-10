@@ -1,4 +1,4 @@
-@use "sass:map";
+@use 'sass:map';
 
 // the basics
 
@@ -28,7 +28,7 @@ $button-colors: $color-1 $color-2 $color-3 $color-4 $color-5;
 
 @mixin theme {
   @media all and (prefers-color-scheme: dark) {
-    @content((
+    @content ((
       "background": $blue-1,
       "breadcrumbs-color": lighten($blue-3, 10%),
       "button-background-color": $blue-4,
@@ -45,7 +45,7 @@ $button-colors: $color-1 $color-2 $color-3 $color-4 $color-5;
     ));
   }
 
-  @content((
+  @content ((
     "background": $background,
     "breadcrumbs-color": $blue-4,
     "button-background-color": $blue-3,

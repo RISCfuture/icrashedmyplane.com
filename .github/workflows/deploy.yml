@@ -47,14 +47,7 @@ jobs:
       uses: actions/upload-pages-artifact@v3
       with:
         path: "dist/"
-    - name: Notify Bugsnag
-      uses: psprings/bugsnag-release-action@v0.0.3
-      with:
-        apiKey: ${{ secrets.BUGSNAG_API_KEY }}
-        appVersion: ${{ github.sha }}
-        releaseStage: production
 
-  # Deployment job
   deploy:
     environment:
       name: github-pages
@@ -65,3 +58,9 @@ jobs:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
+    - name: Notify Bugsnag
+      uses: psprings/bugsnag-release-action@v0.0.3
+      with:
+        apiKey: ${{ secrets.BUGSNAG_API_KEY }}
+        appVersion: ${{ github.sha }}
+        releaseStage: production
