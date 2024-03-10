@@ -1,6 +1,6 @@
-import { LocaleMessageObject } from 'vue-i18n'
+import type { LocaleMessage } from '@intlify/core-base'
 
-const options: LocaleMessageObject = {
+const options: LocaleMessage = {
   yes: 'Yes',
   no: 'No',
   bentFairings: 'Bent fairings or cowling',
@@ -8,7 +8,7 @@ const options: LocaleMessageObject = {
   burnDegree: {
     firstDegree: 'First-degree',
     secondDegree: 'Second-degree',
-    thirdDegree: 'Third-degree',
+    thirdDegree: 'Third-degree'
   },
   burns: 'Burns',
   collision: 'Collision with another aircraft',
@@ -22,7 +22,7 @@ const options: LocaleMessageObject = {
   fire: 'Fire',
   flaps: 'Flaps',
   flightControls: 'Flight control system',
-  hemmorhage: 'Hemmorhaging',
+  hemorrhage: 'Hemorrhaging',
   hospitalization: 'Hospitalization',
   hydraulic: 'Hydraulic system',
   illness: 'In-flight illness or injury',
@@ -43,6 +43,6 @@ const options: LocaleMessageObject = {
   TCASRA: 'TCAS or ACAS resolution advisory',
   tendonDamage: 'Tendon damage',
   wingtips: 'Wingtips',
-  wrongRunway: 'Takeoff or landing from an incorrect runway',
+  wrongRunway: 'Takeoff or landing from an incorrect runway'
 }
 export default options

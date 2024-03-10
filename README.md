@@ -187,6 +187,3 @@ makes module path resolution work the same in both the application and Cypress
 environments. This way, application modules can be used in Cypress tests. This
 was done because `ResponseTraverser` is used by Cypress to run test flows from
 fixture responses (genius!).
-
-Cypress DOM resolution is done using `data-cy` attributes. A custom `dataCy`
-command is added to `cy` as a shorthand.
