@@ -1,4 +1,5 @@
-@use "sass:map";
+@use 'sass:map';
+@use 'sass:color';
 
 // the basics
 
@@ -28,9 +29,9 @@ $button-colors: $color-1 $color-2 $color-3 $color-4 $color-5;
 
 @mixin theme {
   @media all and (prefers-color-scheme: dark) {
-    @content((
+    @content ((
       "background": $blue-1,
-      "breadcrumbs-color": lighten($blue-3, 10%),
+      "breadcrumbs-color": color.adjust($blue-3, $lightness: 10%),
       "button-background-color": $blue-4,
       "button-text-color": $background,
       "footer-color": $blue-4,
@@ -39,13 +40,13 @@ $button-colors: $color-1 $color-2 $color-3 $color-4 $color-5;
       "link-hover-color-alternate": $blue-4,
       "multi-option-bg-color": $blue-3,
       "multi-option-text-color": $blue-4,
-      "muted-color": darken($muted-color, 20%),
+      "muted-color": color.adjust($muted-color, $lightness: -20%),
       "text-color": $blue-4,
-      "text-color-alternate": darken($blue-4, 10%),
+      "text-color-alternate": color.adjust($blue-4, $lightness: -10%),
     ));
   }
 
-  @content((
+  @content ((
     "background": $background,
     "breadcrumbs-color": $blue-4,
     "button-background-color": $blue-3,
