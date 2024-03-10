@@ -1,21 +1,40 @@
-import {
-  isArray, isNull, isString, isUndefined, last, nth,
-} from 'lodash-es'
-import Survey, {
-  Action,
-  Flag, FlagAction,
-  HIGHEST_INCIDENT_LEVEL,
-  IncidentLevel, LevelAction, Option, Question, SurveyNode,
-} from '@/models/survey'
+import { isArray, isNull, isString, isUndefined, last, nth } from 'lodash-es'
 import surveys from '@/data/surveys'
-import {
-  EndNode,
-  endNode,
-  QuestionResponseNode,
-} from '@/models/response/answer'
-import Prompt, { answerPathFromQuestionPath } from '@/models/response/prompt'
+import { type EndNode, endNode, type QuestionResponseNode } from '@/models/response/answer'
+import { answerPathFromQuestionPath } from '@/models/response/prompt'
+import type Prompt from '@/models/response/prompt'
 import ResponseTraverser, { beyondEndNode } from '@/models/response/traverser'
 import ResponseStackTraverser from '@/models/response/stackTraverser'
+import type { Action, Option, Question, Survey, SurveyNode } from '@/models/survey'
+import {
+  Flag,
+  HIGHEST_INCIDENT_LEVEL,
+  IncidentLevel,
+  isFlagAction,
+  isLevelAction
+} from '@/models/survey'
+
+/**
+ * Serializable data in a {@link Response} object.
+ */
+
+export interface SerializableResponse {
+  /** The identifier for the corresponding {@link Survey} this is a response to. */
+  surveyIdentifier: string
+
+  /**
+   * The root node for the response tree. An unstarted response has {@link .endNode} as its root
+   * node.
+   */
+
+  rootNode: QuestionResponseNode | EndNode
+}
+
+export function deserializeResponse(response: SerializableResponse): Response {
+  const newResponse = new Response(response.surveyIdentifier)
+  newResponse.rootNode = response.rootNode
+  return newResponse
+}
 
 /**
  * A Response contains a tree representing all of the answers the user has given so far to a
@@ -34,7 +53,7 @@ import ResponseStackTraverser from '@/models/response/stackTraverser'
  * used when the user is presented the survey.
  */
 
-export default class Response {
+export class Response {
   /** The identifier for the corresponding {@link Survey} this is a response to. */
   surveyIdentifier: string
 
@@ -84,7 +103,7 @@ export default class Response {
         }
 
         return true
-      },
+      }
     })
 
     return finished
@@ -101,7 +120,7 @@ export default class Response {
 
     new ResponseTraverser(this).traverse({
       visitAction(action, responseNode) {
-        if (responseNode === endNode && action instanceof LevelAction) {
+        if (responseNode === endNode && isLevelAction(action)) {
           // found a level action the user did hit; update current highest level
           if (isNull(currentHighestLevel)) currentHighestLevel = action.level
           if (currentHighestLevel < action.level) currentHighestLevel = action.level
@@ -110,7 +129,7 @@ export default class Response {
         }
 
         return true
-      },
+      }
     })
 
     return currentHighestLevel
@@ -130,7 +149,7 @@ export default class Response {
         if (responseNode === beyondEndNode) {
           // this is a potential path the user could still visit
 
-          if (action instanceof LevelAction) {
+          if (isLevelAction(action)) {
             // found a level action the user could hit; update current highest possible level
             if (isNull(currentHighestLevel)) currentHighestLevel = action.level
             if (currentHighestLevel < action.level) currentHighestLevel = action.level
@@ -142,7 +161,7 @@ export default class Response {
         }
 
         return true
-      },
+      }
     })
 
     return currentHighestLevel
@@ -154,9 +173,11 @@ export default class Response {
    */
 
   get isEffectivelyFinished(): boolean {
-    return this.isFinished
-      || (!isNull(this.highestIncidentLevel)
-        && this.highestIncidentLevel >= this.highestPossibleIncidentLevel)
+    return (
+      this.isFinished ||
+      (!isNull(this.highestIncidentLevel) &&
+        this.highestIncidentLevel >= this.highestPossibleIncidentLevel)
+    )
   }
 
   /**
@@ -203,17 +224,16 @@ export default class Response {
         if (!run()) {
           if (isArray(questionPath)) questionPath.unshift(action)
         }
-      },
+      }
     })
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!questionPath) return null
 
     return {
       question: (questionPath as SurveyNode[]).pop() as Question,
       questionPath,
       surveyID: this.surveyIdentifier,
-      answerPath: answerPathFromQuestionPath(questionPath),
+      answerPath: answerPathFromQuestionPath(questionPath)
     }
   }
 
@@ -227,19 +247,19 @@ export default class Response {
     new ResponseStackTraverser(this).traverse({
       visitNode(stack, responseNode) {
         const action = last(stack) as Action | undefined
-        if (!(action instanceof LevelAction)) return true
+        if (isUndefined(action) || !isLevelAction(action)) return true
         if (responseNode !== endNode) return true // user didn't visit this action
 
         const option = nth(stack, -2) as Option | undefined
         if (isUndefined(option)) return true
-        if (isString(option.data.regulation)) regulations.add(option.data.regulation)
+        if (isString(option.data.regulation)) regulations.add(option.data.regulation as string)
 
         const question = nth(stack, -3) as Question | undefined
         if (isUndefined(question)) return true
-        if (isString(question.data.regulation)) regulations.add(question.data.regulation)
+        if (isString(question.data.regulation)) regulations.add(question.data.regulation as string)
 
         return true
-      },
+      }
     })
 
     return regulations
@@ -255,11 +275,11 @@ export default class Response {
 
     new ResponseTraverser(this).traverse({
       visitAction(action, responseNode) {
-        if (!(action instanceof FlagAction)) return true
+        if (!isFlagAction(action)) return true
         if (responseNode !== endNode) return true // user didn't visit this action
         flags.add(action.flag)
         return true
-      },
+      }
     })
 
     return flags

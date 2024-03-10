@@ -1,55 +1,41 @@
 <template>
-  <div
-    class="level-serious-incident"
-    data-cy="levelDescription"
-  >
-    <i18n
-      path="finished.seriousIncident.title"
-      tag="h1"
-    >
+  <div class="level-serious-incident">
+    <i18n-t keypath="finished.seriousIncident.title" tag="h1">
       <template #level>
-        <strong>{{ $t('finished.seriousIncident.level') }}</strong>
+        <strong>{{ t('finished.seriousIncident.level') }}</strong>
       </template>
-    </i18n>
-    <i18n
-      path="finished.seriousIncident.actions"
-      tag="p"
-    >
+    </i18n-t>
+    <i18n-t keypath="finished.seriousIncident.actions" tag="p">
       <template #notifyImmediately>
-        <strong>{{ $t('finished.seriousIncident.notifyImmediately') }}</strong>
+        <strong>{{ t('finished.seriousIncident.notifyImmediately') }}</strong>
       </template>
-    </i18n>
+    </i18n-t>
 
     <div class="level-action-details">
-      <h2>{{ $t('finished.immediateNotification.title') }}</h2>
-      <p v-html="$t('finished.immediateNotification.description')" />
-      <i18n
-        path="finished.immediateNotification.contact"
-        tag="p"
-      >
+      <h2>{{ t('finished.immediateNotification.title') }}</h2>
+      <i18n-t tag="p" keypath="finished.immediateNotification.description" />
+      <i18n-t keypath="finished.immediateNotification.contact" tag="p">
         <template #URL>
           <a
             href="https://www.ntsb.gov/about/Pages/OfficeLocation.aspx"
             rel="noopener noreferrer"
             target="_blank"
           >
-            ntsb.gov</a>
+            ntsb.gov</a
+          >
         </template>
-      </i18n>
-      <p v-html="$t('finished.immediateNotification.whatToInclude')" />
+      </i18n-t>
+      <i18n-t tag="p" keypath="finished.immediateNotification.whatToInclude" />
     </div>
   </div>
 </template>
 
-<script lang="ts">
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 
-  /**
-   * Displayed when the user completes the survey and their answers qualify the incident as serious.
-   */
+/**
+ * Displayed when the user completes the survey and their answers qualify the incident as serious.
+ */
 
-  @Component
-  export default class SeriousIncident extends Vue {
-  }
+const { t } = useI18n()
 </script>

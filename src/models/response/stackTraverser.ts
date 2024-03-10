@@ -1,6 +1,6 @@
-import { SurveyNode } from '@/models/survey'
-import Response from '@/models/response/index'
-import ResponseTraverser, { CurrentResponseNode } from '@/models/response/traverser'
+import { type SurveyNode } from '@/models/survey'
+import { Response } from '@/models/response/index'
+import ResponseTraverser, { type CurrentResponseNode } from '@/models/response/traverser'
 
 /**
  * Interface for the callback receiver, used when traversing a {@link Response} with a
@@ -8,7 +8,6 @@ import ResponseTraverser, { CurrentResponseNode } from '@/models/response/traver
  */
 
 export interface ResponseStackVisitor {
-
   /**
    * Called when a responseNode is visited in the {@link Survey} tree.
    *
@@ -17,7 +16,7 @@ export interface ResponseStackVisitor {
    * @return `true` to continue traversing, `false` to end all traversing (of the whole tree).
    */
 
-  visitNode: (surveyNodes: SurveyNode[], responseNode: CurrentResponseNode) => boolean;
+  visitNode: (surveyNodes: SurveyNode[], responseNode: CurrentResponseNode) => boolean
 }
 
 /**
@@ -32,8 +31,7 @@ export default class ResponseStackTraverser {
    * @param response The Response to traverse.
    */
 
-  constructor(public response: Response) {
-  }
+  constructor(public response: Response) {}
 
   /**
    * Call this method to begin traversal.
@@ -72,7 +70,7 @@ export default class ResponseStackTraverser {
 
       visitAction(action, responseNode) {
         return visitor.visitNode(stack, responseNode)
-      },
+      }
     })
   }
 }
