@@ -1,9 +1,9 @@
-import { LocaleMessageObject } from 'vue-i18n'
 import incident from '@/i18n/strings/en/survey/incident'
 import profile from '@/i18n/strings/en/survey/profile'
+import type { LocaleMessage } from '@intlify/core-base'
 
-const survey: LocaleMessageObject = {
+const survey: LocaleMessage = {
   incident,
-  profile,
+  profile
 }
 export default survey

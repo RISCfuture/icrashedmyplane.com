@@ -1,10 +1,6 @@
+import type { Action, Option, Question, Survey } from '@/models/survey/index'
+import { isQuestionAction } from '@/models/survey/index'
 import { each } from 'lodash-es'
-import Survey, {
-  Action,
-  Option,
-  Question,
-  QuestionAction,
-} from '@/models/survey/index'
 
 /**
  * Interface for the callback receiver, used when traversing a {@link Survey} with a
@@ -12,7 +8,6 @@ import Survey, {
  */
 
 export interface SurveyVisitor {
-
   /**
    * Wraps a call to {@link .visitQuestion}, allowing you to perform tail recursion on the call.
    * If you do not call `run` within your implementation, no downstream nodes will be traversed.
@@ -23,7 +18,7 @@ export interface SurveyVisitor {
    * method.
    */
 
-  aroundVisitQuestion?: (question: Question, run: () => boolean) => void;
+  aroundVisitQuestion?: (question: Question, run: () => boolean) => void
 
   /**
    * Called when a Question node is visited in the {@link Survey} tree.
@@ -32,7 +27,7 @@ export interface SurveyVisitor {
    * @return `true` to continue traversing, `false` to end all traversing (of the whole tree).
    */
 
-  visitQuestion?: (question: Question) => boolean;
+  visitQuestion?: (question: Question) => boolean
 
   /**
    * Wraps a call to {@link .visitOption}, allowing you to perform tail recursion on the call.
@@ -44,7 +39,7 @@ export interface SurveyVisitor {
    * method.
    */
 
-  aroundVisitOption?: (option: Option, index: number, run: () => boolean) => void;
+  aroundVisitOption?: (option: Option, index: number, run: () => boolean) => void
 
   /**
    * Called when an Option node is visited in the {@link Survey} tree.
@@ -53,7 +48,7 @@ export interface SurveyVisitor {
    * @return `true` to continue traversing, `false` to end all traversing (of the whole tree).
    */
 
-  visitOption?: (option: Option, index: number) => boolean;
+  visitOption?: (option: Option, index: number) => boolean
 
   /**
    * Wraps a call to {@link .visitAction}, allowing you to perform tail recursion on the call.
@@ -65,7 +60,7 @@ export interface SurveyVisitor {
    * method.
    */
 
-  aroundVisitAction?: (action: Action, run: () => boolean) => void;
+  aroundVisitAction?: (action: Action, run: () => boolean) => void
 
   /**
    * Called when an Action node is visited in the {@link Survey} tree.
@@ -74,7 +69,7 @@ export interface SurveyVisitor {
    * @return `true` to continue traversing, `false` to end all traversing (of the whole tree).
    */
 
-  visitAction?: (action: Action) => boolean;
+  visitAction?: (action: Action) => boolean
 }
 
 /**
@@ -145,7 +140,7 @@ export default class SurveyTraverser {
       if (visitor.visitAction) shouldContinue = visitor.visitAction(action)
       if (!shouldContinue) return shouldContinue
 
-      if (action instanceof QuestionAction) {
+      if (isQuestionAction(action)) {
         shouldContinue = this.visitQuestion(action.question, visitor)
       }
 
