@@ -17,6 +17,7 @@ export default function useCLDR() {
 
   Cldr.load(likelySubtags, listsEn)
   const CLDR = new Cldr(locale.value)
+  const fallbackCLDR = new Cldr('en')
 
   const listConstantLength = function (template: string, items: string[]): string {
     let output = template
@@ -45,8 +46,16 @@ export default function useCLDR() {
     if (items.length === 0) return ''
     if (items.length === 1) return items[0]
 
-    const pattern = (CLDR.main(`listPatterns/listPattern-type-${type}`) ||
-      CLDR.main('listPatterns/listPattern-type-standard')) as CLDRStringPattern
+    let pattern: CLDRStringPattern
+    try {
+      pattern =
+        CLDR.main(`listPatterns/listPattern-type-${type}`) ??
+        CLDR.main('listPatterns/listPattern-type-standard')
+    } catch {
+      pattern =
+        fallbackCLDR.main(`listPatterns/listPattern-type-${type}`) ??
+        fallbackCLDR.main('listPatterns/listPattern-type-standard')
+    }
 
     if (pattern[items.length.toString()]) {
       return listConstantLength(pattern[items.length.toString()], items)
