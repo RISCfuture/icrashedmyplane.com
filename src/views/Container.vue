@@ -57,11 +57,14 @@ const showWelcome = computed(() => !clickedContinue.value)
 @use '@/assets/styles/responsive';
 
 #container {
-  @include responsive.fill-height;
-
+  display: flex;
   flex: 0 0 auto;
   width: 90vw;
   max-width: 800px;
+
+  > * {
+    flex: 1 1 auto;
+  }
 
   @include responsive.large {
     min-height: 90vh;

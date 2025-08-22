@@ -26,12 +26,12 @@ a {
 }
 
 a {
+  text-decoration: none;
+
   @media all and (prefers-color-scheme: dark) {
     @include fonts.Quicksand-SemiBold;
     @include fonts.Quicksand-Bold;
   }
-
-  text-decoration: none;
 
   @media all and (hover: hover) {
     &:hover {
@@ -47,10 +47,10 @@ strong {
 }
 
 button {
-  @include controls.button;
-
   appearance: none;
   border-style: none;
+
+  @include controls.button;
 }
 
 .level-action-details {
@@ -70,12 +70,12 @@ button {
 }
 
 footer {
+  padding: 10px 0;
+
   @include fonts.Quicksand-Light;
   @include responsive.font-size-tiny;
 
   @include colors.theme using($theme) {
     color: colors.get($theme, 'footer-color');
   }
-
-  padding: 10px 0;
 }

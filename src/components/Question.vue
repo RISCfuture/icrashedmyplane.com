@@ -103,10 +103,14 @@ const selectedOptionTitle = computed(() => {
 
 .question {
   .question-breadcrumbs {
-    @include responsive.font-size-small;
+    font-size: 18px;
 
     @include colors.theme using($theme) {
       color: colors.get($theme, 'breadcrumbs-color');
+    }
+
+    @include responsive.small {
+      font-size: 14px;
     }
 
     strong {

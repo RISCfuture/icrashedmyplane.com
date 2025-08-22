@@ -87,10 +87,14 @@ function toggle(option: Option) {
 
 .option-category {
   h1 {
-    @include responsive.font-size-small;
+    text-align: center;
+    font-size: 18px;
+
     @include fonts.Quicksand-Thin;
 
-    text-align: center;
+    @include responsive.small {
+      font-size: 14px;
+    }
   }
 }
 

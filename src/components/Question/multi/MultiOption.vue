@@ -61,10 +61,6 @@ const subtitle = computed(() => {
 @use '@/assets/styles/responsive';
 
 .option-multi {
-  @include colors.theme using($theme) {
-    border: 1px solid colors.get($theme, 'multi-option-bg-color');
-  }
-
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -76,14 +72,13 @@ const subtitle = computed(() => {
   transition: background 0.25s;
 
   @include colors.theme using($theme) {
+    border: 1px solid colors.get($theme, 'multi-option-bg-color');
     background: linear-gradient(
       90deg,
       colors.get($theme, 'background') 0%,
       colors.get($theme, 'background') 100%
     );
-  }
 
-  @include colors.theme using($theme) {
     a,
     a:hover {
       color: colors.get($theme, 'multi-option-text-color');
@@ -117,13 +112,13 @@ const subtitle = computed(() => {
   }
 
   .option-subtitle {
+    margin: 10px 0 0;
+
     @include responsive.font-size-tiny;
 
     @include colors.theme using($theme) {
       color: colors.get($theme, 'multi-option-text-color');
     }
-
-    margin: 10px 0 0;
   }
 
   @media all and (hover: hover) {

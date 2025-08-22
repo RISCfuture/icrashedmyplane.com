@@ -59,14 +59,14 @@ const regulationList = computed(() => {
   margin-left: auto;
 
   h2 {
-    @include responsive.top-margin;
-
     text-align: center;
+
+    @include responsive.top-margin;
   }
 
   h1 {
-    @include responsive.bottom-margin;
     @include fonts.Quicksand-Regular;
+    @include responsive.bottom-margin;
 
     strong {
       @include colors.theme using($theme) {
@@ -76,9 +76,15 @@ const regulationList = computed(() => {
   }
 
   .level-actions {
+    font-size: 18px;
+    margin-bottom: 80px;
+
     @include fonts.Quicksand-Thin;
-    @include responsive.font-size-small;
-    @include responsive.bottom-margin-large;
+
+    @include responsive.small {
+      font-size: 14px;
+      margin-bottom: 50px;
+    }
   }
 }
 </style>

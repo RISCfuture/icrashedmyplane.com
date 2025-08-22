@@ -171,17 +171,23 @@ watch(
 }
 
 button {
+  font-size: 24px;
+  margin-top: 80px;
+  margin-bottom: 80px;
+  padding-right: 3em;
+  padding-left: 3em;
+
   @include fonts.Quicksand-Bold;
-  @include responsive.font-size-regular;
-  @include responsive.top-margin-large;
-  @include responsive.bottom-margin-large;
 
   @include colors.theme using($theme) {
     color: colors.get($theme, 'button-text-color');
     background-color: colors.get($theme, 'button-background-color');
   }
 
-  padding-right: 3em;
-  padding-left: 3em;
+  @include responsive.small {
+    font-size: 18px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
 }
 </style>

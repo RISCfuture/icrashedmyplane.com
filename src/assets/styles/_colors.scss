@@ -28,6 +28,24 @@ $button-colors: $color-1 $color-2 $color-3 $color-4 $color-5;
    to your content block a map of named colors to use. */
 
 @mixin theme {
+  // Default (light mode) values first
+  @content ((
+    "background": $background,
+    "breadcrumbs-color": $blue-4,
+    "button-background-color": $blue-3,
+    "button-text-color": $background,
+    "footer-color": $blue-4,
+    "header-alternate-color": $blue-4,
+    "link-hover-color": $blue-4,
+    "link-hover-color-alternate": $blue-3,
+    "multi-option-bg-color": $blue-5,
+    "multi-option-text-color": $blue-4,
+    "muted-color": $muted-color,
+    "text-color": $blue-2,
+    "text-color-alternate": $blue-4,
+  ));
+
+  // Dark mode overrides after
   @media all and (prefers-color-scheme: dark) {
     @content ((
       "background": $blue-1,
@@ -45,22 +63,6 @@ $button-colors: $color-1 $color-2 $color-3 $color-4 $color-5;
       "text-color-alternate": color.adjust($blue-4, $lightness: -10%),
     ));
   }
-
-  @content ((
-    "background": $background,
-    "breadcrumbs-color": $blue-4,
-    "button-background-color": $blue-3,
-    "button-text-color": $background,
-    "footer-color": $blue-4,
-    "header-alternate-color": $blue-4,
-    "link-hover-color": $blue-4,
-    "link-hover-color-alternate": $blue-3,
-    "multi-option-bg-color": $blue-5,
-    "multi-option-text-color": $blue-4,
-    "muted-color": $muted-color,
-    "text-color": $blue-2,
-    "text-color-alternate": $blue-4,
-  ));
 }
 
 /* Convenience method for getting named colors from the map given to you by

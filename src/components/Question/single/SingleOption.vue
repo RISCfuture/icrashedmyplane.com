@@ -46,8 +46,12 @@ const className = computed(() => {
 @use '@/assets/styles/responsive';
 
 .option-single {
+  display: block;
+  text-align: center;
+  break-inside: avoid;
+  font-size: 24px;
+
   @include controls.button;
-  @include responsive.font-size-regular;
 
   @include responsive.large {
     padding-right: 1.5em;
@@ -56,12 +60,9 @@ const className = computed(() => {
   }
 
   @include responsive.small {
+    font-size: 18px;
     margin: 10px 0;
   }
-
-  display: block;
-  text-align: center;
-  break-inside: avoid;
 }
 
 .option-1 {

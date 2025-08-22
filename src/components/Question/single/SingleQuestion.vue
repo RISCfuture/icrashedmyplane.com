@@ -43,6 +43,8 @@ function answerChosen(identifier: string) {
 @use '@/assets/styles/responsive';
 
 .question-options {
+  display: flex;
+
   @include responsive.top-margin-large;
 
   @include responsive.large {
@@ -53,7 +55,5 @@ function answerChosen(identifier: string) {
   @include responsive.small {
     flex-flow: column nowrap;
   }
-
-  display: flex;
 }
 </style>

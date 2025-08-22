@@ -42,21 +42,30 @@ article {
 }
 
 h1 {
-  @include fonts.Quicksand-Bold;
-  @include responsive.font-size-very-large;
-  @include responsive.bottom-margin-large;
-
   text-align: center;
+  font-size: 48px;
+  margin-bottom: 80px;
+
+  @include fonts.Quicksand-Bold;
+
+  @include responsive.small {
+    font-size: 36px;
+    margin-bottom: 50px;
+  }
 }
 
 p {
-  @include fonts.Quicksand-Medium;
-  @include responsive.bottom-margin-large;
-
   max-width: 500px;
   margin-right: auto;
   margin-left: auto;
   text-align: center;
+  margin-bottom: 80px;
+
+  @include fonts.Quicksand-Medium;
+
+  @include responsive.small {
+    margin-bottom: 50px;
+  }
 }
 
 button {
