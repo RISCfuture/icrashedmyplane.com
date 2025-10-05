@@ -37,7 +37,10 @@ const useQuestionnaireStore = defineStore('questionnaire', {
 
   getters: {
     /** Returns a method that retrieves a response by survey identifier. */
-    response: (state) => (key: string) => deserializeResponse(state.responses[key]),
+    response: (state) => (key: string) => {
+      const response = state.responses[key]
+      return response ? deserializeResponse(response) : undefined
+    },
 
     /** Returns the highest incident level based on all responses so far. */
     incidentLevel: (state) => {
@@ -80,7 +83,14 @@ const useQuestionnaireStore = defineStore('questionnaire', {
       )
       const newNode: QuestionResponseNode = { nodes }
 
-      const response = cloneDeep(this.responses[surveyID])
+      let response = this.responses[surveyID]
+      if (!response) {
+        response = {
+          surveyIdentifier: surveyID,
+          rootNode: endNode
+        }
+      }
+      response = cloneDeep(response)
 
       if (response.rootNode !== endNode) {
         const node = walkResponseTree(response.rootNode, answerPath)

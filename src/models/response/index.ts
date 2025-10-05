@@ -75,7 +75,9 @@ export class Response {
 
   /** @return The corresponding Survey. */
   get survey(): Survey {
-    return surveys[this.surveyIdentifier]
+    const survey = surveys[this.surveyIdentifier]
+    if (!survey) throw new Error(`Survey not found: ${this.surveyIdentifier}`)
+    return survey
   }
 
   /** @return Whether the user has answered at least one question in this Response. */

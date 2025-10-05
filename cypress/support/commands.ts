@@ -34,7 +34,10 @@ Cypress.Commands.add('runResponse', (response: ResponseModel) => {
           chosenOptions.forEach((option) => cy.findByTestId(option.identifier).click())
           cy.findByRole('button').click()
         } else {
-          cy.findByTestId(chosenOptions[0].identifier).click()
+          const firstOption = chosenOptions[0]
+          if (firstOption) {
+            cy.findByTestId(firstOption.identifier).click()
+          }
         }
       }
 

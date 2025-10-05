@@ -75,7 +75,7 @@ describe('Container', () => {
 
     const heading = screen.getByRole('heading', {
       level: 1,
-      name: 'Based on your answers, this qualifies as an accident .'
+      name: 'Based on your answers, this qualifies as an accident.'
     })
     expect(heading).toBeTruthy()
   })

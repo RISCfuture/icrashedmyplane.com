@@ -56,7 +56,7 @@ describe('Questionnaire store', () => {
 
       store.recordAnswer('incident', [10], [false, true, true])
 
-      expect(store.responses.incident.rootNode).toEqual({
+      expect(store.responses.incident?.rootNode).toEqual({
         nodes: [
           { next: { nodes: [{ next: endNode }] } },
           ...times(9, constant(undefined)),

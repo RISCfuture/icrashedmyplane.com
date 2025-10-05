@@ -35,7 +35,7 @@ describe('Finished', () => {
 
     const heading = screen.getByRole('heading', {
       level: 1,
-      name: 'Based on your answers, this qualifies as an accident .'
+      name: 'Based on your answers, this qualifies as an accident.'
     })
     expect(heading).toBeTruthy()
   })
@@ -68,7 +68,7 @@ describe('Finished', () => {
 
     const heading = screen.getByRole('heading', {
       level: 1,
-      name: 'Based on your answers, this qualifies as a serious incident .'
+      name: 'Based on your answers, this qualifies as a serious incident.'
     })
     expect(heading).toBeTruthy()
   })
@@ -101,7 +101,7 @@ describe('Finished', () => {
 
     const heading = screen.getByRole('heading', {
       level: 1,
-      name: 'Based on your answers, this qualifies as an incident .'
+      name: 'Based on your answers, this qualifies as an incident.'
     })
     expect(heading).toBeTruthy()
   })

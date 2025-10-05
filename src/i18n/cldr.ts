@@ -28,8 +28,10 @@ export default function useCLDR() {
   }
 
   const listMiddle = function (items: string[], template: string): string {
-    if (items.length === 1) return items[0]
-    return template.replace('{0}', items[0]).replace('{1}', listMiddle(items.slice(1), template))
+    if (items.length === 0) return ''
+    if (items.length === 1) return items[0] ?? ''
+    const first = items[0] ?? ''
+    return template.replace('{0}', first).replace('{1}', listMiddle(items.slice(1), template))
   }
 
   const listStartAndMiddle = function (
@@ -37,16 +39,17 @@ export default function useCLDR() {
     startTemplate: string,
     middleTemplate: string
   ): string {
+    const first = items[0] ?? ''
     return startTemplate
-      .replace('{0}', items[0])
+      .replace('{0}', first)
       .replace('{1}', listMiddle(items.slice(1), middleTemplate))
   }
 
   const list = function (items: string[], type = 'standard'): string {
     if (items.length === 0) return ''
-    if (items.length === 1) return items[0]
+    if (items.length === 1) return items[0] ?? ''
 
-    let pattern: CLDRStringPattern
+    let pattern: CLDRStringPattern | undefined
     try {
       pattern =
         CLDR.main(`listPatterns/listPattern-type-${type}`) ??
@@ -57,11 +60,18 @@ export default function useCLDR() {
         fallbackCLDR.main('listPatterns/listPattern-type-standard')
     }
 
-    if (pattern[items.length.toString()]) {
-      return listConstantLength(pattern[items.length.toString()], items)
+    if (!pattern) return items.join(', ')
+
+    const patternKey = items.length.toString()
+    if (pattern[patternKey]) {
+      return listConstantLength(pattern[patternKey], items)
     }
 
-    const firstAndMiddle = listStartAndMiddle(initial(items), pattern.start, pattern.middle)
+    const firstAndMiddle = listStartAndMiddle(
+      initial(items) as string[],
+      pattern.start,
+      pattern.middle
+    )
     return pattern.end.replace('{0}', firstAndMiddle).replace('{1}', last(items)!)
   }
 
