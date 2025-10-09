@@ -43,6 +43,8 @@ jobs:
       run: yarn install
     - name: Build
       run: yarn build
+      env:
+        VITE_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
     - name: Upload
       uses: actions/upload-pages-artifact@v3
       with:
@@ -55,12 +57,28 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
-    - name: Notify Bugsnag
-      uses: psprings/bugsnag-release-action@v0.0.3
-      with:
-        apiKey: ${{ secrets.BUGSNAG_API_KEY }}
-        appVersion: ${{ github.sha }}
-        releaseStage: production
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+      - name: Extract artifact
+        run: |
+          mkdir -p dist
+          tar -xvf artifact.tar -C dist
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Create Sentry release
+        uses: getsentry/action-release@v3
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: timcodes
+          SENTRY_PROJECT: icrashedmyplane
+        with:
+          environment: production
+          version: ${{ github.sha }}
+          sourcemaps: "./dist"
