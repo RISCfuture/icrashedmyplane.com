@@ -80,5 +80,5 @@ jobs:
           SENTRY_PROJECT: icrashedmyplane
         with:
           environment: production
-          version: ${{ github.sha }}
+          release: ${{ github.sha }}
           sourcemaps: "./dist"
