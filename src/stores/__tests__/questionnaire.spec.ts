@@ -87,12 +87,9 @@ describe('Questionnaire store', () => {
         }
       })
 
-      try {
-        store.recordAnswer('incident', [10], [false, true, true])
-        expect.fail() // should have thrown an error by now
-      } catch (e: unknown) {
-        expect((e as Error).message).toEqual('Path ended prematurely')
-      }
+      expect(() => store.recordAnswer('incident', [10], [false, true, true])).toThrow(
+        'Path ended prematurely'
+      )
     })
   })
 })
