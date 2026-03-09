@@ -344,9 +344,18 @@ const incidentSurvey: Survey = {
       makeOption(
         'runwayIncursion',
         makeQuestionAction(
-          makeQuestion('publicAirport', yesMeansSeriousIncidentNoMeansIncident, {
-            data: { regulation: '830.5' }
-          })
+          makeQuestion(
+            'correctiveAction',
+            [
+              yesAskQuestion(
+                makeQuestion('publicAirport', yesMeansSeriousIncidentNoMeansIncident, {
+                  data: { regulation: '830.5' }
+                })
+              ),
+              noMeansIncident
+            ],
+            { data: { regulation: '830.5' } }
+          )
         ),
         { data: { category: 'surface' }, only: [Flag.AIR_CARRIER] }
       )

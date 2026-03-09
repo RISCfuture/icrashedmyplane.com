@@ -31,7 +31,8 @@ const en: LocaleMessage = {
     seriousIncident: {
       title: 'Based on your answers, this qualifies as a {level}.',
       level: 'serious incident',
-      actions: '{notifyImmediately}, but you do not have to file an accident report.',
+      actions:
+        '{notifyImmediately}. You do not have to file an accident report unless requested by the NTSB.',
       notifyImmediately: 'You are required to notify the NTSB immediately'
     },
     accident: {
