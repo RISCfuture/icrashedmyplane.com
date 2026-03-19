@@ -31,7 +31,7 @@ export function answerPathFromQuestionPath(questionPath: SurveyNode[]): number[]
     if (isOption(step)) {
       const question = questionPath[index - 1] as Question
       const choiceIndex = question.options.findIndex(
-        (option) => option.identifier === step.identifier
+        (option) => option.identifier === step.identifier,
       )
       answerPath.push(choiceIndex)
     }

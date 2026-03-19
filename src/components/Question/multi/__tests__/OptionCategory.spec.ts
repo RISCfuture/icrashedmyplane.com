@@ -8,18 +8,18 @@ describe('OptionCategory', () => {
   it('renders', () => {
     render(OptionCategory, {
       global: {
-        plugins: [i18n]
+        plugins: [i18n],
       },
       props: {
         surveyId: 'profile',
         category: null,
         options: profileSurvey.root.options,
-        selections: new Set<string>()
-      }
+        selections: new Set<string>(),
+      },
     })
 
     expect(
-      screen.findByText('I was flying a multi-engine aircraft with certified MTOW > 12,500 lbs.')
+      screen.findByText('I was flying a multi-engine aircraft with certified MTOW > 12,500 lbs.'),
     ).toBeTruthy()
     expect(screen.findByText('I was engaged in air carrier operations (Part 119)')).toBeTruthy()
     expect(screen.findByText('I was flying a helicopter')).toBeTruthy()

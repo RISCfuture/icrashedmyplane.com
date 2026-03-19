@@ -1,4 +1,4 @@
-import { isArray, isNull, isString, isUndefined, last, nth } from 'lodash-es'
+import { isArray, isNull, isUndefined, last, nth } from 'lodash-es'
 import surveys from '@/data/surveys'
 import { type EndNode, endNode, type QuestionResponseNode } from '@/models/response/answer'
 import { answerPathFromQuestionPath } from '@/models/response/prompt'
@@ -11,7 +11,7 @@ import {
   HIGHEST_INCIDENT_LEVEL,
   IncidentLevel,
   isFlagAction,
-  isLevelAction
+  isLevelAction,
 } from '@/models/survey'
 
 /**
@@ -76,6 +76,7 @@ export class Response {
   /** @return The corresponding Survey. */
   get survey(): Survey {
     const survey = surveys[this.surveyIdentifier]
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- defensive runtime check
     if (!survey) throw new Error(`Survey not found: ${this.surveyIdentifier}`)
     return survey
   }
@@ -105,7 +106,7 @@ export class Response {
         }
 
         return true
-      }
+      },
     })
 
     return finished
@@ -131,7 +132,7 @@ export class Response {
         }
 
         return true
-      }
+      },
     })
 
     return currentHighestLevel
@@ -163,7 +164,7 @@ export class Response {
         }
 
         return true
-      }
+      },
     })
 
     return currentHighestLevel
@@ -226,16 +227,17 @@ export class Response {
         if (!run()) {
           if (isArray(questionPath)) questionPath.unshift(action)
         }
-      }
+      },
     })
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- mutated inside callback
     if (!questionPath) return null
 
     return {
       question: (questionPath as SurveyNode[]).pop() as Question,
       questionPath,
       surveyID: this.surveyIdentifier,
-      answerPath: answerPathFromQuestionPath(questionPath)
+      answerPath: answerPathFromQuestionPath(questionPath),
     }
   }
 
@@ -254,14 +256,14 @@ export class Response {
 
         const option = nth(stack, -2) as Option | undefined
         if (isUndefined(option)) return true
-        if (isString(option.data.regulation)) regulations.add(option.data.regulation as string)
+        if (option.data.regulation) regulations.add(option.data.regulation)
 
         const question = nth(stack, -3) as Question | undefined
         if (isUndefined(question)) return true
-        if (isString(question.data.regulation)) regulations.add(question.data.regulation as string)
+        if (question.data.regulation) regulations.add(question.data.regulation)
 
         return true
-      }
+      },
     })
 
     return regulations
@@ -281,7 +283,7 @@ export class Response {
         if (responseNode !== endNode) return true // user didn't visit this action
         flags.add(action.flag)
         return true
-      }
+      },
     })
 
     return flags

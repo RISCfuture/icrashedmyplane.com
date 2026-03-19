@@ -12,7 +12,7 @@ describe('Answer flows', () => {
 
       cy.findByRole('heading', { level: 1 }).should(
         'contain',
-        'Based on your answers, this qualifies as an accident'
+        'Based on your answers, this qualifies as an accident',
       )
     })
 
@@ -24,7 +24,7 @@ describe('Answer flows', () => {
 
       cy.findByRole('heading', { level: 1 }).should(
         'contain',
-        'Based on your answers, this qualifies as a serious incident'
+        'Based on your answers, this qualifies as a serious incident',
       )
     })
 
@@ -36,7 +36,7 @@ describe('Answer flows', () => {
 
       cy.findByRole('heading', { level: 1 }).should(
         'contain',
-        'Based on your answers, this qualifies as an incident'
+        'Based on your answers, this qualifies as an incident',
       )
     })
   })
@@ -47,7 +47,7 @@ describe('Answer flows', () => {
       cy.findByText('Let’s get started').click()
 
       cy.findByText(
-        'I was flying a multi-engine aircraft with certified MTOW > 12,500 lbs.'
+        'I was flying a multi-engine aircraft with certified MTOW > 12,500 lbs.',
       ).click()
       cy.findByText('I was flying a helicopter').click()
       cy.findByText('Next').click()
@@ -85,7 +85,7 @@ describe('Answer flows', () => {
     cy.findByRole('heading', { level: 1 }).should('exist')
     cy.findByRole('heading', { level: 1 }).should(
       'contain',
-      'Based on your answers, this qualifies as an accident'
+      'Based on your answers, this qualifies as an accident',
     )
   })
 })

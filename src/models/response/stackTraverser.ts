@@ -70,7 +70,7 @@ export default class ResponseStackTraverser {
 
       visitAction(action, responseNode) {
         return visitor.visitNode(stack, responseNode)
-      }
+      },
     })
   }
 }

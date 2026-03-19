@@ -4,7 +4,7 @@ import {
   type ResponseNode,
   endNode,
   isActionResponseNode,
-  isQuestionResponseNode
+  isQuestionResponseNode,
 } from '@/models/response/answer'
 import SurveyTraverser from '@/models/survey/traverser'
 import type { Action, Option, Question } from '@/models/survey'
@@ -39,7 +39,7 @@ export interface ResponseVisitor {
   aroundVisitQuestion?: (
     question: Question,
     responseNode: CurrentResponseNode,
-    run: () => boolean
+    run: () => boolean,
   ) => void
 
   /**
@@ -67,7 +67,7 @@ export interface ResponseVisitor {
     option: Option,
     index: number,
     responseNode: CurrentResponseNode,
-    run: () => boolean
+    run: () => boolean,
   ) => void
 
   /**
@@ -94,7 +94,7 @@ export interface ResponseVisitor {
   aroundVisitAction?: (
     action: Action,
     responseNode: CurrentResponseNode,
-    run: () => boolean
+    run: () => boolean,
   ) => void
 
   /**
@@ -201,7 +201,7 @@ export default class ResponseTraverser {
       visitAction(action) {
         if (visitor.visitAction) return visitor.visitAction(action, currentNode)
         return true
-      }
+      },
     })
   }
 }

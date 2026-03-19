@@ -1,0 +1,39 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "project": ["src/**/*.{ts,vue}"],
+  "entry": ["src/**/__tests__/*.spec.ts", "vitest.setup.ts"],
+  "ignoreExportsUsedInFile": true,
+  "rules": {
+    "exports": "warn",
+    "types": "warn",
+    "unresolved": "warn"
+  },
+  "ignoreDependencies": [
+    "@vue/compiler-dom",
+    "@vue/server-renderer",
+    "eslint",
+    "jiti",
+    "npm-run-all2",
+    "oxlint",
+    "postcss",
+    "sass",
+    "start-server-and-test",
+    "typedoc",
+    "vue-tsc"
+  ],
+  "ignoreBinaries": [
+    "run-p",
+    "run-s",
+    "vite",
+    "vitest",
+    "typedoc",
+    "prettier",
+    "eslint",
+    "stylelint",
+    "oxlint",
+    "knip",
+    "start-server-and-test",
+    "vue-tsc"
+  ],
+  "ignore": ["src/models/survey/stackTraverser.ts"]
+}

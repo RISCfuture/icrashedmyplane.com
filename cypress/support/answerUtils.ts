@@ -1,11 +1,5 @@
-import {
-  find, isArray, isNil, mergeWith, zip
-} from 'lodash-es'
-import {
-  endNode,
-  type QuestionResponseNode,
-  type ResponseNode
-} from '@/models/response/answer'
+import { find, isArray, isNil, mergeWith, zip } from 'lodash-es'
+import { endNode, type QuestionResponseNode, type ResponseNode } from '@/models/response/answer'
 import { Response } from '@/models/response'
 
 export function makeResponse(survey: string, answer?: QuestionResponseNode): Response {
@@ -16,10 +10,10 @@ export function makeResponse(survey: string, answer?: QuestionResponseNode): Res
 
 const answerMergeFunctor = (
   b: ResponseNode | ResponseNode[] | undefined,
-  a: ResponseNode | ResponseNode[] | undefined
+  a: ResponseNode | ResponseNode[] | undefined,
 ) => {
   if (isArray(b) && isArray(a)) {
-    return zip(a, b).map(pair => find(pair, e => !isNil(e)))
+    return zip(a, b).map((pair) => find(pair, (e) => !isNil(e)))
   }
   return isNil(b) ? a : b
 }

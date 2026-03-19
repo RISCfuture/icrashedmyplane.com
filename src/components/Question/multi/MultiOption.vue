@@ -16,7 +16,7 @@
 import Checkmark from '@/components/Question/multi/Checkmark.vue'
 import useOption from '@/components/Question/hooks/option'
 import { computed } from 'vue'
-import { isUndefined } from 'lodash-es'
+
 import { useI18n } from 'vue-i18n'
 import type { Option } from '@/models/survey'
 
@@ -48,10 +48,9 @@ const { title, clicked } = useOption(props, emit)
  * {@link Option.data} attribute.
  */
 const subtitle = computed(() => {
-  if (isUndefined(props.option.data.subtitle)) {
-    return null
-  }
-  return t(`survey.${props.surveyId}.subtitles.${props.option.data.subtitle}`)
+  const { subtitle } = props.option.data
+  if (!subtitle) return null
+  return t(`survey.${props.surveyId}.subtitles.${subtitle}`)
 })
 </script>
 

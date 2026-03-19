@@ -8,32 +8,32 @@ import { type QuestionnaireState } from '@/stores/questionnaire'
 import incidentSurvey from '@/data/surveys/incident'
 
 describe('MultiQuestion', () => {
-  it('renders a question', async () => {
+  it('renders a question', () => {
     const pinia = createTestingPinia({
       createSpy: vi.fn,
       initialState: {
         questionnaire: {
           responses: {
             incident: { rootNode: endNode, surveyIdentifier: 'incident' },
-            profile: { rootNode: { nodes: [] }, surveyIdentifier: 'profile' }
+            profile: { rootNode: { nodes: [] }, surveyIdentifier: 'profile' },
           },
-          clickedContinue: true
-        } as QuestionnaireState
-      }
+          clickedContinue: true,
+        } as QuestionnaireState,
+      },
     })
 
     render(MultiQuestion, {
       global: {
-        plugins: [i18n, pinia]
+        plugins: [i18n, pinia],
       },
       props: {
         prompt: {
           surveyID: 'incident',
           answerPath: [],
           question: incidentSurvey.root,
-          questionPath: []
-        }
-      }
+          questionPath: [],
+        },
+      },
     })
 
     expect(screen.findByText('Injuries to Crew or Passengers')).toBeTruthy()

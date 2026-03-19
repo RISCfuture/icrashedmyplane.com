@@ -82,7 +82,7 @@ answers determine which paths are followed or skipped.
 The tree consists of the following node types:
 
 | Name             | Description                                                                                                                             | Connects to                |
-|:-----------------|:----------------------------------------------------------------------------------------------------------------------------------------|:---------------------------|
+| :--------------- | :-------------------------------------------------------------------------------------------------------------------------------------- | :------------------------- |
 | {@link Question} | A question presented to the user.                                                                                                       | One or more `Option`s      |
 | {@link Option}   | A possible option a user can choose for a Question.                                                                                     | One `Action`               |
 | {@link Action}   | What to do after the user selects an Option. Either present a follow-up Question, or set the incident level (accident, incident, etc.). | One `Question`, or `null`. |
@@ -104,13 +104,13 @@ A {@link Response} is a tree organizing the user's answers to each of the
 queries. It consists of the following nodes representing answers:
 
 |                      |                                                                                                        |
-|:---------------------|:-------------------------------------------------------------------------------------------------------|
+| :------------------- | :----------------------------------------------------------------------------------------------------- |
 | {@link QuestionNode} | Contains a `nodes` array, where the selected options are represented by the presence of further nodes. |
 
 In addition, the following joining nodes are used:
 
 |                    |                                        |
-|:-------------------|:---------------------------------------|
+| :----------------- | :------------------------------------- |
 | {@link ActionNode} | Joins QuestionNodes to their children. |
 | {@link endNode}    | Marks the end of a path in the tree.   |
 
@@ -171,7 +171,7 @@ These animations are defined in `transitions.scss`, which also contains a number
 of mixins designed to make writing animations less tedious.
 
 Responsive behavior, including the mobile break and scaling of font and margin
-sizes, is done in `_responsive.scss`. 
+sizes, is done in `_responsive.scss`.
 
 ## Testing
 

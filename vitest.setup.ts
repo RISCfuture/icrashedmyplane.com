@@ -7,11 +7,11 @@ const localStorageMock = {
   removeItem: vi.fn(),
   clear: vi.fn(),
   key: vi.fn(),
-  length: 0
+  length: 0,
 }
 
 // Set up localStorage globally
 Object.defineProperty(window, 'localStorage', {
   value: localStorageMock,
-  writable: true
+  writable: true,
 })

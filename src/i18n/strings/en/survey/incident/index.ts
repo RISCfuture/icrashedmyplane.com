@@ -10,6 +10,6 @@ const incident: LocaleMessage = {
   notes,
   options,
   questions,
-  subtitles
+  subtitles,
 }
 export default incident

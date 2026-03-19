@@ -18,7 +18,7 @@ describe('walkResponseTree', () => {
     expect(() => walkResponseTree(answer, [10, 2])).toThrow('Path ended prematurely')
     expect(() => walkResponseTree(accidentAnswer, [100])).toThrow('Invalid index for Question node')
     expect(() => walkResponseTree(answerWithNestedQuestion, [10, 2, 0, 1])).toThrow(
-      'Walked past the end of the tree'
+      'Walked past the end of the tree',
     )
   })
 })

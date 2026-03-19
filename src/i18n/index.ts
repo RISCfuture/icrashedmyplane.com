@@ -7,5 +7,5 @@ export default createI18n({
   fallbackLocale: 'en',
   silentFallbackWarn: true,
   messages: { en },
-  legacy: false
+  legacy: false,
 })

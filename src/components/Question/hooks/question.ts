@@ -9,7 +9,10 @@ import useQuestionnaireStore from '@/stores/questionnaire'
 export default function useQuestion(props: { prompt: Prompt }) {
   const { t } = useI18n()
 
-  const { recordAnswer } = useQuestionnaireStore()
+  const store = useQuestionnaireStore()
+  const recordAnswer = (...args: Parameters<typeof store.recordAnswer>) => {
+    store.recordAnswer(...args)
+  }
 
   /** The question being asked. */
   const question = computed(() => props.prompt.question)

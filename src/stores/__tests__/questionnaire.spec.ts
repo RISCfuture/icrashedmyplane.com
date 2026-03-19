@@ -5,7 +5,7 @@ import { makeResponse, mergeAnswers } from '@cypress/support/answerUtils'
 import {
   accidentAnswer,
   seriousIncidentAnswer,
-  unfinishedAnswerEndingInMultiQuestion
+  unfinishedAnswerEndingInMultiQuestion,
 } from '@cypress/fixtures/answers'
 import { endNode } from '@/models/response/answer'
 import { cloneDeep, constant, times } from 'lodash-es'
@@ -27,21 +27,21 @@ describe('Questionnaire store', () => {
         responses: {
           incident: makeResponse(
             'incident',
-            mergeAnswers(accidentAnswer, cloneDeep(seriousIncidentAnswer))
-          )
-        }
+            mergeAnswers(accidentAnswer, cloneDeep(seriousIncidentAnswer)),
+          ),
+        },
       })
       expect(store.allApplicableRegulations).toEqual(new Set(['830.2', '830.5']))
 
       store.$patch({
-        responses: { incident: makeResponse('incident', cloneDeep(seriousIncidentAnswer)) }
+        responses: { incident: makeResponse('incident', cloneDeep(seriousIncidentAnswer)) },
       })
       expect(store.allApplicableRegulations).toEqual(new Set(['830.5']))
     })
   })
 
   describe('recordAnswer', () => {
-    it('adds the choices and new unfinished answers to the state', async () => {
+    it('adds the choices and new unfinished answers to the state', () => {
       const store = useQuestionnaireStore()
       store.$reset()
 
@@ -49,27 +49,27 @@ describe('Questionnaire store', () => {
         responses: {
           incident: makeResponse(
             'incident',
-            mergeAnswers(accidentAnswer, unfinishedAnswerEndingInMultiQuestion)
-          )
-        }
+            mergeAnswers(accidentAnswer, unfinishedAnswerEndingInMultiQuestion),
+          ),
+        },
       })
 
       store.recordAnswer('incident', [10], [false, true, true])
 
-      expect(store.responses.incident?.rootNode).toEqual({
+      expect(store.responses.incident.rootNode).toEqual({
         nodes: [
           { next: { nodes: [{ next: endNode }] } },
           ...times(9, constant(undefined)),
           {
             next: {
-              nodes: [undefined, { next: endNode }, { next: endNode }]
-            }
-          }
-        ]
+              nodes: [undefined, { next: endNode }, { next: endNode }],
+            },
+          },
+        ],
       })
     })
 
-    it('raises an error if the options have been selected', async () => {
+    it('raises an error if the options have been selected', () => {
       const store = useQuestionnaireStore()
       store.$reset()
 
@@ -80,16 +80,16 @@ describe('Questionnaire store', () => {
             mergeAnswers(accidentAnswer, {
               nodes: [
                 ...times(10, constant(undefined)),
-                { next: { nodes: [undefined, undefined, undefined] } }
-              ]
-            })
-          )
-        }
+                { next: { nodes: [undefined, undefined, undefined] } },
+              ],
+            }),
+          ),
+        },
       })
 
-      expect(() => store.recordAnswer('incident', [10], [false, true, true])).toThrow(
-        'Path ended prematurely'
-      )
+      expect(() => {
+        store.recordAnswer('incident', [10], [false, true, true])
+      }).toThrow('Path ended prematurely')
     })
   })
 })

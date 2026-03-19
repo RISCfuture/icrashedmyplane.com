@@ -33,7 +33,7 @@ const emit = defineEmits<{
 const { title, clicked } = useOption(props, emit)
 
 const className = computed(() => {
-  if (props.index < 5) return `option-${props.index + 1}`
+  if (props.index < 5) return `option-${String(props.index + 1)}`
   return 'option-more'
 })
 </script>

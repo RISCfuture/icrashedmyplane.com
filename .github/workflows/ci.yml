@@ -14,55 +14,63 @@ jobs:
     name: Unit Tests
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-      with:
-        submodules: true
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        cache: yarn
-        node-version-file: .nvmrc
-    - name: Install dependencies
-      run: yarn install
-    - name: Run unit tests
-      run: yarn test:unit
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: yarn
+          node-version-file: .node-version
+      - name: Install dependencies
+        run: yarn install
+      - name: Run unit tests
+        run: yarn test:unit
   e2e:
     name: E2E Tests
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-      with:
-        submodules: true
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        cache: yarn
-        node-version-file: .nvmrc
-    - name: Install dependencies
-      run: yarn install
-    - name: Build project
-      run: yarn build
-    - name: Run E2E tests
-      run: yarn test:e2e
-      env:
-        CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: yarn
+          node-version-file: .node-version
+      - name: Install dependencies
+        run: yarn install
+      - name: Install Cypress binary
+        run: yarn cypress install
+      - name: Build project
+        run: yarn build
+      - name: Run E2E tests
+        run: yarn test:e2e
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
   lint:
     name: Linters
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-      with:
-        submodules: true
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        cache: yarn
-        node-version-file: .nvmrc
-    - name: Install dependencies
-      run: yarn install
-    - name: Run ESLint
-      run: yarn lint:eslint
-    - name: Run Stylelint
-      run: yarn lint:stylelint
-    - name: Type check
-      run: yarn type-check
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: yarn
+          node-version-file: .node-version
+      - name: Install dependencies
+        run: yarn install
+      - name: Run ESLint
+        run: yarn lint:eslint
+      - name: Run Stylelint
+        run: yarn lint:stylelint
+      - name: Type check
+        run: yarn type-check

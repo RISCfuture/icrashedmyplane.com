@@ -29,7 +29,10 @@ import useQuestionnaireStore from '@/stores/questionnaire'
  */
 
 const { t } = useI18n()
-const { clickContinue } = useQuestionnaireStore()
+const store = useQuestionnaireStore()
+const clickContinue = () => {
+  store.clickContinue()
+}
 </script>
 
 <style scoped lang="scss">

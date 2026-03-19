@@ -68,7 +68,7 @@ export default class SurveyStackTraverser {
 
       visitAction() {
         return visitor.visitNode(stack)
-      }
+      },
     })
   }
 }

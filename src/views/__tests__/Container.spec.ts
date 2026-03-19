@@ -13,15 +13,15 @@ describe('Container', () => {
       initialState: {
         questionnaire: {
           responses: {},
-          clickedContinue: false
-        } as QuestionnaireState
-      }
+          clickedContinue: false,
+        } as QuestionnaireState,
+      },
     })
 
     render(Container, {
       global: {
-        plugins: [i18n, pinia]
-      }
+        plugins: [i18n, pinia],
+      },
     })
 
     expect(screen.getByText('Help! I crashed my plane!')).toBeTruthy()
@@ -33,15 +33,15 @@ describe('Container', () => {
       initialState: {
         questionnaire: {
           responses: {},
-          clickedContinue: true
-        } as QuestionnaireState
-      }
+          clickedContinue: true,
+        } as QuestionnaireState,
+      },
     })
 
     render(Container, {
       global: {
-        plugins: [i18n, pinia]
-      }
+        plugins: [i18n, pinia],
+      },
     })
 
     expect(screen.getByText('Which of these apply at the time of the incident?')).toBeTruthy()
@@ -55,27 +55,27 @@ describe('Container', () => {
           responses: {
             profile: {
               surveyIdentifier: 'profile',
-              rootNode: { nodes: [] }
+              rootNode: { nodes: [] },
             },
             incident: {
               surveyIdentifier: 'incident',
-              rootNode: accidentAnswer
-            }
+              rootNode: accidentAnswer,
+            },
           },
-          clickedContinue: true
-        } as QuestionnaireState
-      }
+          clickedContinue: true,
+        } as QuestionnaireState,
+      },
     })
 
     render(Container, {
       global: {
-        plugins: [i18n, pinia]
-      }
+        plugins: [i18n, pinia],
+      },
     })
 
     const heading = screen.getByRole('heading', {
       level: 1,
-      name: 'Based on your answers, this qualifies as an accident.'
+      name: 'Based on your answers, this qualifies as an accident.',
     })
     expect(heading).toBeTruthy()
   })

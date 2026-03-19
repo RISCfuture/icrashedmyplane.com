@@ -26,11 +26,10 @@ Cypress.Commands.add('runResponse', (response: ResponseModel) => {
 
       if (isQuestionResponseNode(answerNode)) {
         const chosenOptions = compact(
-          answerNode.nodes.map((next, i) => (next ? question.options[i] : null))
+          answerNode.nodes.map((next, i) => (next ? question.options[i] : null)),
         )
 
         if (question.multi) {
-           
           chosenOptions.forEach((option) => cy.findByTestId(option.identifier).click())
           cy.findByRole('button').click()
         } else {
@@ -42,6 +41,6 @@ Cypress.Commands.add('runResponse', (response: ResponseModel) => {
       }
 
       return true
-    }
+    },
   })
 })

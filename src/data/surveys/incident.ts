@@ -10,7 +10,7 @@ import {
   yesAskQuestion,
   yesMeansAccidentNoMeansIncident,
   yesMeansIncident,
-  yesMeansSeriousIncidentNoMeansIncident
+  yesMeansSeriousIncidentNoMeansIncident,
 } from '@/data/surveys/incidentSurveyShorthand'
 import type { Survey } from '@/models/survey'
 import { Flag, makeOption, makeQuestion, makeQuestionAction } from '@/models/survey'
@@ -24,10 +24,10 @@ const incidentSurvey: Survey = {
         'death',
         makeQuestionAction(
           makeQuestion('within30Days', yesMeansAccidentNoMeansIncident, {
-            data: { regulation: '830.2' }
-          })
+            data: { regulation: '830.2' },
+          }),
         ),
-        { data: { category: 'injuries' } }
+        { data: { category: 'injuries' } },
       ),
       makeOption(
         'hospitalization',
@@ -37,15 +37,15 @@ const incidentSurvey: Survey = {
             [
               yesAskQuestion(
                 makeQuestion('twoDaysOrLonger', yesMeansAccidentNoMeansIncident, {
-                  data: { regulation: '830.2' }
-                })
+                  data: { regulation: '830.2' },
+                }),
               ),
-              noMeansIncident
+              noMeansIncident,
             ],
-            { data: { regulation: '830.2' } }
-          )
+            { data: { regulation: '830.2' } },
+          ),
         ),
-        { data: { category: 'injuries' } }
+        { data: { category: 'injuries' } },
       ),
       makeOption(
         'brokenBone',
@@ -55,34 +55,36 @@ const incidentSurvey: Survey = {
             [
               yesAskQuestion(
                 makeQuestion('simpleFracture', noMeansAccidentYesMeansIncident, {
-                  data: { regulation: '830.2' }
-                })
+                  data: { regulation: '830.2' },
+                }),
               ),
-              noMeansAccident
+              noMeansAccident,
             ],
-            { data: { regulation: '830.2' } }
-          )
+            { data: { regulation: '830.2' } },
+          ),
         ),
-        { data: { category: 'injuries', regulation: '830.2' } }
+        { data: { category: 'injuries', regulation: '830.2' } },
       ),
       makeOption(
         'hemorrhage',
         makeQuestionAction(
-          makeQuestion('severe', yesMeansAccidentNoMeansIncident, { data: { regulation: '830.2' } })
+          makeQuestion('severe', yesMeansAccidentNoMeansIncident, {
+            data: { regulation: '830.2' },
+          }),
         ),
-        { data: { category: 'injuries' } }
+        { data: { category: 'injuries' } },
       ),
       makeOption('nerveDamage', classifyAsAccident, {
-        data: { category: 'injuries', regulation: '830.2' }
+        data: { category: 'injuries', regulation: '830.2' },
       }),
       makeOption('muscleDamage', classifyAsAccident, {
-        data: { category: 'injuries', regulation: '830.2' }
+        data: { category: 'injuries', regulation: '830.2' },
       }),
       makeOption('tendonDamage', classifyAsAccident, {
-        data: { category: 'injuries', regulation: '830.2' }
+        data: { category: 'injuries', regulation: '830.2' },
       }),
       makeOption('internalOrganDamage', classifyAsAccident, {
-        data: { category: 'injuries', regulation: '830.2' }
+        data: { category: 'injuries', regulation: '830.2' },
       }),
       makeOption(
         'burns',
@@ -91,24 +93,24 @@ const incidentSurvey: Survey = {
             'degree',
             [
               makeOption('burnDegree.thirdDegree', classifyAsAccident, {
-                data: { regulation: '830.2' }
+                data: { regulation: '830.2' },
               }),
               makeOption('burnDegree.secondDegree', classifyAsAccident, {
-                data: { regulation: '830.2' }
+                data: { regulation: '830.2' },
               }),
               makeOption(
                 'burnDegree.firstDegree',
                 makeQuestionAction(
                   makeQuestion('over5Percent', yesMeansAccidentNoMeansIncident, {
-                    data: { regulation: '830.2' }
-                  })
-                )
-              )
+                    data: { regulation: '830.2' },
+                  }),
+                ),
+              ),
             ],
-            { data: { regulation: '830.2' } }
-          )
+            { data: { regulation: '830.2' } },
+          ),
         ),
-        { data: { category: 'injuries' } }
+        { data: { category: 'injuries' } },
       ),
       makeOption(
         'illness',
@@ -118,14 +120,14 @@ const incidentSurvey: Survey = {
             [
               yesAskQuestion(
                 makeQuestion('performNormalDuties', noMeansSeriousIncidentYesMeansIncident, {
-                  data: { regulation: '830.5' }
-                })
+                  data: { regulation: '830.5' },
+                }),
               ),
-              noMeansIncident
+              noMeansIncident,
             ],
-            { data: { regulation: '830.5' } }
-          )
-        )
+            { data: { regulation: '830.5' } },
+          ),
+        ),
       ),
 
       makeOption(
@@ -138,9 +140,9 @@ const incidentSurvey: Survey = {
                 'engineDamage',
                 makeQuestionAction(
                   makeQuestion('moreThan1EngineDamaged', yesMeansAccidentNoMeansIncident, {
-                    data: { regulation: '830.2' }
-                  })
-                )
+                    data: { regulation: '830.2' },
+                  }),
+                ),
               ),
               makeOption('bentFairings', classifyAsIncident),
               makeOption('dentedSkin', classifyAsIncident),
@@ -148,17 +150,17 @@ const incidentSurvey: Survey = {
                 'skinHoles',
                 makeQuestionAction(
                   makeQuestion('smallHoles', noMeansAccidentYesMeansIncident, {
-                    data: { regulation: '830.2' }
-                  })
-                )
+                    data: { regulation: '830.2' },
+                  }),
+                ),
               ),
               makeOption(
                 'rotorOrPropeller',
                 makeQuestionAction(
                   makeQuestion('groundContactDamage', noMeansAccidentYesMeansIncident, {
-                    data: { regulation: '830.2' }
-                  })
-                )
+                    data: { regulation: '830.2' },
+                  }),
+                ),
               ),
               makeOption('landingGear', classifyAsIncident),
               makeOption('flaps', classifyAsIncident),
@@ -168,15 +170,15 @@ const incidentSurvey: Survey = {
                 'other',
                 makeQuestionAction(
                   makeQuestion('majorRepair', yesMeansAccidentNoMeansIncident, {
-                    data: { regulation: '830.2' }
-                  })
-                )
-              )
+                    data: { regulation: '830.2' },
+                  }),
+                ),
+              ),
             ],
-            { multi: true }
-          )
+            { multi: true },
+          ),
         ),
-        { data: { category: 'aircraft', subtitle: 'majorDamage' } }
+        { data: { category: 'aircraft', subtitle: 'majorDamage' } },
       ),
       makeOption(
         'engineDamage',
@@ -186,82 +188,82 @@ const incidentSurvey: Survey = {
             [
               yesAskQuestion(
                 makeQuestion('contained', noMeansSeriousIncidentYesMeansIncident, {
-                  data: { regulation: '830.5' }
-                })
+                  data: { regulation: '830.5' },
+                }),
               ),
-              noMeansIncident
+              noMeansIncident,
             ],
-            { data: { regulation: '830.5' } }
-          )
+            { data: { regulation: '830.5' } },
+          ),
         ),
-        { data: { category: 'aircraft' } }
+        { data: { category: 'aircraft' } },
       ),
       makeOption(
         'fire',
         makeQuestionAction(
           makeQuestion('inFlightFire', yesMeansSeriousIncidentNoMeansIncident, {
-            data: { regulation: '830.5' }
-          })
+            data: { regulation: '830.5' },
+          }),
         ),
-        { data: { category: 'aircraft' } }
+        { data: { category: 'aircraft' } },
       ),
       makeOption(
         'propeller',
         makeQuestionAction(
           makeQuestion('groundContactRelease', noMeansSeriousIncidentYesMeansIncident, {
-            data: { regulation: '830.5' }
-          })
+            data: { regulation: '830.5' },
+          }),
         ),
-        { data: { category: 'aircraft' } }
+        { data: { category: 'aircraft' } },
       ),
       makeOption(
         'rotorBlades',
         makeQuestionAction(
           makeQuestion('major', yesMeansSeriousIncidentNoMeansIncident, {
-            data: { regulation: '830.5' }
-          })
+            data: { regulation: '830.5' },
+          }),
         ),
-        { data: { category: 'aircraft' }, only: [Flag.HELICOPTER] }
+        { data: { category: 'aircraft' }, only: [Flag.HELICOPTER] },
       ),
 
       makeOption('flightControls', classifyAsSeriousIncident, {
-        data: { category: 'failure', regulation: '830.5' }
+        data: { category: 'failure', regulation: '830.5' },
       }),
       makeOption(
         'lossOfThrust',
         makeQuestionAction(
           makeQuestion('moreThan1EngineThrustLoss', yesMeansSeriousIncidentNoMeansIncident, {
-            data: { regulation: '830.5' }
-          })
+            data: { regulation: '830.5' },
+          }),
         ),
-        { data: { category: 'failure', only: [Flag.LARGE_MULTI] } }
+        { data: { category: 'failure' }, only: [Flag.LARGE_MULTI] },
       ),
       makeOption(
         'electrical',
         makeQuestionAction(
           makeQuestion('electricContinuous', yesMeansSeriousIncidentNoMeansIncident, {
-            data: { regulation: '830.5', notes: ['backupPowerSource'] }
-          })
+            data: { regulation: '830.5', notes: ['backupPowerSource'] },
+          }),
         ),
-        { data: { category: 'failure' }, only: [Flag.LARGE_MULTI] }
+        { data: { category: 'failure' }, only: [Flag.LARGE_MULTI] },
       ),
       makeOption(
         'hydraulic',
         makeQuestionAction(
           makeQuestion('hydraulicContinuous', yesMeansSeriousIncidentNoMeansIncident, {
-            data: { regulation: '830.5' }
-          })
+            data: { regulation: '830.5' },
+          }),
         ),
-        { data: { category: 'failure' }, only: [Flag.LARGE_MULTI] }
+        { data: { category: 'failure' }, only: [Flag.LARGE_MULTI] },
       ),
       makeOption(
         'displays',
         makeQuestionAction(
           makeQuestion('moreThanHalf', yesMeansSeriousIncidentNoMeansIncident, {
-            data: { regulation: '830.5', notes: ['displaysDefinition'] }
-          })
+            data: { regulation: '830.5', notes: ['displaysDefinition'] },
+          }),
         ),
-        { data: { category: 'failure' } }
+        { data: { category: 'failure' } },
       ),
 
       makeOption(
@@ -273,33 +275,33 @@ const incidentSurvey: Survey = {
               yesMeansIncident,
               noAskQuestion(
                 makeQuestion('fmvLessThan25Grand', noMeansSeriousIncidentYesMeansIncident, {
-                  data: { regulation: '830.5' }
-                })
-              )
+                  data: { regulation: '830.5' },
+                }),
+              ),
             ],
-            { data: { regulation: '830.5', notes: ['materialsAndLabor'] } }
-          )
+            { data: { regulation: '830.5', notes: ['materialsAndLabor'] } },
+          ),
         ),
-        { data: { subtitle: 'propertyDamage' } }
+        { data: { subtitle: 'propertyDamage' } },
       ),
       makeOption(
         'evacuation',
         makeQuestionAction(
           makeQuestion('escapeSlidesUsed', yesMeansSeriousIncidentNoMeansIncident, {
-            data: { regulation: '830.5' }
-          })
+            data: { regulation: '830.5' },
+          }),
         ),
-        { only: [Flag.LARGE_MULTI] }
+        { only: [Flag.LARGE_MULTI] },
       ),
 
       makeOption(
         'collision',
         makeQuestionAction(
           makeQuestion('inFlightCollision', yesMeansSeriousIncidentNoMeansIncident, {
-            data: { regulation: '830.5' }
-          })
+            data: { regulation: '830.5' },
+          }),
         ),
-        { data: { category: 'traffic' } }
+        { data: { category: 'traffic' } },
       ),
       makeOption(
         'TCASRA',
@@ -309,37 +311,37 @@ const incidentSurvey: Survey = {
             [
               yesAskQuestion(
                 makeQuestion('complianceNecessary', yesMeansSeriousIncidentNoMeansIncident, {
-                  data: { regulation: '830.5' }
-                })
+                  data: { regulation: '830.5' },
+                }),
               ),
-              noMeansIncident
+              noMeansIncident,
             ],
-            { data: { regulation: '830.5' } }
-          )
+            { data: { regulation: '830.5' } },
+          ),
         ),
-        { data: { category: 'traffic' } }
+        { data: { category: 'traffic' } },
       ),
 
       makeOption(
         'wrongRunway',
         makeQuestionAction(
           makeQuestion('publicAirport', yesMeansSeriousIncidentNoMeansIncident, {
-            data: { regulation: '830.5' }
-          })
+            data: { regulation: '830.5' },
+          }),
         ),
-        { data: { category: 'surface' }, only: [Flag.AIR_CARRIER] }
+        { data: { category: 'surface' }, only: [Flag.AIR_CARRIER] },
       ),
       makeOption(
         'taxiway',
         makeQuestionAction(
           makeQuestion('publicAirport', yesMeansSeriousIncidentNoMeansIncident, {
-            data: { regulation: '830.5' }
-          })
+            data: { regulation: '830.5' },
+          }),
         ),
         {
           data: { category: 'surface', subtitle: 'taxiway' },
-          only: [Flag.AIR_CARRIER]
-        }
+          only: [Flag.AIR_CARRIER],
+        },
       ),
       makeOption(
         'runwayIncursion',
@@ -349,19 +351,19 @@ const incidentSurvey: Survey = {
             [
               yesAskQuestion(
                 makeQuestion('publicAirport', yesMeansSeriousIncidentNoMeansIncident, {
-                  data: { regulation: '830.5' }
-                })
+                  data: { regulation: '830.5' },
+                }),
               ),
-              noMeansIncident
+              noMeansIncident,
             ],
-            { data: { regulation: '830.5' } }
-          )
+            { data: { regulation: '830.5' } },
+          ),
         ),
-        { data: { category: 'surface' }, only: [Flag.AIR_CARRIER] }
-      )
+        { data: { category: 'surface' }, only: [Flag.AIR_CARRIER] },
+      ),
     ],
-    { multi: true }
-  )
+    { multi: true },
+  ),
 }
 
 export default incidentSurvey

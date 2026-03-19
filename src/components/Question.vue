@@ -44,7 +44,7 @@ import MultiQuestion from '@/components/Question/multi/MultiQuestion.vue'
 import { useI18n } from 'vue-i18n'
 import type Prompt from '@/models/response/prompt'
 import { computed } from 'vue'
-import { assign, findLast, isArray, isUndefined } from 'lodash-es'
+import { assign, findLast, isUndefined } from 'lodash-es'
 import { isOption, type Option, type Question } from '@/models/survey'
 
 /**
@@ -65,21 +65,15 @@ const surveyID = computed(() => props.prompt.surveyID)
 /** An array of localized notes to display alongside the question. */
 const notes = computed(() => {
   const { notes } = props.prompt.question.data
-  if (isArray(notes)) {
-    return notes.reduce(
-      (obj, note) => assign(obj, { note: t(`survey.${surveyID.value}.notes.${note}`) }),
-      {}
-    )
-  }
-  return []
+  if (!notes) return []
+  return notes.reduce<Record<string, string>>(
+    (obj, note) => assign(obj, { [note]: t(`survey.${surveyID.value}.notes.${note}`) }),
+    {},
+  )
 })
 
 /** The regulation under 49 CFR to display alongside the question. */
-const regulation = computed(() =>
-  isUndefined(props.prompt.question.data.regulation)
-    ? undefined
-    : (props.prompt.question.data.regulation as string)
-)
+const regulation = computed(() => props.prompt.question.data.regulation)
 
 /**
  * The localized text for the {@link Option} that the user chose that led to this
@@ -88,7 +82,7 @@ const regulation = computed(() =>
 const selectedOptionTitle = computed(() => {
   const option = findLast(
     props.prompt.questionPath,
-    (node, index) => isOption(node) && (props.prompt.questionPath[index - 1] as Question).multi
+    (node, index) => isOption(node) && (props.prompt.questionPath[index - 1] as Question).multi,
   ) as Option | undefined
   if (isUndefined(option)) return null
 

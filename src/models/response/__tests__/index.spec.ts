@@ -5,7 +5,7 @@ import {
   accidentAnswer,
   incidentAnswer,
   seriousIncidentAnswer,
-  unfinishedAnswerEndingInSingleQuestion
+  unfinishedAnswerEndingInSingleQuestion,
 } from '@cypress/fixtures/answers'
 import { Flag, IncidentLevel, isQuestion } from '@/models/survey'
 import { endNode, type QuestionResponseNode, type ResponseNode } from '../answer'
@@ -19,7 +19,7 @@ describe('Response', () => {
 
     it('returns false for an unfinished tree', () => {
       expect(makeResponse('incident', unfinishedAnswerEndingInSingleQuestion).isFinished).toEqual(
-        false
+        false,
       )
     })
 
@@ -31,19 +31,19 @@ describe('Response', () => {
   describe('highestIncidentLevel', () => {
     it('returns ACCIDENT for an accident tree', () => {
       expect(makeResponse('incident', accidentAnswer).highestIncidentLevel).toEqual(
-        IncidentLevel.ACCIDENT
+        IncidentLevel.ACCIDENT,
       )
     })
 
     it('returns SERIOUS INCIDENT for a serious incident tree', () => {
       expect(makeResponse('incident', seriousIncidentAnswer).highestIncidentLevel).toEqual(
-        IncidentLevel.SERIOUS_INCIDENT
+        IncidentLevel.SERIOUS_INCIDENT,
       )
     })
 
     it('returns INCIDENT for an incident tree', () => {
       expect(makeResponse('incident', incidentAnswer).highestIncidentLevel).toEqual(
-        IncidentLevel.INCIDENT
+        IncidentLevel.INCIDENT,
       )
     })
 
@@ -61,7 +61,7 @@ describe('Response', () => {
       possibleAccident = { nodes: [{ next: endNode }] }
       // fire -> in flight?
       possibleSeriousIncident = {
-        nodes: [...times(12, constant(undefined)), { next: endNode }]
+        nodes: [...times(12, constant(undefined)), { next: endNode }],
       }
     })
 
@@ -69,19 +69,19 @@ describe('Response', () => {
       const answer = mergeAnswers(possibleAccident, possibleSeriousIncident)
 
       expect(makeResponse('incident', answer).highestPossibleIncidentLevel).toEqual(
-        IncidentLevel.ACCIDENT
+        IncidentLevel.ACCIDENT,
       )
     })
 
     it('returns SERIOUS INCIDENT if accident is no longer possible', () => {
       expect(
-        makeResponse('incident', possibleSeriousIncident).highestPossibleIncidentLevel
+        makeResponse('incident', possibleSeriousIncident).highestPossibleIncidentLevel,
       ).toEqual(IncidentLevel.SERIOUS_INCIDENT)
     })
 
     it('returns INCIDENT if nothing else possible', () => {
       expect(makeResponse('incident', incidentAnswer).highestPossibleIncidentLevel).toEqual(
-        IncidentLevel.INCIDENT
+        IncidentLevel.INCIDENT,
       )
     })
 
@@ -107,21 +107,21 @@ describe('Response', () => {
       const step2: ResponseNode = { nodes: [{ next: endNode }, { next: endNode }] }
       const step2NextPath = [0]
       const step3: ResponseNode = {
-        nodes: [{ next: { nodes: [undefined, { next: endNode }] } }, { next: endNode }]
+        nodes: [{ next: { nodes: [undefined, { next: endNode }] } }, { next: endNode }],
       }
       const step3NextPath = [1]
       const step4: ResponseNode = {
         nodes: [
           { next: { nodes: [undefined, { next: endNode }] } },
-          { next: { nodes: [{ next: endNode }] } }
-        ]
+          { next: { nodes: [{ next: endNode }] } },
+        ],
       }
       const step4NextPath = [1, 0]
       const step5: ResponseNode = {
         nodes: [
           { next: { nodes: [undefined, { next: endNode }] } },
-          { next: { nodes: [undefined, { next: { nodes: [undefined, { next: endNode }] } }] } }
-        ]
+          { next: { nodes: [undefined, { next: { nodes: [undefined, { next: endNode }] } }] } },
+        ],
       }
 
       expect(makeResponse('incident').nextQuestion!.answerPath).toEqual(step1NextPath)
@@ -135,13 +135,13 @@ describe('Response', () => {
   describe('contributingRegulations', () => {
     it('returns a list of regulations for options the user chose', () => {
       expect(makeResponse('incident', accidentAnswer).contributingRegulations).toEqual(
-        new Set(['830.2'])
+        new Set(['830.2']),
       )
       expect(makeResponse('incident', seriousIncidentAnswer).contributingRegulations).toEqual(
-        new Set(['830.5'])
+        new Set(['830.5']),
       )
       expect(makeResponse('incident', incidentAnswer).contributingRegulations).toEqual(
-        new Set(['830.5'])
+        new Set(['830.5']),
       )
     })
 
@@ -153,10 +153,10 @@ describe('Response', () => {
   describe('flags', () => {
     it('returns the list of flags that were set', () => {
       const answer: QuestionResponseNode = {
-        nodes: [{ next: endNode }, undefined, { next: endNode }]
+        nodes: [{ next: endNode }, undefined, { next: endNode }],
       }
       expect(makeResponse('profile', answer).flags).toEqual(
-        new Set([Flag.LARGE_MULTI, Flag.HELICOPTER])
+        new Set([Flag.LARGE_MULTI, Flag.HELICOPTER]),
       )
     })
   })

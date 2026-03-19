@@ -7,7 +7,7 @@ import i18n from '@/i18n'
 import { accidentAnswer, incidentAnswer, seriousIncidentAnswer } from '@cypress/fixtures/answers'
 
 describe('Finished', () => {
-  it('renders an accident', async () => {
+  it('renders an accident', () => {
     const pinia = createTestingPinia({
       createSpy: vi.fn,
       initialState: {
@@ -15,32 +15,32 @@ describe('Finished', () => {
           responses: {
             profile: {
               surveyIdentifier: 'profile',
-              rootNode: { nodes: [] }
+              rootNode: { nodes: [] },
             },
             incident: {
               surveyIdentifier: 'incident',
-              rootNode: accidentAnswer
-            }
+              rootNode: accidentAnswer,
+            },
           },
-          clickedContinue: true
-        } as QuestionnaireState
-      }
+          clickedContinue: true,
+        } as QuestionnaireState,
+      },
     })
 
     render(Finished, {
       global: {
-        plugins: [i18n, pinia]
-      }
+        plugins: [i18n, pinia],
+      },
     })
 
     const heading = screen.getByRole('heading', {
       level: 1,
-      name: 'Based on your answers, this qualifies as an accident.'
+      name: 'Based on your answers, this qualifies as an accident.',
     })
     expect(heading).toBeTruthy()
   })
 
-  it('renders a serious incident', async () => {
+  it('renders a serious incident', () => {
     const pinia = createTestingPinia({
       createSpy: vi.fn,
       initialState: {
@@ -48,32 +48,32 @@ describe('Finished', () => {
           responses: {
             profile: {
               surveyIdentifier: 'profile',
-              rootNode: { nodes: [] }
+              rootNode: { nodes: [] },
             },
             incident: {
               surveyIdentifier: 'incident',
-              rootNode: seriousIncidentAnswer
-            }
+              rootNode: seriousIncidentAnswer,
+            },
           },
-          clickedContinue: true
-        } as QuestionnaireState
-      }
+          clickedContinue: true,
+        } as QuestionnaireState,
+      },
     })
 
     render(Finished, {
       global: {
-        plugins: [i18n, pinia]
-      }
+        plugins: [i18n, pinia],
+      },
     })
 
     const heading = screen.getByRole('heading', {
       level: 1,
-      name: 'Based on your answers, this qualifies as a serious incident.'
+      name: 'Based on your answers, this qualifies as a serious incident.',
     })
     expect(heading).toBeTruthy()
   })
 
-  it('renders an incident', async () => {
+  it('renders an incident', () => {
     const pinia = createTestingPinia({
       createSpy: vi.fn,
       initialState: {
@@ -81,27 +81,27 @@ describe('Finished', () => {
           responses: {
             profile: {
               surveyIdentifier: 'profile',
-              rootNode: { nodes: [] }
+              rootNode: { nodes: [] },
             },
             incident: {
               surveyIdentifier: 'incident',
-              rootNode: incidentAnswer
-            }
+              rootNode: incidentAnswer,
+            },
           },
-          clickedContinue: true
-        } as QuestionnaireState
-      }
+          clickedContinue: true,
+        } as QuestionnaireState,
+      },
     })
 
     render(Finished, {
       global: {
-        plugins: [i18n, pinia]
-      }
+        plugins: [i18n, pinia],
+      },
     })
 
     const heading = screen.getByRole('heading', {
       level: 1,
-      name: 'Based on your answers, this qualifies as an incident.'
+      name: 'Based on your answers, this qualifies as an incident.',
     })
     expect(heading).toBeTruthy()
   })

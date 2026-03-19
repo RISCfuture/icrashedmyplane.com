@@ -12,7 +12,7 @@ export enum IncidentLevel {
   SERIOUS_INCIDENT = 1,
 
   /** Any other incident. */
-  INCIDENT = 0
+  INCIDENT = 0,
 }
 
 export const HIGHEST_INCIDENT_LEVEL = IncidentLevel.ACCIDENT
@@ -33,10 +33,29 @@ export enum Flag {
   AIR_CARRIER,
 
   /** User was operating a helicopter. */
-  HELICOPTER
+  HELICOPTER,
 }
 
-type DataType = Record<string, unknown>
+/** Additional data used when displaying a {@link Question}. */
+export interface QuestionData {
+  /** The 49 CFR regulation that applies to this question. */
+  regulation?: string
+
+  /** Identifiers for localized notes to display alongside the question. */
+  notes?: string[]
+}
+
+/** Additional data used when displaying an {@link Option}. */
+export interface OptionData {
+  /** The category grouping for this option (used in multi-choice questions). */
+  category?: string
+
+  /** Identifier for a localized subtitle to display below the option. */
+  subtitle?: string
+
+  /** The 49 CFR regulation that applies to this option. */
+  regulation?: string
+}
 
 /**
  * A question that is asked of the user. Questions can be single-choice or multiple-choice, and
@@ -54,19 +73,19 @@ export interface Question {
   multi: boolean
 
   /** Additional data used when displaying the question. */
-  data: DataType
+  data: QuestionData
 }
 
 export function makeQuestion(
   identifier: string,
   options: Option[],
-  { data, multi }: { data?: DataType; multi?: boolean } = {}
+  { data, multi }: { data?: QuestionData; multi?: boolean } = {},
 ): Question {
   return {
     identifier,
     options,
     data: isUndefined(data) ? {} : data,
-    multi: isUndefined(multi) ? false : multi
+    multi: isUndefined(multi) ? false : multi,
   }
 }
 
@@ -92,19 +111,19 @@ export interface Option {
   only: Flag[]
 
   /** Additional data used when displaying the option. */
-  data: DataType
+  data: OptionData
 }
 
 export function makeOption(
   identifier: string,
   action: Action,
-  { only, data }: { only?: Flag[]; data?: DataType } = {}
+  { only, data }: { only?: Flag[]; data?: OptionData } = {},
 ): Option {
   return {
     identifier,
     action,
     only: isUndefined(only) ? [] : only,
-    data: isUndefined(data) ? {} : data
+    data: isUndefined(data) ? {} : data,
   }
 }
 
@@ -196,10 +215,6 @@ export function isQuestion(node: SurveyNode): node is Question {
 
 export function isOption(node: SurveyNode): node is Option {
   return 'action' in node
-}
-
-export function isAction(node: SurveyNode): node is Action {
-  return 'isTerminating' in node
 }
 
 export function isQuestionAction(action: Action): action is QuestionAction {

@@ -11,13 +11,13 @@ export default mergeConfig(
       exclude: [...configDefaults.exclude, 'e2e/*', 'cypress/**'],
       root: fileURLToPath(new URL('./', import.meta.url)),
       globals: true,
-      setupFiles: ['./vitest.setup.ts']
+      setupFiles: ['./vitest.setup.ts'],
     },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
-        '@cypress': path.resolve(__dirname, './cypress')
-      }
-    }
-  })
+        '@cypress': path.resolve(__dirname, './cypress'),
+      },
+    },
+  }),
 )

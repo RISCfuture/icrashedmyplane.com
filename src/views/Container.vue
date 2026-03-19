@@ -28,7 +28,7 @@ const store = useQuestionnaireStore()
 const { clickedContinue } = storeToRefs(store)
 
 const currentSurveyID = computed(() =>
-  find(surveyOrder, (ID) => !store.response(ID)?.isEffectivelyFinished)
+  find(surveyOrder, (ID) => !store.response(ID)?.isEffectivelyFinished),
 )
 
 /**

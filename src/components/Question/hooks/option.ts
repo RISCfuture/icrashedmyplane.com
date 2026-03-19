@@ -7,7 +7,7 @@ import { useI18n } from 'vue-i18n'
  */
 export default function useOption(
   props: { surveyId: string; option: Option },
-  emit: (evt: 'clicked') => void
+  emit: (evt: 'clicked') => void,
 ) {
   const { t } = useI18n()
 
@@ -15,7 +15,9 @@ export default function useOption(
   const title = computed(() => t(`survey.${props.surveyId}.options.${props.option.identifier}`))
 
   /** Called when the option is clicked. Emits a `clicked` event. */
-  const clicked = () => emit('clicked')
+  const clicked = () => {
+    emit('clicked')
+  }
 
   return { props, title, clicked }
 }

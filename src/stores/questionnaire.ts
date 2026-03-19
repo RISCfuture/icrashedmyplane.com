@@ -7,7 +7,7 @@ import {
   type ActionResponseNode,
   endNode,
   type QuestionResponseNode,
-  walkResponseTree
+  walkResponseTree,
 } from '@/models/response/answer'
 
 /** The object type of the root Pinia state. */
@@ -23,11 +23,11 @@ const defaultState: QuestionnaireState = {
   responses: surveyOrder.reduce(
     (acc, key) => ({
       ...acc,
-      [key]: { surveyIdentifier: key, rootNode: endNode } as SerializableResponse
+      [key]: { surveyIdentifier: key, rootNode: endNode } as SerializableResponse,
     }),
-    {}
+    {},
   ),
-  clickedContinue: false
+  clickedContinue: false,
 }
 
 const useQuestionnaireStore = defineStore('questionnaire', {
@@ -39,6 +39,7 @@ const useQuestionnaireStore = defineStore('questionnaire', {
     /** Returns a method that retrieves a response by survey identifier. */
     response: (state) => (key: string) => {
       const response = state.responses[key]
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- key may not exist at runtime
       return response ? deserializeResponse(response) : undefined
     },
 
@@ -46,8 +47,8 @@ const useQuestionnaireStore = defineStore('questionnaire', {
     incidentLevel: (state) => {
       const level = max(
         values(state.responses).map(
-          (response) => deserializeResponse(response).highestIncidentLevel
-        )
+          (response) => deserializeResponse(response).highestIncidentLevel,
+        ),
       )
       return isNil(level) ? IncidentLevel.INCIDENT : level
     },
@@ -56,7 +57,7 @@ const useQuestionnaireStore = defineStore('questionnaire', {
     userFlags: (state) =>
       values(state.responses).reduce(
         (set, response) => new Set<Flag>([...set, ...deserializeResponse(response).flags]),
-        new Set<Flag>()
+        new Set<Flag>(),
       ),
 
     /** @return Returns all the 49 CFR regulations that contributed to the incident level. */
@@ -64,8 +65,8 @@ const useQuestionnaireStore = defineStore('questionnaire', {
       values(state.responses).reduce(
         (set, response) =>
           new Set<string>([...set, ...deserializeResponse(response).contributingRegulations]),
-        new Set<string>()
-      )
+        new Set<string>(),
+      ),
   },
 
   actions: {
@@ -79,15 +80,16 @@ const useQuestionnaireStore = defineStore('questionnaire', {
      */
     recordAnswer(surveyID: string, answerPath: number[], choices: boolean[]) {
       const nodes: (ActionResponseNode | undefined)[] = choices.map((chosen) =>
-        chosen ? { next: endNode } : undefined
+        chosen ? { next: endNode } : undefined,
       )
       const newNode: QuestionResponseNode = { nodes }
 
       let response = this.responses[surveyID]
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- key may not exist at runtime
       if (!response) {
         response = {
           surveyIdentifier: surveyID,
-          rootNode: endNode
+          rootNode: endNode,
         }
       }
       response = cloneDeep(response)
@@ -108,8 +110,8 @@ const useQuestionnaireStore = defineStore('questionnaire', {
      */
     clickContinue() {
       this.clickedContinue = true
-    }
-  }
+    },
+  },
 })
 
 export default useQuestionnaireStore

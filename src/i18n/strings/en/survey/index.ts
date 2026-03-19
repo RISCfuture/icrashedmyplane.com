@@ -4,6 +4,6 @@ import type { LocaleMessage } from '@intlify/core-base'
 
 const survey: LocaleMessage = {
   incident,
-  profile
+  profile,
 }
 export default survey

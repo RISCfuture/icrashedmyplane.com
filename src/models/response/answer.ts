@@ -58,11 +58,12 @@ export function isActionResponseNode(node: ResponseNode): node is ActionResponse
 
 function walkResponseTreeEatingPath(
   node: QuestionResponseNode,
-  path: number[]
+  path: number[],
 ): ActionResponseNode {
   if (isEmpty(path)) throw new Error('Path ended prematurely')
   // didn't get to the end of the tree at end of path
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- isEmpty guard above ensures shift() returns a value
   const next = node.nodes[path.shift()!]
   if (!next) throw new Error('Invalid index for Question node')
 

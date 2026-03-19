@@ -6,6 +6,6 @@ import type { Survey } from '@/models/survey'
 
 const surveys: Record<string, Survey> = {
   profile: profileSurvey,
-  incident: incidentSurvey
+  incident: incidentSurvey,
 }
 export default surveys

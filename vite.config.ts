@@ -9,10 +9,10 @@ export default defineConfig({
   plugins: [vue(), vueDevTools({ launchEditor: 'rubymine' })],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
   },
   build: {
-    sourcemap: true
-  }
+    sourcemap: true,
+  },
 })

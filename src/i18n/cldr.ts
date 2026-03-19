@@ -12,38 +12,39 @@ interface CLDRStringPattern {
   [count: string]: string
 }
 
+Cldr.load(likelySubtags, listsEn)
+const fallbackCLDR = new Cldr('en')
+
+function listConstantLength(template: string, items: string[]): string {
+  let output = template
+  items.forEach((item, index) => {
+    output = output.replace(`{${String(index)}}`, item)
+  })
+  return output
+}
+
+function listMiddle(items: string[], template: string): string {
+  if (items.length === 0) return ''
+  if (items.length === 1) return items[0] ?? ''
+  const first = items[0] ?? ''
+  return template.replace('{0}', first).replace('{1}', listMiddle(items.slice(1), template))
+}
+
+function listStartAndMiddle(
+  items: string[],
+  startTemplate: string,
+  middleTemplate: string,
+): string {
+  const first = items[0] ?? ''
+  return startTemplate
+    .replace('{0}', first)
+    .replace('{1}', listMiddle(items.slice(1), middleTemplate))
+}
+
 export default function useCLDR() {
   const { locale } = useI18n()
 
-  Cldr.load(likelySubtags, listsEn)
   const CLDR = new Cldr(locale.value)
-  const fallbackCLDR = new Cldr('en')
-
-  const listConstantLength = function (template: string, items: string[]): string {
-    let output = template
-    items.forEach((item, index) => {
-      output = output.replace(`{${index}}`, item)
-    })
-    return output
-  }
-
-  const listMiddle = function (items: string[], template: string): string {
-    if (items.length === 0) return ''
-    if (items.length === 1) return items[0] ?? ''
-    const first = items[0] ?? ''
-    return template.replace('{0}', first).replace('{1}', listMiddle(items.slice(1), template))
-  }
-
-  const listStartAndMiddle = function (
-    items: string[],
-    startTemplate: string,
-    middleTemplate: string
-  ): string {
-    const first = items[0] ?? ''
-    return startTemplate
-      .replace('{0}', first)
-      .replace('{1}', listMiddle(items.slice(1), middleTemplate))
-  }
 
   const list = function (items: string[], type = 'standard'): string {
     if (items.length === 0) return ''
@@ -52,12 +53,16 @@ export default function useCLDR() {
     let pattern: CLDRStringPattern | undefined
     try {
       pattern =
-        CLDR.main(`listPatterns/listPattern-type-${type}`) ??
-        CLDR.main('listPatterns/listPattern-type-standard')
+        (CLDR.main(`listPatterns/listPattern-type-${type}`) as CLDRStringPattern | undefined) ??
+        (CLDR.main('listPatterns/listPattern-type-standard') as CLDRStringPattern | undefined)
     } catch {
       pattern =
-        fallbackCLDR.main(`listPatterns/listPattern-type-${type}`) ??
-        fallbackCLDR.main('listPatterns/listPattern-type-standard')
+        (fallbackCLDR.main(`listPatterns/listPattern-type-${type}`) as
+          | CLDRStringPattern
+          | undefined) ??
+        (fallbackCLDR.main('listPatterns/listPattern-type-standard') as
+          | CLDRStringPattern
+          | undefined)
     }
 
     if (!pattern) return items.join(', ')
@@ -67,12 +72,9 @@ export default function useCLDR() {
       return listConstantLength(pattern[patternKey], items)
     }
 
-    const firstAndMiddle = listStartAndMiddle(
-      initial(items) as string[],
-      pattern.start,
-      pattern.middle
-    )
-    return pattern.end.replace('{0}', firstAndMiddle).replace('{1}', last(items)!)
+    const firstAndMiddle = listStartAndMiddle(initial(items), pattern.start, pattern.middle)
+    const lastItem = last(items) ?? ''
+    return pattern.end.replace('{0}', firstAndMiddle).replace('{1}', lastItem)
   }
 
   return { CLDR, list }

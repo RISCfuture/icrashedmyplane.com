@@ -43,7 +43,7 @@ import useQuestionnaireStore from '@/stores/questionnaire'
 import { storeToRefs } from 'pinia'
 import { computed, ref, watch } from 'vue'
 import useQuestion from '@/components/Question/hooks/question'
-import { every, groupBy, isEmpty, isNil, isUndefined } from 'lodash-es'
+import { every, groupBy, isEmpty } from 'lodash-es'
 import { useI18n } from 'vue-i18n'
 import type { Option } from '@/models/survey'
 import type Prompt from '@/models/response/prompt'
@@ -72,14 +72,16 @@ const { question, recordAnswer, surveyID, title, transitionKey } = useQuestion(p
 const choices = ref<boolean[]>([])
 
 const filteredOptions = computed(() =>
-  question.value.options.filter((option) => every(option.only, (flag) => userFlags.value.has(flag)))
+  question.value.options.filter((option) =>
+    every(option.only, (flag) => userFlags.value.has(flag)),
+  ),
 )
 
 /**
  * @return A list of options that do not belong to a category.
  */
 const uncategorizedOptions = computed(() =>
-  filteredOptions.value.filter((option) => isUndefined(option.data.category))
+  filteredOptions.value.filter((option) => !option.data.category),
 )
 
 /**
@@ -87,9 +89,10 @@ const uncategorizedOptions = computed(() =>
  */
 const optionsByCategory = computed<Record<string, Option[]>>(() =>
   groupBy(
-    filteredOptions.value.filter((option) => !isNil(option.data.category)),
-    (option) => option.data.category!
-  )
+    filteredOptions.value.filter((option) => option.data.category),
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- filtered for truthy category above
+    (option) => option.data.category!,
+  ),
 )
 
 /**
@@ -98,8 +101,8 @@ const optionsByCategory = computed<Record<string, Option[]>>(() =>
 const selections = computed(() =>
   question.value.options.reduce(
     (set, option, index) => (choices.value[index] ? new Set([...set, option.identifier]) : set),
-    new Set<string>()
-  )
+    new Set<string>(),
+  ),
 )
 
 /**
@@ -107,7 +110,7 @@ const selections = computed(() =>
  * selection, to help them understand they can continue with nothing selected.
  */
 const nextButtonTitle = computed(() =>
-  isEmpty(selections.value) ? t('question.noneApplyButton') : t('question.nextButton')
+  isEmpty(selections.value) ? t('question.noneApplyButton') : t('question.nextButton'),
 )
 
 /**
@@ -132,7 +135,7 @@ function answerChosen() {
  */
 watch(
   () => props.prompt,
-  () => (choices.value = [])
+  () => (choices.value = []),
 )
 </script>
 
