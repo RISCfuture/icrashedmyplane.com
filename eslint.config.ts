@@ -6,7 +6,15 @@ import vueParser from 'vue-eslint-parser'
 export default tseslint.config(
   {
     name: 'app/files-to-ignore',
-    ignores: ['dist/**', 'node_modules/**', '.yarn/**', 'cypress/**', 'coverage/**', '.pnp.cjs', '.pnp.loader.mjs'],
+    ignores: [
+      'dist/**',
+      'node_modules/**',
+      '.yarn/**',
+      'cypress/**',
+      'coverage/**',
+      '.pnp.cjs',
+      '.pnp.loader.mjs',
+    ],
   },
 
   js.configs.recommended,

@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           cache: yarn
-          node-version-file: .node-version
+          node-version-file: .nvmrc
       - name: Install dependencies
         run: yarn install
       - name: Run unit tests
@@ -41,7 +41,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           cache: yarn
-          node-version-file: .node-version
+          node-version-file: .nvmrc
       - name: Install dependencies
         run: yarn install
       - name: Install Cypress binary
@@ -65,7 +65,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           cache: yarn
-          node-version-file: .node-version
+          node-version-file: .nvmrc
       - name: Install dependencies
         run: yarn install
       - name: Run ESLint

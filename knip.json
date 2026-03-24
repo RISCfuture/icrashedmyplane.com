@@ -33,7 +33,8 @@
     "oxlint",
     "knip",
     "start-server-and-test",
-    "vue-tsc"
+    "vue-tsc",
+    "cypress"
   ],
   "ignore": ["src/models/survey/stackTraverser.ts"]
 }
