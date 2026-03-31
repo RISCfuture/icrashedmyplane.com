@@ -21,6 +21,7 @@
     "typedoc",
     "vue-tsc"
   ],
+  "ignoreUnresolved": ["./vitest.setup.ts"],
   "ignoreBinaries": [
     "run-p",
     "run-s",
