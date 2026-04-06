@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noEmit": true,
+    "paths": {
+      "@/*": ["../src/*"],
+      "@test-support/*": ["../test-support/*"]
+    }
+  },
+  "include": ["./**/*.ts", "../test-support/**/*.ts"]
+}

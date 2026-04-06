@@ -8,7 +8,7 @@ export default mergeConfig(
   defineConfig({
     test: {
       environment: 'jsdom',
-      exclude: [...configDefaults.exclude, 'e2e/*', 'cypress/**'],
+      exclude: [...configDefaults.exclude, 'e2e/**'],
       root: fileURLToPath(new URL('./', import.meta.url)),
       globals: true,
       setupFiles: ['./vitest.setup.ts'],
@@ -16,7 +16,7 @@ export default mergeConfig(
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
-        '@cypress': path.resolve(__dirname, './cypress'),
+        '@test-support': path.resolve(__dirname, './test-support'),
       },
     },
   }),

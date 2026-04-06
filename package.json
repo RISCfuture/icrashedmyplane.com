@@ -20,8 +20,8 @@
     "lint:knip": "knip",
     "lint": "run-s 'lint:*'",
     "preview": "vite preview",
-    "test:e2e": "start-server-and-test 'vite preview --port 4173' http://localhost:4173 'cypress run --e2e'",
-    "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
+    "test:e2e": "playwright test",
+    "test:e2e:dev": "playwright test --ui",
     "test:unit": "vitest",
     "type-check": "vue-tsc --build"
   },
@@ -39,7 +39,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@pinia/testing": "^1.0.3",
-    "@testing-library/cypress": "^10.1.0",
+    "@playwright/test": "^1.59.1",
     "@testing-library/vue": "^8.1.0",
     "@tsconfig/node22": "^22.0.5",
     "@types/cldrjs": "^0.4.29",
@@ -50,7 +50,6 @@
     "@vue/compiler-dom": "^3.5.30",
     "@vue/server-renderer": "^3.5.30",
     "@vue/tsconfig": "^0.9.1",
-    "cypress": "^15.13.0",
     "eslint": "^10.1.0",
     "eslint-plugin-vue": "^10.8.0",
     "jiti": "^2.6.1",
@@ -62,7 +61,6 @@
     "postcss-html": "^1.8.1",
     "prettier": "^3.8.1",
     "sass": "^1.98.0",
-    "start-server-and-test": "^2.1.5",
     "stylelint": "^17.5.0",
     "stylelint-config-standard-scss": "^17.0.0",
     "typedoc": "^0.28.18",
@@ -73,11 +71,6 @@
     "vitest": "^4.1.1",
     "vue-eslint-parser": "^10.4.0",
     "vue-tsc": "^3.2.6"
-  },
-  "dependenciesMeta": {
-    "cypress": {
-      "built": false
-    }
   },
   "packageManager": "yarn@4.13.0+sha512.5c20ba010c99815433e5c8453112165e673f1c7948d8d2b267f4b5e52097538658388ebc9f9580656d9b75c5cc996f990f611f99304a2197d4c56d21eea370e7"
 }

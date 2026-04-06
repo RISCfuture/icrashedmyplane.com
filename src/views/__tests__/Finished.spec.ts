@@ -4,7 +4,7 @@ import { type QuestionnaireState } from '../../stores/questionnaire'
 import { render, screen } from '@testing-library/vue'
 import Finished from '../Finished.vue'
 import i18n from '@/i18n'
-import { accidentAnswer, incidentAnswer, seriousIncidentAnswer } from '@cypress/fixtures/answers'
+import { accidentAnswer, incidentAnswer, seriousIncidentAnswer } from '@test-support/answers'
 
 describe('Finished', () => {
   it('renders an accident', () => {

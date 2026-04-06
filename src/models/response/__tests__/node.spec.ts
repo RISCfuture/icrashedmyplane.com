@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { endNode, type QuestionResponseNode, walkResponseTree } from '../answer'
-import { mergeAnswers } from '@cypress/support/answerUtils'
-import { accidentAnswer, answerWithNestedQuestion } from '@cypress/fixtures/answers'
+import { mergeAnswers } from '@test-support/answerUtils'
+import { accidentAnswer, answerWithNestedQuestion } from '@test-support/answers'
 
 describe('walkResponseTree', () => {
   let answer: QuestionResponseNode

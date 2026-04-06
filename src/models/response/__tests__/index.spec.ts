@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { constant, times } from 'lodash-es'
-import { makeResponse, mergeAnswers } from '@cypress/support/answerUtils'
+import { makeResponse, mergeAnswers } from '@test-support/answerUtils'
 import {
   accidentAnswer,
   incidentAnswer,
   seriousIncidentAnswer,
   unfinishedAnswerEndingInSingleQuestion,
-} from '@cypress/fixtures/answers'
+} from '@test-support/answers'
 import { Flag, IncidentLevel, isQuestion } from '@/models/survey'
 import { endNode, type QuestionResponseNode, type ResponseNode } from '../answer'
 import { Response } from '../index'

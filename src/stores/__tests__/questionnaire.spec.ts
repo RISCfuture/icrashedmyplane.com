@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
 import useQuestionnaireStore from '../questionnaire'
-import { makeResponse, mergeAnswers } from '@cypress/support/answerUtils'
+import { makeResponse, mergeAnswers } from '@test-support/answerUtils'
 import {
   accidentAnswer,
   seriousIncidentAnswer,
   unfinishedAnswerEndingInMultiQuestion,
-} from '@cypress/fixtures/answers'
+} from '@test-support/answers'
 import { endNode } from '@/models/response/answer'
 import { cloneDeep, constant, times } from 'lodash-es'
 

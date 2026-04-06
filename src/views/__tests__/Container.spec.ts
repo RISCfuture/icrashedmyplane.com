@@ -4,7 +4,7 @@ import Container from '../Container.vue'
 import i18n from '@/i18n'
 import { createTestingPinia } from '@pinia/testing'
 import { type QuestionnaireState } from '@/stores/questionnaire'
-import { accidentAnswer } from '@cypress/fixtures/answers'
+import { accidentAnswer } from '@test-support/answers'
 
 describe('Container', () => {
   it('renders the welcome page', () => {

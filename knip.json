@@ -17,7 +17,6 @@
     "oxlint",
     "postcss",
     "sass",
-    "start-server-and-test",
     "typedoc",
     "vue-tsc"
   ],
@@ -33,9 +32,8 @@
     "stylelint",
     "oxlint",
     "knip",
-    "start-server-and-test",
-    "vue-tsc",
-    "cypress"
+    "playwright",
+    "vue-tsc"
   ],
   "ignore": ["src/models/survey/stackTraverser.ts"]
 }

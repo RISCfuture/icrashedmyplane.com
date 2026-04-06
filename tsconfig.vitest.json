@@ -1,20 +1,14 @@
 {
   "extends": "./tsconfig.app.json",
-  "include": [
-    "./cypress/support/**/*.ts",
-    "./cypress/fixtures/**/*.ts",
-    "./src/**/*",
-    "env.d.ts",
-    "vitest.setup.ts"
-  ],
+  "include": ["./src/**/*", "./test-support/**/*.ts", "env.d.ts", "vitest.setup.ts"],
   "exclude": [],
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.vitest.tsbuildinfo",
     "lib": [],
     "types": ["node", "jsdom"],
     "paths": {
-      "@cypress/*": ["./cypress/*"],
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@test-support/*": ["./test-support/*"]
     }
   }
 }
