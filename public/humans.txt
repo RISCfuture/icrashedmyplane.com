@@ -1,0 +1,12 @@
+/* TEAM */
+Developer: Tim Morgan
+Site: https://tim.codes
+Contact: git [at] timothymorgan.org
+Location: United States
+
+/* SITE */
+Last update: 2026/04/15
+Language: English
+Doctype: HTML5
+Components: Vue 3, Vite, Pinia, vue-i18n, Sentry
+Standards: HTML5, CSS3, ECMAScript 2024

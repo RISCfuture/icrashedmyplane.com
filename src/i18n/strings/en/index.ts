@@ -8,6 +8,9 @@ const en: LocaleMessage = {
     title: 'Sorry, an error occurred.',
     description: 'Please try refreshing the page. If that doesn’t work, I got nothin’.',
   },
+  a11y: {
+    skipToContent: 'Skip to main content',
+  },
   question: {
     checkAll: 'Check all that apply:',
     breadcrumbs: 'You selected {selection}.',

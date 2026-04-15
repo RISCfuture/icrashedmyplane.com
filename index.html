@@ -3,21 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#00072d" media="(prefers-color-scheme: dark)" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta
+      http-equiv="Permissions-Policy"
+      content="camera=(), microphone=(), geolocation=(), interest-cohort=()"
+    />
 
     <!-- Primary Meta Tags -->
     <title>Help, I crashed my plane!</title>
     <meta name="title" content="Help, I crashed my plane!" />
     <meta name="description" content="Help navigating NTSB 830, for when you crash your plane" />
+    <meta name="author" content="Tim Morgan" />
+
+    <!-- Apple / Mobile Web App -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Crashed Plane" />
+
+    <!-- Icons & Manifest -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/icon-pinned-tab.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/icon-pinned-tab.svg" color="#0e6ba8" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Help, I crashed my plane!" />
     <meta property="og:url" content="https://icrashedmyplane.com/" />
     <meta property="og:title" content="Help, I crashed my plane!" />
     <meta
       property="og:description"
       content="Help navigating NTSB 830, for when you crash your plane"
     />
-    <meta property="og:image" content="/icon-pinned-tab.svg" />
+    <meta property="og:image" content="https://icrashedmyplane.com/icon-pinned-tab.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta
+      property="og:image:alt"
+      content="Stylized icon of a plane nose-down, representing the Help, I crashed my plane! site"
+    />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary" />
@@ -27,9 +56,41 @@
       property="twitter:description"
       content="Help navigating NTSB 830, for when you crash your plane"
     />
-    <meta property="twitter:image" content="/icon-pinned-tab.svg" />
+    <meta property="twitter:image" content="https://icrashedmyplane.com/icon-pinned-tab.svg" />
+    <meta
+      property="twitter:image:alt"
+      content="Stylized icon of a plane nose-down, representing the Help, I crashed my plane! site"
+    />
 
-    <link rel="mask-icon" href="/icon-pinned-tab.svg" color="#0e6ba8" />
+    <!-- Canonical -->
+    <link rel="canonical" href="https://icrashedmyplane.com/" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Help, I crashed my plane!",
+        "url": "https://icrashedmyplane.com/",
+        "description": "An interactive guide that helps pilots determine their reporting obligations under NTSB Part 830 after an aviation accident or incident.",
+        "applicationCategory": "ReferenceApplication",
+        "applicationSubCategory": "Aviation",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "inLanguage": "en",
+        "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Tim Morgan",
+          "url": "https://tim.codes"
+        }
+      }
+    </script>
   </head>
 
   <body>
