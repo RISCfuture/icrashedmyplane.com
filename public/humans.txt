@@ -1,7 +1,7 @@
 /* TEAM */
 Developer: Tim Morgan
 Site: https://tim.codes
-Contact: git [at] timothymorgan.org
+Contact: git [at] timothymorgan.info
 Location: United States
 
 /* SITE */
