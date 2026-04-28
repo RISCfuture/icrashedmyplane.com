@@ -31,7 +31,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Setup pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: Enable Corepack
         run: corepack enable
       - name: Set up Node.js
@@ -46,7 +46,7 @@ jobs:
         env:
           VITE_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
       - name: Upload
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: 'dist/'
 
@@ -71,7 +71,7 @@ jobs:
           tar -xvf artifact.tar -C dist
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
       - name: Create Sentry release
         uses: getsentry/action-release@v3
         env:
