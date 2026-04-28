@@ -3,6 +3,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig(async ({ command }) => {
@@ -36,8 +37,25 @@ export default defineConfig(async ({ command }) => {
   }
 
   return {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    plugins: [vue(), vueDevTools({ launchEditor: 'rubymine' }), cspPlugin as any].filter(Boolean),
+    plugins: [
+      vue(),
+      vueDevTools({ launchEditor: 'rubymine' }),
+      VitePWA({
+        registerType: 'autoUpdate',
+        manifest: false,
+        injectRegister: 'script',
+        workbox: {
+          globPatterns: ['**/*.{js,css,html,svg,png,ico,webmanifest,woff,woff2}'],
+          navigateFallback: 'index.html',
+          navigateFallbackDenylist: [/^\/api/, /\.map$/],
+          cleanupOutdatedCaches: true,
+          clientsClaim: true,
+          skipWaiting: true,
+        },
+      }),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      cspPlugin as any,
+    ].filter(Boolean),
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
