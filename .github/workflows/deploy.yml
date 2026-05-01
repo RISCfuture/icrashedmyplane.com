@@ -45,6 +45,10 @@ jobs:
         run: yarn build
         env:
           VITE_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+      - name: Ensure /.well-known/ is in build output
+        run: |
+          cp -R public/.well-known dist/
+          test -f dist/.well-known/security.txt
       - name: Upload
         uses: actions/upload-pages-artifact@v5
         with:
