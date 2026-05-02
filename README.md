@@ -1,5 +1,9 @@
 # Help, I Crashed My Plane!
 
+[![CI](https://github.com/RISCfuture/icrashedmyplane.com/actions/workflows/ci.yml/badge.svg)](https://github.com/RISCfuture/icrashedmyplane.com/actions/workflows/ci.yml)
+[![Deploy](https://github.com/RISCfuture/icrashedmyplane.com/actions/workflows/deploy.yml/badge.svg)](https://github.com/RISCfuture/icrashedmyplane.com/actions/workflows/deploy.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 **Help, I Crashed My Plane!** is a website that assists pilots in navigating
 49 CFR § 830 (a.k.a. NTSB 830), the regulations governing reporting incidents
 and accidents to the NTSB. Using those laws as a basis, it asks a series of
