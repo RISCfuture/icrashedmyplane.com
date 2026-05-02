@@ -41,6 +41,7 @@
     "unicorn/consistent-function-scoping": "off",
     "unicorn/filename-case": "off",
     "unicorn/no-lonely-if": "off",
+    "unicorn/no-negated-condition": "off",
     "unicorn/no-null": "off",
     "unicorn/no-zero-fractions": "off",
     "unicorn/no-useless-undefined": "off",
