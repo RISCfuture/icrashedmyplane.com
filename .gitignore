@@ -7,34 +7,27 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-.DS_Store
-dist
+# Node
+node_modules/
+dist/
 dist-ssr
-coverage
+.env*
 *.local
+coverage/
 
-/playwright-report/
-/blob-report/
-/test-results/
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-*.tsbuildinfo
-
-# Yarn
-.pnp.*
+# Yarn PnP
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+.pnp.*
+
+# TypeScript
+*.tsbuildinfo
+
+# Playwright
+/playwright-report/
+/blob-report/
+/test-results/
