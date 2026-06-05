@@ -32,17 +32,17 @@ jobs:
         uses: actions/checkout@v6
       - name: Setup pages
         uses: actions/configure-pages@v6
-      - name: Enable Corepack
-        run: corepack enable
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
       - name: Set up Node.js
         uses: actions/setup-node@v6
         with:
-          cache: yarn
+          cache: pnpm
           node-version-file: .nvmrc
       - name: Install dependencies
-        run: yarn install
+        run: pnpm install --frozen-lockfile
       - name: Build
-        run: yarn build
+        run: pnpm run build
         env:
           VITE_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
       - name: Ensure /.well-known/ is in build output
