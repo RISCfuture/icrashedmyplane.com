@@ -35,7 +35,7 @@ To run a copy of this website, check out this project into a directory, then run
 ### Running in development
 
 `pnpm dev` starts the Vite development server (by default at
-http://localhost:5173). The development server supports hot module replacement.
+<http://localhost:5173>). The development server supports hot module replacement.
 
 ### Building for production
 
