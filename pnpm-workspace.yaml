@@ -1,6 +1,12 @@
 allowBuilds:
   '@parcel/watcher': true
   cldr-data: true
+  esbuild: true
+  # Miniflare pulls in sharp only for the Images binding, which this site does not use.
+  sharp: false
+  workerd: true
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - cldr-data
+  - esbuild
+  - workerd

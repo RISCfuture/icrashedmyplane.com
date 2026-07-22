@@ -7,10 +7,6 @@
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#00072d" media="(prefers-color-scheme: dark)" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <meta
-      http-equiv="Permissions-Policy"
-      content="camera=(), microphone=(), geolocation=(), interest-cohort=()"
-    />
 
     <!-- Primary Meta Tags -->
     <title>Help, I crashed my plane!</title>
@@ -103,5 +99,19 @@
     <div id="app"></div>
 
     <script type="module" src="/src/main.ts"></script>
+    <!-- Cloudflare Web Analytics. Embedded at build time rather than left to
+         edge auto-injection: the service worker precaches index.html, so
+         returning visitors would be served a copy predating the edge rewrite
+         and go uncounted. Reporting goes to cloudflareinsights.com: the
+         same-origin /cdn-cgi/rum endpoint only exists while auto-install is
+         enabled, and it is off here so the beacon loads exactly once.
+
+         No `integrity`: Cloudflare does not version-pin the beacon, so a
+         pinned hash would break on their next release. -->
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "196f2970d44449ce81c66027cc9dde87"}'
+    ></script>
   </body>
 </html>

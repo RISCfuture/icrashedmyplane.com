@@ -62,7 +62,10 @@ Documentation will be in the `docs` directory.
 
 ### Deployment
 
-This website is hosted using GitHub Pages, and deployed automatically using GitHub Actions.
+This website is hosted on Cloudflare Workers as static assets, configured in
+`wrangler.jsonc`, and deployed automatically using GitHub Actions once CI passes.
+Deployment requires a `CLOUDFLARE_API_TOKEN` repository secret with the Workers
+Scripts:Edit permission.
 
 ## Architecture
 

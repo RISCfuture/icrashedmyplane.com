@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "icrashedmyplane-com",
+  "account_id": "9edca68dc3e37bad6304e4bc0da34eca",
+  "compatibility_date": "2026-07-21",
+  // The site is reachable only through its custom domains, so the
+  // workers.dev hostname stays off and cannot serve a duplicate copy.
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "icrashedmyplane.com", "custom_domain": true },
+    // Redirected to the apex by a zone-level Single Redirect rule, which runs
+    // ahead of the Worker.
+    { "pattern": "www.icrashedmyplane.com", "custom_domain": true },
+  ],
+  "assets": {
+    "directory": "./dist",
+    // The app is a single page with no client-side router, so a path that
+    // matches no asset is genuinely not found rather than a route to hydrate.
+    "not_found_handling": "none",
+  },
+  "observability": {
+    "enabled": true,
+  },
+}

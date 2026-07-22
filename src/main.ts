@@ -8,34 +8,33 @@ import './assets/styles/transitions.scss'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import * as Sentry from '@sentry/vue'
-import { createSentryPiniaPlugin } from '@sentry/vue'
 import i18n from '@/i18n'
 import App from './App.vue'
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- .vue default export is untyped
 const app = createApp(App)
 
+// Users answer questions about their own aircraft accident here, and the site
+// publishes no privacy policy. Session Replay, `sendDefaultPii` and the Pinia
+// state plugin would each forward those answers to a third party, so none of
+// them are enabled: crash reports carry stack traces only.
 const sentryDSN = import.meta.env.VITE_SENTRY_DSN as string | undefined
 Sentry.init({
   app,
   dsn: sentryDSN,
-  sendDefaultPii: true,
+  sendDefaultPii: false,
   integrations: [
     Sentry.vueIntegration({
       tracingOptions: {
         trackComponents: true,
       },
     }),
-    Sentry.replayIntegration(),
   ],
   tracesSampleRate: 1.0,
   enableLogs: true,
-  replaysSessionSampleRate: 0.1,
-  replaysOnErrorSampleRate: 1.0,
 })
 
 const pinia = createPinia()
-pinia.use(createSentryPiniaPlugin())
 app.use(pinia)
 
 app.use(i18n)
