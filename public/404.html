@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Page Not Found — Help, I crashed my plane!</title>
+    <meta name="description" content="There is no page at this address." />
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#00072d" media="(prefers-color-scheme: dark)" />
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/icon-pinned-tab.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/icon-pinned-tab.svg" color="#0e6ba8" />
+
+    <!-- The zone's CSP grants 'unsafe-inline' to `style-src-attr` alone, so a
+         `<style>` element here would be blocked and the page would render
+         unstyled. The stylesheet is a sibling file that Vite copies out of
+         `public/` under a stable, unhashed name. -->
+    <link rel="stylesheet" href="/404.css" />
+  </head>
+
+  <body>
+    <main>
+      <p class="code">404</p>
+
+      <h1>You’ve strayed outside controlled airspace.</h1>
+
+      <p class="lede">Nothing is on fire this time — there is simply no page at this address.</p>
+
+      <p><a class="button" href="/">Back to the start</a></p>
+    </main>
+  </body>
+</html>
