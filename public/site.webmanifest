@@ -6,7 +6,7 @@
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "theme_color": "#0e6ba8",
+  "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "lang": "en",
   "dir": "ltr",
@@ -24,22 +24,28 @@
       "purpose": "any"
     },
     {
-      "src": "/icon-pinned-tab.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
       "purpose": "maskable"
     },
     {
-      "src": "/apple-touch-icon.png",
-      "sizes": "192x192",
+      "src": "/icon-512.png",
       "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/apple-touch-icon.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
+      "purpose": "maskable"
     }
   ]
 }

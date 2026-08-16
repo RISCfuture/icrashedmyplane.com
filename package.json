@@ -9,8 +9,6 @@
   "scripts": {
     "build": "run-p type-check \"build-only {@}\" --",
     "build-only": "vite build",
-    "ci:build": "run-p type-check \"build-only {@}\" --",
-    "ci:unit": "vitest --run",
     "dev": "vite",
     "doc": "npx typedoc --out docs src",
     "format": "prettier --write .",
@@ -41,7 +39,7 @@
     "@pinia/testing": "^1.0.3",
     "@playwright/test": "^1.61.1",
     "@testing-library/vue": "^8.1.0",
-    "@tsconfig/node22": "^22.0.5",
+    "@tsconfig/node26": "^26.0.1",
     "@types/cldrjs": "^0.4.29",
     "@types/jsdom": "^28.0.3",
     "@types/lodash-es": "^4.17.12",

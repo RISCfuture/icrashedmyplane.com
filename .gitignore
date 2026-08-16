@@ -22,3 +22,6 @@ coverage/
 /blob-report/
 /test-results/
 .claude/settings.local.json
+
+# Wrangler
+.wrangler/

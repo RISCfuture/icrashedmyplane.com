@@ -13,18 +13,14 @@ on:
 permissions:
   contents: read
 
-# Allow one concurrent deployment
+# Allow one concurrent deployment, and never cancel one in flight
 concurrency:
   group: deploy
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
-    name: Build and Deploy
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
-    environment:
-      name: production
-      url: https://icrashedmyplane.com/
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -44,10 +40,8 @@ jobs:
         run: pnpm run build
         env:
           VITE_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-      - name: Deploy to Cloudflare Workers
-        run: pnpm exec wrangler deploy
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          VITE_SENTRY_RELEASE: ${{ github.sha }}
+      # Sourcemaps must reach Sentry BEFORE they are deleted. Do not reorder.
       - name: Create Sentry release
         uses: getsentry/action-release@v3
         env:
@@ -58,3 +52,10 @@ jobs:
           environment: production
           release: ${{ github.sha }}
           sourcemaps: './dist'
+      # Sourcemaps must not reach the public. Do not reorder.
+      - name: Strip source maps from the published assets
+        run: find dist -name '*.map' -delete
+      - name: Deploy to Cloudflare Workers
+        run: pnpm exec wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
