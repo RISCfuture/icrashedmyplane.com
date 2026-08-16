@@ -14,7 +14,10 @@ export default defineConfig(() => {
       VitePWA({
         registerType: 'autoUpdate',
         manifest: false,
-        injectRegister: 'script',
+        // The generated registration snippet leaves its promise unhandled, so a
+        // transient failure to fetch `sw.js` surfaces as an unhandled rejection.
+        // `src/main.ts` registers the worker itself and handles that rejection.
+        injectRegister: false,
         workbox: {
           globPatterns: ['**/*.{js,css,html,svg,png,ico,webmanifest,woff,woff2}'],
           navigateFallback: 'index.html',

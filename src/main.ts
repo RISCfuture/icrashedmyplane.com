@@ -34,9 +34,30 @@ Sentry.init({
   enableLogs: true,
 })
 
+/**
+ * Installs the Workbox service worker that backs offline use.
+ *
+ * A failed registration costs offline caching and nothing else, so the
+ * rejection is logged rather than left to surface as an unhandled error.
+ */
+function registerServiceWorker() {
+  if (!('serviceWorker' in navigator)) return
+
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch((error: unknown) => {
+      Sentry.logger.warn('Service worker registration failed', {
+        reason: error instanceof Error ? error.message : String(error),
+      })
+    })
+  })
+}
+
 const pinia = createPinia()
 app.use(pinia)
 
 app.use(i18n)
 
 app.mount('#app')
+
+// Only a production build emits `sw.js`.
+if (import.meta.env.PROD) registerServiceWorker()
