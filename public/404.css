@@ -5,7 +5,13 @@
    system geometric sans.
 
    Dark mode takes its body text from $blue-5 rather than the app's $blue-4:
-   $blue-4 on $blue-1 is 3.7:1, short of the 4.5:1 WCAG AA needs at this size. */
+   $blue-4 on $blue-1 is 3.7:1, short of the 4.5:1 WCAG AA needs at this size.
+
+   The checklist reveals itself with one-shot animations that fill forwards, so
+   the resting state of the page is the completed checklist. Every rule that
+   hides something does so from inside a keyframe, which is what lets the
+   reduced-motion block reveal the whole card by simply switching the
+   animations off. */
 
 :root {
   --background: #fff;
@@ -14,6 +20,14 @@
   --button-background-color: #0a2472;
   --button-text-color: #fff;
   --focus-color: #0e6ba8;
+  --card-background: #f4f7fb;
+  --card-border-color: #d3ddea;
+  --card-shadow-color: rgb(0 28 85 / 12%);
+  --card-sheen-color: rgb(255 255 255 / 55%);
+  --card-title-color: #0a2472;
+  --muted-color: #5c6880;
+  --check-color: #3e5641;
+  --hazard-color: #a8201a;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,6 +38,14 @@
     --button-background-color: #0e6ba8;
     --button-text-color: #fff;
     --focus-color: #a6e1fa;
+    --card-background: #04103a;
+    --card-border-color: #12245c;
+    --card-shadow-color: rgb(0 0 0 / 45%);
+    --card-sheen-color: rgb(166 225 250 / 12%);
+    --card-title-color: #a6e1fa;
+    --muted-color: #9aa5b8;
+    --check-color: #8fbf99;
+    --hazard-color: #e03f38;
   }
 }
 
@@ -52,7 +74,7 @@ main {
 }
 
 .code {
-  margin: 0 0 20px;
+  margin: 0 0 12px;
   font-size: 96px;
   font-weight: 700;
   line-height: 1;
@@ -60,16 +82,141 @@ main {
 }
 
 h1 {
-  margin: 0 0 80px;
+  margin: 0 0 24px;
   font-size: 48px;
   font-weight: 700;
 }
 
 .lede {
   max-width: 500px;
-  margin: 0 auto 80px;
+  margin: 0 auto 40px;
   font-size: 24px;
   font-weight: 500;
+}
+
+/* The laminated placard the checklist is printed on. The diagonal band in the
+   background image is the gloss of the lamination; keeping it in the card's own
+   background rather than an overlay leaves the printed text at full contrast. */
+
+.checklist {
+  --stagger: 0.42s;
+
+  position: relative;
+  max-width: 560px;
+  margin: 0 auto 40px;
+  padding: 28px 26px 22px;
+  text-align: left;
+  background-color: var(--card-background);
+  background-image: linear-gradient(
+    102deg,
+    transparent 30%,
+    var(--card-sheen-color) 44%,
+    transparent 58%
+  );
+  border: 1px solid var(--card-border-color);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px var(--card-shadow-color);
+}
+
+/* Hazard tape across the top edge: red bands stencilled straight onto the
+   placard, with the gaps between them left transparent so the card's own
+   background carries the stripe. The radius is the card's 12px less its 1px
+   border, so the bands stop on the same curve the corner does. */
+
+.checklist::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 7px;
+  content: '';
+  background-image: repeating-linear-gradient(
+    135deg,
+    var(--hazard-color) 0 9px,
+    transparent 9px 18px
+  );
+  border-radius: 11px 11px 0 0;
+}
+
+.checklist-title {
+  margin: 0 0 10px;
+  padding-bottom: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--card-title-color);
+  border-bottom: 1px dashed var(--card-border-color);
+}
+
+.items {
+  margin: 0;
+  padding: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 15px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 8px;
+  align-items: baseline;
+  padding: 7px 8px;
+  margin: 0 -8px;
+  color: var(--check-color);
+  border-radius: 6px;
+  animation: reveal-item 0.45s ease-out both;
+  animation-delay: calc(var(--step) * var(--stagger));
+}
+
+.mark {
+  flex: 0 0 auto;
+  align-self: center;
+  width: 1.15em;
+  height: 1.15em;
+}
+
+.tick {
+  --tick-length: 26;
+
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: var(--tick-length);
+  stroke-dashoffset: 0;
+  animation: draw-tick 0.3s ease-out both;
+  animation-delay: calc(var(--step) * var(--stagger) + 0.14s);
+}
+
+.name {
+  flex: 0 0 auto;
+  color: var(--text-color);
+}
+
+/* The dot leader that carries the eye across to the value. */
+
+.leader {
+  flex: 1 1 30px;
+  align-self: flex-end;
+  margin-bottom: 0.3em;
+  border-bottom: 2px dotted var(--muted-color);
+}
+
+.value {
+  flex: 0 0 auto;
+  font-weight: 700;
+}
+
+.note {
+  margin: 14px 0 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted-color);
+  animation: reveal-item 0.6s ease-out both;
+  animation-delay: calc(var(--step) * var(--stagger));
 }
 
 .button {
@@ -95,19 +242,58 @@ h1 {
   outline-offset: 2px;
 }
 
+@keyframes reveal-item {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes draw-tick {
+  from {
+    stroke-dashoffset: var(--tick-length);
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 @media (width <= 700px) {
   .code {
     font-size: 56px;
   }
 
   h1 {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     font-size: 36px;
   }
 
   .lede {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     font-size: 18px;
+  }
+
+  .checklist {
+    padding: 24px 18px 18px;
+  }
+
+  .checklist-title {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+  }
+
+  .items {
+    font-size: 12.5px;
+  }
+
+  .note {
+    font-size: 12.5px;
   }
 
   .button {
@@ -115,7 +301,16 @@ h1 {
   }
 }
 
+/* The completed checklist is the resting state of the animations, so dropping
+   them lands on exactly the frame the timeline would have ended on. */
+
 @media (prefers-reduced-motion: reduce) {
+  .item,
+  .tick,
+  .note {
+    animation: none;
+  }
+
   .button {
     transition-duration: 0.001ms;
   }

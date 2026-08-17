@@ -31,6 +31,44 @@
 
       <p class="lede">Nothing is on fire this time — there is simply no page at this address.</p>
 
+      <!-- Each item carries its position in the sequence as `--step`, which the
+           stylesheet turns into an animation delay. A `style` attribute is the
+           only styling the zone's CSP permits inline. -->
+      <section class="checklist" aria-labelledby="checklist-title">
+        <h2 class="checklist-title" id="checklist-title">Emergency checklist</h2>
+
+        <ol class="items">
+          <li class="item" style="--step: 1">
+            <svg class="mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path class="tick" d="M4 13 L9.5 18.5 L20 6" />
+            </svg>
+            <span class="name">Airspeed</span>
+            <span class="leader" aria-hidden="true"></span>
+            <span class="value">Best glide</span>
+          </li>
+
+          <li class="item" style="--step: 2">
+            <svg class="mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path class="tick" d="M4 13 L9.5 18.5 L20 6" />
+            </svg>
+            <span class="name">URL</span>
+            <span class="leader" aria-hidden="true"></span>
+            <span class="value">Check</span>
+          </li>
+
+          <li class="item" style="--step: 3">
+            <svg class="mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path class="tick" d="M4 13 L9.5 18.5 L20 6" />
+            </svg>
+            <span class="name">Browser</span>
+            <span class="leader" aria-hidden="true"></span>
+            <span class="value">Attempt restart</span>
+          </li>
+        </ol>
+
+        <p class="note" style="--step: 4">Checklist complete.</p>
+      </section>
+
       <p><a class="button" href="/">Back to the start</a></p>
     </main>
   </body>

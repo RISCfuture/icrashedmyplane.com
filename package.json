@@ -13,7 +13,7 @@
     "doc": "npx typedoc --out docs src",
     "format": "prettier --write .",
     "lint:eslint": "eslint .",
-    "lint:stylelint": "stylelint \"src/**/*.{vue,css,scss,sass}\"",
+    "lint:stylelint": "stylelint \"src/**/*.{vue,css,scss,sass}\" \"public/*.css\"",
     "lint:oxlint": "oxlint -c oxlintrc.json src",
     "lint:knip": "knip",
     "lint": "run-s 'lint:*'",
