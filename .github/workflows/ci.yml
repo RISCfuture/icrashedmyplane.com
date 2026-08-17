@@ -70,6 +70,8 @@ jobs:
           node-version-file: .nvmrc
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Check formatting
+        run: pnpm run format:check
       - name: Run linters
         run: pnpm run lint
       - name: Type check

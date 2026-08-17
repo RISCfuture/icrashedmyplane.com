@@ -12,6 +12,7 @@
     "dev": "vite",
     "doc": "npx typedoc --out docs src",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "lint:eslint": "eslint .",
     "lint:stylelint": "stylelint \"src/**/*.{vue,css,scss,sass}\" \"public/*.css\"",
     "lint:oxlint": "oxlint -c oxlintrc.json src",
