@@ -33,6 +33,7 @@
     "no-ternary": "off",
     "no-undefined": "off",
     "no-void": "off",
+    "one-var": "off",
     "parameter-properties": "off",
     "prefer-destructuring": "off",
     "prefer-enum-initializers": "off",

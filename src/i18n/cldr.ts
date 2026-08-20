@@ -58,11 +58,9 @@ export default function useCLDR() {
     } catch {
       pattern =
         (fallbackCLDR.main(`listPatterns/listPattern-type-${type}`) as
-          | CLDRStringPattern
-          | undefined) ??
+          CLDRStringPattern | undefined) ??
         (fallbackCLDR.main('listPatterns/listPattern-type-standard') as
-          | CLDRStringPattern
-          | undefined)
+          CLDRStringPattern | undefined)
     }
 
     if (!pattern) return items.join(', ')

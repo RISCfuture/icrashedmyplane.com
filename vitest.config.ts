@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url'
 import { configDefaults, defineConfig, mergeConfig } from 'vitest/config'
-import viteConfig from './vite.config'
+import viteConfig from './vite.config.ts'
 import * as path from 'node:path'
 
 export default mergeConfig(
@@ -15,8 +15,8 @@ export default mergeConfig(
     },
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src'),
-        '@test-support': path.resolve(__dirname, './test-support'),
+        '@': path.resolve(import.meta.dirname, './src'),
+        '@test-support': path.resolve(import.meta.dirname, './test-support'),
       },
     },
   }),
