@@ -48,6 +48,11 @@ jobs:
       - name: Install Playwright system dependencies
         run: pnpm exec playwright install-deps
         timeout-minutes: 3
+      - name: Cache Playwright browsers
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install Playwright Browsers
         run: pnpm exec playwright install
         timeout-minutes: 3
