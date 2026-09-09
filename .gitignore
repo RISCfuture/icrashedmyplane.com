@@ -21,6 +21,7 @@ coverage/
 /playwright-report/
 /blob-report/
 /test-results/
+.claude/settings.json
 .claude/settings.local.json
 
 # Wrangler
