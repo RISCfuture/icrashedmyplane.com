@@ -86,6 +86,17 @@ export default defineConfig(({ command }) => {
     },
     build: {
       sourcemap: 'hidden',
+      rollupOptions: {
+        output: {
+          // The framework changes on its own release cadence and the questionnaire changes on
+          // mine, so they cache separately. Sentry keeps the chunk it already loads into.
+          manualChunks(id: string) {
+            if (id.includes('/node_modules/@sentry/')) return 'sentry'
+            if (/\/node_modules\/(?:@intlify|@vue|pinia|vue|vue-i18n)\//u.test(id)) return 'vendor'
+            return undefined
+          },
+        },
+      },
     },
   }
 })
