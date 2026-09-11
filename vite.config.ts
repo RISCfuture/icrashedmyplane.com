@@ -1,9 +1,54 @@
 import { fileURLToPath, URL } from 'node:url'
 
-import { defineConfig } from 'vite'
+import { defineConfig, type Plugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import vueI18n from '@intlify/unplugin-vue-i18n/vite'
 import { VitePWA } from 'vite-plugin-pwa'
+
+const fontFileName = /Quicksand-.*\.woff2$/u
+
+/**
+ * Injects a `<link rel="preload">` for the Quicksand font into the built `index.html`.
+ *
+ * `global.scss` applies Quicksand to every element, so it is the font first-paint text settles
+ * into, yet the browser only discovers it after fetching and parsing the stylesheet. The built
+ * filename is content-hashed, so the link is read out of the bundle rather than hand-written.
+ */
+function preloadFont(): Plugin {
+  let base = '/'
+
+  return {
+    name: 'preload-font',
+    apply: 'build',
+
+    configResolved(config) {
+      base = config.base
+    },
+
+    transformIndexHtml: {
+      order: 'post',
+      handler(_html, ctx) {
+        const fileName = Object.keys(ctx.bundle ?? {}).find((name) => fontFileName.test(name))
+        if (!fileName) return
+
+        return [
+          {
+            tag: 'link',
+            attrs: {
+              rel: 'preload',
+              as: 'font',
+              type: 'font/woff2',
+              href: `${base}${fileName}`,
+              crossorigin: true,
+            },
+            injectTo: 'head-prepend',
+          },
+        ]
+      },
+    },
+  }
+}
 
 // https://vite.dev/config/
 export default defineConfig(({ command }) => {
@@ -11,6 +56,10 @@ export default defineConfig(({ command }) => {
     plugins: [
       vue(),
       command === 'serve' && vueDevTools({ launchEditor: process.env.VITE_LAUNCH_EDITOR }),
+      // The locale messages are a fixed, single-locale JSON resource, so they are compiled here
+      // rather than shipping vue-i18n's message compiler to every visitor.
+      vueI18n({ include: [fileURLToPath(new URL('./src/i18n/strings/**', import.meta.url))] }),
+      preloadFont(),
       VitePWA({
         registerType: 'autoUpdate',
         manifest: false,

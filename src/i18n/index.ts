@@ -1,6 +1,6 @@
 import { createI18n } from 'vue-i18n'
 
-import en from './strings/en'
+import en from './strings/en.json'
 
 export default createI18n({
   locale: window.navigator.language,

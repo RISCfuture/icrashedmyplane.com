@@ -1,0 +1,165 @@
+{
+  "survey": {
+    "incident": {
+      "categories": {
+        "aircraft": "Damage to Your Aircraft",
+        "failure": "Aircraft Systems Failures",
+        "injuries": "Injuries to Crew or Passengers",
+        "surface": "Surface Movement, Takeoff, Landing",
+        "traffic": "Involving Other Aircraft"
+      },
+      "notes": {
+        "backupPowerSource": "A backup power source means a battery, auxiliary power unit (APU), ram air turbine (RAT), etc.",
+        "displaysDefinition": "A “display” means EFIS, ECAM, EICAS, PFD, ND, or similar.",
+        "materialsAndLabor": "Total repair cost includes estimated cost of materials and labor."
+      },
+      "options": {
+        "yes": "Yes",
+        "no": "No",
+        "bentFairings": "Bent fairings or cowling",
+        "brokenBone": "Broken bone",
+        "burnDegree": {
+          "firstDegree": "First-degree",
+          "secondDegree": "Second-degree",
+          "thirdDegree": "Third-degree"
+        },
+        "burns": "Burns",
+        "collision": "Collision with another aircraft",
+        "death": "Death or fatal injury",
+        "dentedSkin": "Dented skin",
+        "displays": "Instrument displays",
+        "electrical": "Electrical system",
+        "engineAccessories": "Engine accessories",
+        "engineDamage": "Engine damage",
+        "evacuation": "Emergency evacuation",
+        "fire": "Fire",
+        "flaps": "Flaps",
+        "flightControls": "Flight control system",
+        "hemorrhage": "Hemorrhaging",
+        "hospitalization": "Hospitalization",
+        "hydraulic": "Hydraulic system",
+        "illness": "In-flight illness or injury",
+        "internalOrganDamage": "Injury to an internal organ",
+        "landingGear": "Landing gear, wheels, brakes, or tires",
+        "lossOfThrust": "Loss of engine thrust",
+        "majorDamage": "Major damage",
+        "muscleDamage": "Muscle damage",
+        "nerveDamage": "Nerve damage",
+        "other": "Something not on this list",
+        "propeller": "Release of all or a portion of a propeller blade",
+        "propertyDamage": "Property damage",
+        "rotorBlades": "Main or tail rotor blades",
+        "rotorOrPropeller": "Rotor or propeller blade damage",
+        "runwayIncursion": "Runway incursion",
+        "skinHoles": "Holes in skin or fabric",
+        "taxiway": "Takeoff or landing from a taxiway",
+        "TCASRA": "TCAS or ACAS resolution advisory",
+        "tendonDamage": "Tendon damage",
+        "wingtips": "Wingtips",
+        "wrongRunway": "Takeoff or landing from an incorrect runway"
+      },
+      "questions": {
+        "aircraftMajorDamage": "Which parts of the aircraft received major damage?",
+        "complianceNecessary": "Was compliance with the resolution advisory necessary to avoid a potential collision?",
+        "contained": "Was the failure contained to within the engine?",
+        "correctiveAction": "Did another aircraft have to take immediate corrective action?",
+        "degree": "What was the most severe type of burns received?",
+        "electricContinuous": "Did you have to continually use an emergency bus powered by a backup power source?",
+        "escapeSlidesUsed": "Were any emergency egress systems (e.g., escape slides) used?",
+        "fingerToeNose": "Was only a finger bone, nose bone, or toe bone broken?",
+        "fmvLessThan25Grand": "Is the fair market value of the damaged property $25,000 or less?",
+        "groundContactDamage": "Was the damage caused by the blade contacting the ground?",
+        "groundContactRelease": "Was the release caused by the blade contacting the ground?",
+        "hydraulicContinuous": "Did you have to continually use the remaining hydraulic systems, or a mechanical system?",
+        "ifr": "Were you flying under IFR?",
+        "inFlightCollision": "Was the collision in-flight?",
+        "inFlightFire": "Was the fire in-flight?",
+        "lessThan25Grand": "Is the total cost to repair the damage estimated at $25,000 or less?",
+        "major": "Would the damaged rotor blade require major repair or replacement?",
+        "majorRepair": "Would the damage require major repair or replacement?",
+        "moreThan1EngineDamaged": "Are two or more engines damaged?",
+        "moreThan1EngineThrustLoss": "Did the loss of thrust occur in more than one engine?",
+        "moreThanHalf": "Did more than half of your displays completely fail?",
+        "over5Percent": "Were these burns over more than 5% of the body?",
+        "performNormalDuties": "Was the crewmember still able to perform their normal duties?",
+        "publicAirport": "Did it happen at a public airport?",
+        "requiredCrewmember": "Was the person a required crewmember at the time of the illness or injury?",
+        "root": "What happened?",
+        "severe": "Was the hemorrhage classified as severe?",
+        "simpleFracture": "Was it a simple (not compound) fracture?",
+        "smallHoles": "Are the holes small?",
+        "turbine": "Is it a turbine engine?",
+        "twoDaysOrLonger": "Did anyone stay in the hospital longer than 48 hours?",
+        "within7Days": "Was anyone hospitalized within 7 days of the incident?",
+        "within30Days": "Did death occur within 30 days of the incident?"
+      },
+      "subtitles": {
+        "majorDamage": "Your aircraft’s structural strength, performance, or flight characteristics have been altered.",
+        "propertyDamage": "Damage to property other than your aircraft.",
+        "taxiway": "(or anything other than a runway)"
+      }
+    },
+    "profile": {
+      "questions": {
+        "root": "Which of these apply at the time of the incident?"
+      },
+      "options": {
+        "airCarrier": "I was engaged in air carrier operations (Part 119)",
+        "helicopter": "I was flying a helicopter",
+        "largeMulti": "I was flying a multi-engine aircraft with certified MTOW > 12,500 lbs."
+      }
+    }
+  },
+  "error": {
+    "title": "Sorry, an error occurred.",
+    "description": "Please try refreshing the page. If that doesn’t work, I got nothin’."
+  },
+  "a11y": {
+    "skipToContent": "Skip to main content"
+  },
+  "question": {
+    "checkAll": "Check all that apply:",
+    "breadcrumbs": "You selected {selection}.",
+    "nextButton": "Next",
+    "noneApplyButton": "None of the above",
+    "regulation": "49 CFR § {part}"
+  },
+  "welcome": {
+    "title": "Help! I crashed my plane!",
+    "description": "Oh no! I’m here to help you figure out if you have to notify the NTSB, and when.",
+    "startButton": "Let’s get started",
+    "footer": "This website was created by {me} during the COVID-19 shelter-in-place order of April 2020."
+  },
+  "finished": {
+    "incident": {
+      "title": "Based on your answers, this qualifies as an {level}.",
+      "level": "incident",
+      "actions": "You are not required to notify the NTSB or file an accident report."
+    },
+    "seriousIncident": {
+      "title": "Based on your answers, this qualifies as a {level}.",
+      "level": "serious incident",
+      "actions": "{notifyImmediately}. You do not have to file an accident report unless requested by the NTSB.",
+      "notifyImmediately": "You are required to notify the NTSB immediately"
+    },
+    "accident": {
+      "title": "Based on your answers, this qualifies as an {level}.",
+      "level": "accident",
+      "actions": "You are required to notify the NTSB immediately, and file an accident report."
+    },
+    "immediateNotification": {
+      "title": "Immediate Notification",
+      "description": "You must immediately notify the nearest NTSB regional office of this incident.",
+      "contact": "Contact information for regional offices can be found at {URL}. You can also call the NTSB Response Operations Center at (844) 373-9922 or (202) 314-6290.",
+      "whatToInclude": "You should reference 49 CFR § 830.6 for what to include in your notification."
+    },
+    "accidentReport": {
+      "title": "Accident Report",
+      "description": "You are required to make a report of this accident to the NTSB within 10 days after the accident.",
+      "form": "You must fill out {form6120} or 6120.2 (OMB No. 3147-0001). Send the completed form to the applicable address shown in  the form description.",
+      "form6120": "NTSB Form 6120.1"
+    },
+    "disclaimer": "Important disclaimer: This website should not be used as a source for legal advice. Consult an aviation attorney.",
+    "applicableRegulations": "The regulations that apply to your incident are 49 CFR § {regulations}."
+  }
+}
