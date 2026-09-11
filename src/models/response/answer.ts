@@ -1,4 +1,4 @@
-import { cloneDeep, isEmpty, isString } from 'lodash-es'
+import { isEmpty, isString } from 'lodash-es'
 
 export type EndNode = 'end'
 
@@ -91,5 +91,5 @@ function walkResponseTreeEatingPath(
 
 export function walkResponseTree(node: QuestionResponseNode, path: number[]): ActionResponseNode {
   if (isEmpty(path)) throw new Error('Path must have at least one element')
-  return walkResponseTreeEatingPath(node, cloneDeep(path))
+  return walkResponseTreeEatingPath(node, [...path])
 }

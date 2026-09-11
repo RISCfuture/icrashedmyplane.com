@@ -21,7 +21,7 @@ import useQuestionnaireStore from '@/stores/questionnaire'
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
 import { IncidentLevel } from '@/models/survey'
-import useCLDR from '@/i18n/cldr'
+import useListFormat from '@/i18n/list'
 
 /**
  * Displayed when all surveys are complete. Displays the proper instructions for the final
@@ -33,7 +33,7 @@ const { t } = useI18n()
 const store = useQuestionnaireStore()
 const { incidentLevel, allApplicableRegulations } = storeToRefs(store)
 
-const { list } = useCLDR()
+const { list } = useListFormat()
 
 const isAccident = computed(() => incidentLevel.value === IncidentLevel.ACCIDENT)
 const isSeriousIncident = computed(() => incidentLevel.value === IncidentLevel.SERIOUS_INCIDENT)

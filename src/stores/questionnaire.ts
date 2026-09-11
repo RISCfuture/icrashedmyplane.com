@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
+import { toRaw } from 'vue'
 import surveyOrder from '@/data/surveyOrder'
-import { cloneDeep, isNil, max, values } from 'lodash-es'
+import { isNil, max, values } from 'lodash-es'
 import { Flag, IncidentLevel } from '@/models/survey'
 import { deserializeResponse, type SerializableResponse } from '@/models/response'
 import {
@@ -32,7 +33,7 @@ const defaultState: QuestionnaireState = {
 
 const useQuestionnaireStore = defineStore('questionnaire', {
   state() {
-    return cloneDeep(defaultState)
+    return structuredClone(defaultState)
   },
 
   getters: {
@@ -92,7 +93,8 @@ const useQuestionnaireStore = defineStore('questionnaire', {
           rootNode: endNode,
         }
       }
-      response = cloneDeep(response)
+      // The store hands back a reactive proxy, which `structuredClone` refuses to copy.
+      response = structuredClone(toRaw(response))
 
       if (response.rootNode !== endNode) {
         const node = walkResponseTree(response.rootNode, answerPath)
