@@ -7,7 +7,7 @@ on:
   # Runs when CI passes
   workflow_run:
     workflows: [CI]
-    branches: [master]
+    branches: [main]
     types: [completed]
 
 permissions:
