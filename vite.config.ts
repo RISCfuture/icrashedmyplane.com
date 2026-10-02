@@ -76,6 +76,9 @@ export default defineConfig(({ command }) => {
           cleanupOutdatedCaches: true,
           clientsClaim: true,
           skipWaiting: true,
+          // Bundled into `sw.js` so the worker makes no `importScripts` call, a script-URL sink
+          // that Trusted Types would otherwise require a policy for.
+          inlineWorkboxRuntime: true,
         },
       }),
     ].filter(Boolean),

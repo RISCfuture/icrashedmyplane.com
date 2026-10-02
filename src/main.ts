@@ -31,11 +31,22 @@ function registerServiceWorker(): void {
   if (!('serviceWorker' in navigator)) return
 
   window.addEventListener('load', () => {
-    const swURL = `${import.meta.env.BASE_URL}sw.js`
     navigator.serviceWorker
-      .register(swURL, { scope: import.meta.env.BASE_URL })
+      .register(serviceWorkerScriptURL(), { scope: import.meta.env.BASE_URL })
       .catch(reportRegistrationFailure)
   })
+}
+
+/**
+ * The service worker's script URL, as a `TrustedScriptURL` where the browser supports Trusted
+ * Types. Registration is a script-URL sink, so a page that requires them rejects a plain string.
+ */
+function serviceWorkerScriptURL(): string | TrustedScriptURL {
+  const url = `${import.meta.env.BASE_URL}sw.js`
+  const policy = window.trustedTypes?.createPolicy('service-worker', {
+    createScriptURL: (input: string) => input,
+  })
+  return policy?.createScriptURL(url) ?? url
 }
 
 /**
